@@ -67,35 +67,39 @@
      screen, so below 768 the stage stops being a coordinate space and the
      three elements become a centred stack at legible sizes. */
   @media (max-width: 767px) {
+    /* The two text lines share a row here, as they do in the PSD — the
+       wordmark and the copyright sit on one baseline either side of centre,
+       with the logo above them. */
     .stage {
       height: auto;
       display: grid;
-      justify-items: center;
+      grid-template-columns: auto auto;
+      justify-content: center;
       align-content: center;
-      gap: 0;
+      align-items: baseline;
+      column-gap: clamp(16px, 7vw, 56px);
       min-height: calc(100dvh - var(--safe-y) * 2);
       padding-inline: var(--inset-x);
     }
 
     .home__logo {
       position: static;
+      grid-column: 1 / -1;
+      justify-self: center;
       width: min(100%, 420px);
       height: auto;
+      margin-block-end: calc(var(--safe-y) * 0.35);
     }
 
     .home__wordmark,
     .home__copyright {
       position: static;
+      margin: 0;
       font-size: clamp(15px, 4.6vw, 22px);
-      font-weight: var(--fw-light);
     }
 
-    .home__wordmark { margin-block-start: calc(var(--safe-y) * 0.35); }
-
-    .home__copyright {
-      font-weight: var(--fw-black);
-      margin-block-start: 0.35em;
-    }
+    .home__wordmark  { grid-column: 1; font-weight: var(--fw-light); }
+    .home__copyright { grid-column: 2; font-weight: var(--fw-black); }
 
     .home__c { font-size: 0.74em; bottom: 0.06em; }
   }
