@@ -45,6 +45,29 @@ line box, sitting 3.5px below the box top.
   **These are unoptimised source PNGs (17 MB total)** — convert to sized
   AVIF/WebP when building a page. Never ship them as-is.
 
+## Two machines
+
+The repo lives on GitHub; the PSD does not (it is 242 MB and gitignored).
+
+- **PSD:** `Dropbox/PRO26/pro26.psd`, synced by the Dropbox **desktop app** so it
+  is a real local file. Reading it needs a filesystem path — a dropbox.com URL
+  is not usable. Confirm the local path at the start of a session on a machine
+  that has not been used before.
+- **Laptop setup:** Claude Code, git, Python 3, then
+  `python -m pip install psd-tools pillow fonttools brotli pymupdf`.
+  Those five are what read the PSD, render artboards, subset fonts and pull
+  vector out of smart objects. Nothing else is needed — the dev server is
+  `python -m http.server 8765 --directory web`.
+- **Rhythm:** `git pull` before a session, `git push` after. Every round ends in
+  a commit, so that is already the boundary.
+
+## Deployment
+
+Vercel, static, no build step. `vercel.json` sets `outputDirectory: web` and
+long-lived immutable caching for fonts and images; HTML revalidates. If the
+Vercel project is created through the dashboard instead, its Root Directory
+must be set to `web`.
+
 ## Working agreement
 
 - **Rundown before execution, every time.** What was understood, what will be
