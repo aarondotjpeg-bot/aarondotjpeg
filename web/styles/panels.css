@@ -105,12 +105,10 @@
     display: flex;
     flex-direction: column;
     gap: 0.4em;
-    border-top: 1px solid var(--c-ink-12);
-    padding-block-start: 0.4em;
   }
 
   .shell__num {
-    font-size: var(--fs-150);
+    font-size: var(--fs-57);
     font-weight: var(--fw-black);
     line-height: var(--lh-tight);
     letter-spacing: var(--ls-tight);

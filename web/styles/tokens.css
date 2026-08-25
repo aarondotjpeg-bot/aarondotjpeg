@@ -29,29 +29,40 @@
     --font-jp:   "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic",
                  "Meiryo", sans-serif;
 
-    --fw-light:   300;   /* Satoshi-Light   — used at 57 */
-    --fw-regular: 400;   /* Satoshi-Regular — used at 12/15/18 */
-    --fw-black:   900;   /* Satoshi-Black   — used at 18/46/54/69/73 */
+    --fw-light:   300;   /* Satoshi-Light   — 36px only */
+    --fw-regular: 400;   /* Satoshi-Regular — 12 / 15 / 18 */
+    --fw-black:   900;   /* Satoshi-Black   — 18 / 30 / 34 / 46 / 56.6 */
 
-    /* Type scale — the nine sizes actually present in the PSD.
-       clamp(floor, fluid, design size). Floors keep small text legible;
-       display sizes scale down harder because they are decorative. */
-    --fs-12:  12px;                                          /* fixed: already minimal */
-    --fs-15:  clamp(13px,  calc(0.2232vw + 10.71px), 15px);
-    --fs-18:  clamp(16px,  calc(0.2232vw + 13.71px), 18px);
-    --fs-46:  clamp(26px,  calc(2.2321vw +  3.14px), 46px);
-    --fs-54:  clamp(30px,  calc(2.6786vw +  2.57px), 54px);
-    --fs-57:  clamp(32px,  calc(2.7902vw +  3.43px), 57px);
-    --fs-69:  clamp(38px,  calc(3.4598vw +  2.57px), 69px);
-    --fs-73:  clamp(40px,  calc(3.6830vw +  2.29px), 73px);
-    --fs-150: clamp(64px,  calc(9.5982vw - 34.29px), 150px);
+    /* ---------------------------------------------------------------------
+       TYPE SCALE — the RENDERED sizes, not the raw FontSize in the PSD.
+       Several text layers carry a scale transform, so the number Photoshop
+       reports is not the number on screen. Every size below is
+       FontSize x layer transform, taken from the file:
+
+         nav links      68.60pt x 0.4373 =  30px   Satoshi-Black
+         aaron イーライ  57.48pt x 0.6263 =  36px   Satoshi-Light
+         (c) glyph      54.29pt x 0.6263 =  34px   Satoshi-Black
+         09-2026        73.45pt x 0.6263 =  46px   Satoshi-Black
+         01 / 02 / 03   46.00pt x 1.2315 =  57px   -> Satoshi-Black
+         the dot       150.00pt x 0.4542 =  68px   -> rebuilt as a CSS shape
+         headings, body and labels sit at 1.0 scale: 46 / 18 / 15 / 12
+       --------------------------------------------------------------------- */
+    --fs-12:   12px;                                        /* already minimal */
+    --fs-15:   clamp(13px, calc(0.2232vw + 10.71px), 15px);
+    --fs-18:   clamp(16px, calc(0.2232vw + 13.71px), 18px);
+    --fs-30:   clamp(20px, calc(1.1161vw + 8.57px),  30px);  /* nav links */
+    --fs-34:   clamp(22px, calc(1.3393vw + 8.29px),  34px);  /* (c) */
+    --fs-36:   clamp(24px, calc(1.3393vw + 10.29px), 36px);  /* aaron イーライ */
+    --fs-46:   clamp(28px, calc(2.0089vw + 7.43px),  46px);  /* headings */
+    --fs-57:   clamp(34px, calc(2.5670vw + 7.71px),  57px);  /* 01 / 02 / 03 */
+
+    /* Only two tracking values exist in the whole file. */
+    --ls-tight:  -0.05em;   /* tracking -50: display, nav, dates */
+    --ls-body:    0.01em;   /* tracking +10: body copy and labels */
 
     --lh-tight: 1.05;
     --lh-snug:  1.2;
     --lh-body:  1.45;
-
-    --ls-tight: -0.02em;
-    --ls-normal: 0;
 
     /* --- layout ------------------------------------------------------------ */
     --design-w: 1920;
@@ -72,23 +83,47 @@
     --gx-1289: 67.135%;
     --gx-1330: 69.271%;
 
-    /* --- navigation (measured from artboard 1) ----------------------------- */
-    --nav-tri-w:   clamp(44px, 3.542vw, 68px);   /* 68  */
-    --nav-tri-h:   clamp(38px, 3.073vw, 59px);   /* 59  */
-    --nav-dot-w:   clamp(7px,  0.573vw, 11px);   /* 11  */
-    --nav-dot-h:   clamp(6px,  0.469vw,  9px);   /*  9  */
-    --nav-dot-gap: clamp(3px,  0.260vw,  5px);   /* 188 - 183 */
-    --nav-gap:     clamp(14px, 1.771vw, 34px);   /* 217 - 183 */
-    --nav-pill-px: clamp(6px,  0.469vw,  9px);   /* 226 - 217 */
-    --nav-pill-py: clamp(4px,  0.365vw,  7px);   /* 115 - 108 */
-    --nav-link-gap: clamp(12px, 1.25vw, 24px);
-    --nav-x: var(--inset-x);                     /* 115 */
-    --nav-y: var(--inset-y);                     /* 97  */
+    /* --- navigation --------------------------------------------------------
+       Ink extents read off the rendered artboard 1, column by column:
+         triangle  115 - 183   (68 wide)   y  97 - 156  (59 tall)
+         dot       188 - 199   (11)        y 147 - 156  (9)
+         home pill 217 - 307   (90)        y 108 - 147  (39)
+         home ink  226 - 298     about ink 321 - 397
+         works ink 414 - 494     contact ink 525 - 625
+       The three inter-link gaps differ (23 / 17 / 31) because the PSD sets
+       them with tab stops, not even spacing. Matched here rather than
+       normalised, so the rendered nav lands on the same pixels.
+       ----------------------------------------------------------------------- */
+    --nav-x:        clamp(20px, 5.990vw, 115px);
+    --nav-y:        clamp(24px, 5.052vw,  97px);
+    --nav-tri-w:    clamp(40px, 3.542vw,  68px);
+    --nav-tri-h:    clamp(35px, 3.073vw,  59px);
+    --nav-dot-w:    clamp(6px,  0.573vw,  11px);
+    --nav-dot-h:    clamp(5px,  0.469vw,   9px);
+    --nav-dot-gap:  clamp(3px,  0.260vw,   5px);   /* 188 - 183 */
+    --nav-list-gap: clamp(10px, 0.938vw,  18px);   /* 217 - 199 */
+    /* Derived from real Satoshi-Black 30px metrics measured in-browser:
+         ink ascent 23, descent 1  -> ink height 24, exactly the PSD's 115-139
+         advances: home 75.2  about 75.7  works 79.1  contact 99.1
+       Text origins that put ink on the PSD x positions (226/321/414/525):
+         home 225   about 321   works 415   contact 525
+       Spacing is in em so it tracks the font at every clamped size, rather
+       than drifting against it. */
+    --nav-pill-px:  0.247em;   /* 7.4px -> pill 90 wide, matching 217-307   */
+    --nav-pill-t:   0.117em;   /* 3.5px above the line box -> pill top 108  */
+    --nav-pill-b:   0.183em;   /* 5.5px below           -> pill bottom 147  */
+    --nav-ink-top:  clamp(9px, 0.9375vw, 18px);   /* 115 - 97 */
+    --nav-list-offset: clamp(54px, 5.344vw, 102.6px);  /* first pill left edge */
+    --nav-gap-1:    0.200em;   /*  6.0px  home  -> about   */
+    --nav-gap-2:    0.117em;   /*  3.5px  about -> works   */
+    --nav-gap-3:    0.537em;   /* 16.1px  works -> contact */
+    --nav-x-size:   clamp(9px,  0.677vw,  13px);   /* the x / caret glyph */
 
     /* --- motion ------------------------------------------------------------ */
     --dur-fast:  160ms;
     --dur-base:  280ms;
     --dur-slow:  520ms;
+    --dur-nav:   380ms;
     --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 

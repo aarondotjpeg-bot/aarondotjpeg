@@ -83,24 +83,50 @@ links retracted. That matches the described toggle behavior.
 
 ---
 
-## Fonts
+## Fonts (v2 — after the Satoshi pass)
 
-| Family | Sizes in file | Web licensing |
+**Sizes below are RENDERED sizes** = `FontSize x layer transform`. Several type
+layers are scaled, so Photoshop's reported FontSize is not what appears.
+
+| Family | Rendered sizes | Status |
 |---|---|---|
-| **Helvetica** | 12, 15, 18, 57 | ⚠️ Commercial (Monotype). Paid web license required. |
-| **Helvetica-Bold** | 18, 46, 69, 73, 150 | ⚠️ Same. |
-| **KozGoPr6N-Regular** (Kozuka Gothic Pr6N) | 57 | ⚠️ Adobe CC desktop font. Not self-hostable. Used only for `aaron イーライ`. |
-| **Satoshi-Black** | 46, 54 | ✅ Free for web via Fontshare. |
+| **Satoshi-Black** | 18, 30, 34, 46 | ✅ self-hosted |
+| **Satoshi-Regular** | 12, 15, 18 | ✅ self-hosted |
+| **Satoshi-Light** | 36 | ✅ self-hosted |
+| Helvetica / Helvetica-Bold | 18, 57, 68 | → mapped to Satoshi Regular / Black |
+| KozGoPr6N-Regular | 36 | → Noto Sans JP, subset to イ ー ラ (1.4 KB) |
 
-**Type sizes present:** 12, 15, 18, 46, 54, 57, 69, 73, 150.
+Tracking: only two values in the entire file — **-0.05em** (display, nav, dates)
+and **+0.01em** (body, labels).
 
-Free substitutes if we don't buy a Helvetica web license:
-- **Inter** — screen-optimized, very close in feel, the modern default.
-- **Nimbus Sans** or **Liberation Sans** — exact metric clones of Helvetica; identical
-  line breaks and widths.
-- **Noto Sans JP** — free, covers `イーライ` cleanly, replaces Kozuka Gothic.
+### Layers still set in Helvetica
 
----
+Cosmetic only — they render in Satoshi via the CSS stack, but converting them in
+the PSD keeps the file honest:
+
+| Artboard | Layer | Size |
+|---|---|---|
+| 2 | `What I do …` | 18 |
+| 2 | `Lead Web Designer / Art Director …` | 18 |
+| 2 | `View Resume` | 18 |
+| 4 | bio paragraph | 18 |
+| 4, 5, 6 | `01` / `02` / `03` | 57 |
+| all | the `.` beside the triangle | 68 → rebuilt as a CSS shape |
+
+## Navigation — measured ink extents (artboard 1)
+
+| Element | x | y |
+|---|---|---|
+| triangle | 115 – 183 | 97 – 156 |
+| dot | 188 – 199 | 147 – 156 |
+| home pill | 217 – 307 | 108 – 147 |
+| home ink | 226 – … | 115 – 139 |
+| about ink | 321 – 397 | |
+| works ink | 414 – 494 | |
+| contact ink | 525 – 625 | |
+
+Inter-link gaps are uneven (tab stops, not even spacing) and are matched rather
+than normalised. Built result measures 226 / 321 / 413.9 / 525 — within 0.1px.
 
 ## Structural notes for the build
 

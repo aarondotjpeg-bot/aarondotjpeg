@@ -1,12 +1,16 @@
 @layer components {
   /* ==========================================================================
-     TRIANGLE NAV — geometry measured from artboard 1
-       triangle  115, 97   68 x 59
-       x         143, 121  13 x 13   (centred in the triangle)
-       dot       188, 147  11 x  9   (baseline-aligned to triangle bottom)
-       pill      217, 108  90 x 39   (active state, behind "home")
-       links     226, 115           (18px, Satoshi Black)
-     Fixed to the viewport, above every panel, present on all nine.
+     TRIANGLE NAV
+     Geometry is measured from artboard 1, not estimated. See tokens.css for
+     the ink extents every value below is derived from.
+
+     Collapse behaviour
+     ------------------
+     The links slide LEFT and vanish behind the triangle — they never travel
+     off the screen. .nav__reveal clips at the triangle's own left edge and
+     the triangle paints above the list, so the links visibly disappear into
+     the mark. The toggle shows the X while open and a downward caret while
+     closed, so the closed state reads as "opens downward" rather than "plus".
      ========================================================================== */
 
   .nav {
@@ -14,115 +18,140 @@
     inset-block-start: var(--nav-y);
     inset-inline-start: var(--nav-x);
     z-index: var(--z-nav);
-    display: flex;
-    align-items: flex-end;
-    gap: var(--nav-dot-gap);
-  }
-
-  /* --- the triangle toggle ------------------------------------------------ */
-  .nav__toggle {
-    position: relative;
-    flex: none;
-    width: var(--nav-tri-w);
     height: var(--nav-tri-h);
-    display: grid;
-    place-items: center;
+    color: var(--c-ink);
+
   }
 
-  .nav__triangle {
-    width: 100%;
+  /* --- clip window --------------------------------------------------------
+     Starts at the triangle's left edge, so anything sliding left of that
+     point is gone. This is what makes the links read as going *into* the
+     triangle instead of flying off toward the edge of the screen. */
+  .nav__reveal {
+    overflow: clip;
     height: 100%;
-    object-fit: contain;
+    padding-inline-start: var(--nav-list-offset);
   }
 
-  .nav__x {
-    position: absolute;
-    inset-block-start: 50%;
-    inset-inline-start: 50%;
-    width: clamp(9px, 0.677vw, 13px);
-    height: clamp(9px, 0.677vw, 13px);
-    translate: -50% -40%;
-    transition: rotate var(--dur-base) var(--ease-out),
-                opacity var(--dur-fast) linear;
-  }
-
-  /* Closed: the X reads as a "reopen" mark. */
-  .nav[data-open="false"] .nav__x { rotate: 45deg; }
-
-  /* --- the dot ------------------------------------------------------------ */
-  .nav__dot {
-    flex: none;
-    width: var(--nav-dot-w);
-    height: var(--nav-dot-h);
-    margin-block-end: 0;
-    background: var(--c-ink);
-    /* The PSD draws this as a 150px Helvetica full stop. Rebuilt as a shape so
-       it carries no font dependency and stays exact at any size. */
-  }
-
-  /* --- the links ---------------------------------------------------------- */
   .nav__list {
     display: flex;
-    align-items: center;
-    gap: var(--nav-link-gap);
-    margin-inline-start: var(--nav-gap);
-    margin-block-end: calc(var(--nav-dot-h) * -1);
-    transition: translate var(--dur-slow) var(--ease-out),
-                opacity var(--dur-base) var(--ease-out),
-                visibility 0s linear var(--dur-slow);
+    align-items: flex-start;
+    /* font-size here so every em below resolves against the link type */
+    font-size: var(--fs-30);
+    /* line box top = desired ink top minus the font's own 0.117em ink offset */
+    padding-block-start: calc(var(--nav-ink-top) - var(--nav-pill-t));
+    width: max-content;
+    transition: translate var(--dur-nav) var(--ease-out),
+                opacity calc(var(--dur-nav) * 0.7) var(--ease-out);
   }
 
-  /* Collapsed: links retract leftward into the triangle and disappear. */
   .nav[data-open="false"] .nav__list {
-    translate: calc(-1 * (var(--nav-gap) + 100%)) 0;
+    /* right edge lands on the clip boundary = fully hidden behind the mark */
+    translate: calc(-1 * (var(--nav-list-offset) + 100%)) 0;
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
   }
 
   .nav[data-open="true"] .nav__list {
     translate: 0 0;
     opacity: 1;
-    visibility: visible;
-    transition-delay: 0s;
   }
 
-  .nav__link {
-    display: inline-block;
-    padding: var(--nav-pill-py) var(--nav-pill-px);
-    font-size: var(--fs-18);
-    font-weight: var(--fw-black);
-    line-height: 1;
+  /* --- the triangle toggle ------------------------------------------------
+     Painted above the list so the links pass underneath it. */
+  .nav__toggle {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    z-index: 2;
+    width: var(--nav-tri-w);
+    height: var(--nav-tri-h);
+    display: grid;
+    place-items: center;
+    background: var(--c-bg);
     color: var(--c-ink);
-    background: transparent;
-    transition: background var(--dur-fast) var(--ease-out),
-                color var(--dur-fast) var(--ease-out);
   }
 
-  /* Active + hover both use the pill from the PSD (Layer "hover", 90 x 39). */
+  .nav__triangle {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* x 13x13, centred on the triangle's optical centre (143,121 in a mark at
+     115,97 -> 28,24 from its corner). */
+  .nav__icon {
+    position: absolute;
+    inset-block-start: 40.7%;   /* (121 + 6.5 - 97) / 59 */
+    inset-inline-start: 50%;
+    width: var(--nav-x-size);
+    height: var(--nav-x-size);
+    translate: -50% -50%;
+    transition: opacity var(--dur-fast) var(--ease-out),
+                rotate var(--dur-base) var(--ease-out);
+  }
+
+  .nav__icon--caret { opacity: 0; rotate: -90deg; }
+
+  .nav[data-open="false"] .nav__icon--x     { opacity: 0; rotate: 90deg; }
+  .nav[data-open="false"] .nav__icon--caret { opacity: 1; rotate: 0deg; }
+
+  /* --- the dot ------------------------------------------------------------
+     The PSD draws this as a 68px Helvetica full stop. Rebuilt as a shape so
+     it carries no font dependency and stays exact at any size. */
+  .nav__dot {
+    position: absolute;
+    z-index: 2;
+    inset-inline-start: calc(var(--nav-tri-w) + var(--nav-dot-gap));
+    inset-block-end: 0;
+    width: var(--nav-dot-w);
+    height: var(--nav-dot-h);
+    background: currentColor;
+  }
+
+  /* --- the links ----------------------------------------------------------
+     Gaps are uneven by design — the PSD spaces them with tab stops. */
+  .nav__link {
+    position: relative;
+    display: block;
+    font-size: inherit;
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-tight);
+    line-height: 1;
+    padding-inline: var(--nav-pill-px);
+    padding-block: 0;
+    color: var(--c-ink);
+    white-space: nowrap;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .nav__item + .nav__item { margin-inline-start: var(--nav-gap-1); }
+  .nav__item--works   { margin-inline-start: var(--nav-gap-2) !important; }
+  .nav__item--contact { margin-inline-start: var(--nav-gap-3) !important; }
+
+  /* The pill from the PSD (Layer "hover", 90 x 39 behind "home"). */
+  .nav__link::before {
+    content: "";
+    position: absolute;
+    inset: calc(-1 * var(--nav-pill-t)) 0 calc(-1 * var(--nav-pill-b)) 0;
+    background: var(--c-ink);
+    scale: 1 1;
+    opacity: 0;
+    transition: opacity var(--dur-fast) var(--ease-out);
+    z-index: -1;
+  }
+
+  .nav__link:hover::before,
+  .nav__link:focus-visible::before,
+  .nav__link[aria-current="true"]::before { opacity: 1; }
+
   .nav__link:hover,
-  .nav__link:focus-visible {
-    background: var(--c-ink);
-    color: var(--c-paper);
-  }
-
-  .nav__link[aria-current="true"] {
-    background: var(--c-ink);
-    color: var(--c-paper);
-  }
+  .nav__link:focus-visible,
+  .nav__link[aria-current="true"] { color: var(--c-paper); }
 
   /* contact has no destination until artboard 7 exists. */
-  .nav__link[aria-disabled="true"] {
-    opacity: 0.35;
-    cursor: not-allowed;
-  }
-  .nav__link[aria-disabled="true"]:hover {
-    background: transparent;
-    color: var(--c-ink);
-  }
-
-  @media (max-width: 767px) {
-    .nav__list { gap: clamp(8px, 2.4vw, 14px); }
-    .nav__link { font-size: var(--fs-15); }
-  }
+  .nav__link[aria-disabled="true"] { opacity: 0.35; cursor: not-allowed; }
+  .nav__link[aria-disabled="true"]:hover { color: var(--c-ink); }
+  .nav__link[aria-disabled="true"]:hover::before { opacity: 0; }
 }

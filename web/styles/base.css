@@ -1,11 +1,18 @@
 @layer base {
   /* ==========================================================================
-     FONTS
-     Satoshi is free for web use via Fontshare (fontshare.com/fonts/satoshi).
-     Download the WOFF2 files and drop them in web/assets/fonts/ — the names
-     below are what the build expects. Until they exist the fallback stack
-     renders and the layout still holds, because size-adjust below matches
-     the fallback's metrics to Satoshi's.
+     FONTS — all self-hosted, all free to use on the web.
+
+     Satoshi (Fontshare, Indian Type Foundry). Licence in
+     assets/fonts/SATOSHI-LICENSE.txt. Three weights are used by the design:
+       Light 300   -> "aaron イーライ" at 36px
+       Regular 400 -> body and labels, 12 / 15 / 18px
+       Black 900   -> nav, headings and numerals, 18 / 30 / 34 / 46 / 57px
+     Bold and Medium are also in assets/fonts/ but the PSD does not use them,
+     so they are deliberately not declared and never downloaded by a visitor.
+
+     Noto Sans JP replaces Kozuka Gothic Pr6N, which is a Creative Cloud
+     desktop font and cannot be served on the web. Subset to the three glyphs
+     that actually appear (イ ー ラ), which takes it from 5.3 MB to 1.4 KB.
      ========================================================================== */
 
   @font-face {
@@ -30,6 +37,16 @@
     font-display: swap;
   }
 
+  /* Japanese glyphs only — unicode-range keeps this out of the way of Latin. */
+  @font-face {
+    font-family: "Noto Sans JP";
+    src: url("../assets/fonts/NotoSansJP-Light-subset.woff2") format("woff2");
+    font-weight: 300 400;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+30A0-30FF, U+3000-303F, U+4E00-9FFF;
+  }
+
   /* Metric-matched fallback: prevents the layout shift when Satoshi swaps in. */
   @font-face {
     font-family: "Satoshi-fallback";
@@ -52,6 +69,7 @@
     font-weight: var(--fw-regular);
     font-size: var(--fs-18);
     line-height: var(--lh-body);
+    letter-spacing: var(--ls-body);
     color: var(--c-fg);
     background: var(--c-bg);
     /* No overflow-x:hidden here — it would break sticky. Panels clip internally

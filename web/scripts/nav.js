@@ -29,7 +29,14 @@
 
   /* A disabled link must not navigate. */
   nav.addEventListener('click', function (e) {
-    var link = e.target.closest('[aria-disabled="true"]');
+    var link = e.target.closest && e.target.closest('[aria-disabled="true"]');
     if (link) e.preventDefault();
+  });
+
+  /* Auto-collapse once you leave home, expand again on return — the two
+     states drawn in the PSD (artboard 1 open, artboards 2-6 closed).
+     A manual toggle wins until the next panel change. */
+  document.addEventListener('panelchange', function (e) {
+    setOpen(e.detail.panel.id === 'home');
   });
 })();
