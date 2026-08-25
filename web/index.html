@@ -22,10 +22,11 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ==========================================================================
-     NAV — persistent across all nine panels. Expanded by default, matching
-     artboard 1. The triangle toggles the links in and out.
+     NAV — persistent across all nine panels. Collapsed by default; the
+     triangle toggles the links in and out and the state is the visitor's to
+     keep. Artboard 1 draws it open, which is the toggled state.
      ========================================================================== -->
-<nav class="nav" id="nav" data-open="true" aria-label="Primary">
+<nav class="nav" id="nav" data-open="false" aria-label="Primary">
   <!-- Clips at the triangle's left edge so the links vanish behind the mark. -->
   <div class="nav__reveal">
     <ul class="nav__list" id="navList">
@@ -38,7 +39,7 @@
   </div>
 
   <button class="nav__toggle" id="navToggle" type="button"
-          aria-expanded="true" aria-controls="navList">
+          aria-expanded="false" aria-controls="navList">
     <svg class="nav__triangle" viewBox="0 0 91.6025 80" stroke="currentColor"
          stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <!-- Opaque fill: the mark itself masks the links sliding behind it, so

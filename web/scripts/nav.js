@@ -33,10 +33,14 @@
     if (link) e.preventDefault();
   });
 
-  /* Auto-collapse once you leave home, expand again on return — the two
-     states drawn in the PSD (artboard 1 open, artboards 2-6 closed).
-     A manual toggle wins until the next panel change. */
+  /* Collapsing on leaving home is one-way on purpose. Auto-opening on the way
+     back fought the user's own toggle: open the nav, click "home", and the
+     panel change re-opened something that was already animating — two slides
+     at once. Leaving is the only automatic transition; opening is always the
+     visitor's choice, and whatever they choose stays. */
   document.addEventListener('panelchange', function (e) {
-    setOpen(e.detail.panel.id === 'home');
+    if (e.detail.panel.id !== 'home' && nav.dataset.open === 'true') {
+      setOpen(false);
+    }
   });
 })();

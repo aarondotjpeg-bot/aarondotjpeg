@@ -52,8 +52,11 @@
     /* line box top = desired ink top minus the font's own 0.117em ink offset */
     padding-block-start: calc(var(--nav-ink-top) - var(--nav-pill-t));
     width: max-content;
-    transition: translate var(--dur-nav) var(--ease-out),
-                opacity calc(var(--dur-nav) * 0.7) var(--ease-out);
+    /* The fade runs the full length of the travel so the links dissolve as
+       they go behind the mark rather than snapping out at the end. */
+    transition: translate var(--dur-nav) var(--ease-nav),
+                opacity   var(--dur-nav) var(--ease-nav),
+                visibility 0s linear 0s;
   }
 
   .nav[data-open="false"] .nav__list {
@@ -61,11 +64,16 @@
     translate: calc(-1 * (var(--nav-list-offset) + 100%)) 0;
     opacity: 0;
     pointer-events: none;
+    /* Hidden only once it has finished travelling, so collapsed links leave
+       the tab order and the screen reader, but the slide is still seen. */
+    visibility: hidden;
+    transition-delay: 0s, 0s, var(--dur-nav);
   }
 
   .nav[data-open="true"] .nav__list {
     translate: 0 0;
     opacity: 1;
+    visibility: visible;
   }
 
   /* --- the triangle toggle ------------------------------------------------
