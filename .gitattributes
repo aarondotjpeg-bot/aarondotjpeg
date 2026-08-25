@@ -1,0 +1,12 @@
+# Binary assets must never have their line endings rewritten.
+*.pdf   binary
+*.woff2 binary
+*.woff  binary
+*.ttf   binary
+*.otf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.avif  binary
+*.psd   binary
