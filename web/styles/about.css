@@ -1,0 +1,258 @@
+@layer components {
+  /* ==========================================================================
+     PANEL 2 — ABOUT (artboard 2)
+
+     Positioned in design pixels on the shared .stage. Every `top` below is the
+     PSD ink position minus that block's ink offset, measured from real Satoshi
+     metrics rather than guessed:
+         18px / lh18  ->  2.0
+         46px / lh43  ->  4.0
+         15px / lh18  ->  3.5
+
+     Line rhythm is the PSD's own: leading 18 for body, 43 for the 46px display
+     type, 12 for the small role descriptions. Photoshop separates blocks with
+     two empty lines, which is exactly 36px here — that is where every
+     margin-block-start: 36 comes from, not from taste.
+
+     Layer 108 (1121x747) is fully transparent in the file and is not built.
+     ========================================================================== */
+
+  .ab-headline,
+  .ab-bio,
+  .ab-contact-label,
+  .ab-email,
+  .ab-do,
+  .ab-exp-label,
+  .ab-dates,
+  .ab-exp,
+  .ab-resume,
+  .ab-quote,
+  .ab-photo {
+    position: absolute;
+    margin: 0;
+  }
+
+  /* --- left column -------------------------------------------------------- */
+
+  /* ink y196 - 4 */
+  .ab-headline {
+    left: calc(116 * var(--u));
+    top:  calc(192 * var(--u));
+    width: calc(728 * var(--u));
+    font-size: calc(46 * var(--u));
+    line-height: calc(43 / 46);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-tight);
+    /* The <br>s carry the PSD's own line breaks. nowrap keeps a sub-pixel
+       metric difference from introducing a fourth line. */
+    white-space: nowrap;
+  }
+
+  .ab-photo {
+    left: calc(115 * var(--u));
+    top:  calc(371 * var(--u));
+    width:  calc(405 * var(--u));
+    height: calc(405 * var(--u));
+  }
+  .ab-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ink y371 - 2 */
+  .ab-bio {
+    left: calc(575 * var(--u));
+    top:  calc(369 * var(--u));
+    width: calc(473 * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: 1;
+    font-weight: var(--fw-regular);
+    letter-spacing: var(--ls-body);
+  }
+  .ab-bio p + p { margin-block-start: calc(36 * var(--u)); }
+
+  /* ink y842 - 2 */
+  .ab-contact-label {
+    left: calc(115 * var(--u));
+    top:  calc(840 * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: 1;
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-body);
+  }
+
+  /* ink y885 - 2 */
+  .ab-email {
+    left: calc(115 * var(--u));
+    top:  calc(883 * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: 1;
+    font-weight: var(--fw-regular);
+    letter-spacing: var(--ls-body);
+    text-decoration-color: transparent;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
+  }
+  .ab-email:hover,
+  .ab-email:focus-visible {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+  }
+
+  /* --- right column ------------------------------------------------------- */
+
+  /* ink y124 - 2 */
+  .ab-do {
+    left: calc(1330 * var(--u));
+    top:  calc(122 * var(--u));
+    /* 491 is the widest rendered line, not Photoshop's frame width. The last
+       description needs 492 to hold two lines, so the frame is a little wider
+       than its ink. Text is left-aligned, so widening moves nothing. */
+    width: calc(496 * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: 1;
+    letter-spacing: var(--ls-body);
+  }
+  .ab-do__label { font-weight: var(--fw-black); }
+  .ab-do__item  { margin-block-start: calc(36 * var(--u)); }
+  .ab-do__t     { font-weight: var(--fw-black); }
+  .ab-do__d     { font-weight: var(--fw-regular); }
+
+  /* ink y540 - 2 */
+  .ab-exp-label {
+    left: calc(1330 * var(--u));
+    top:  calc(538 * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: 1;
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-body);
+  }
+
+  /* 15px on an 18px line: ink y596 - 3.5 and y693 - 3.5 */
+  .ab-dates {
+    left: calc(1330 * var(--u));
+    font-size: calc(15 * var(--u));
+    line-height: calc(18 / 15);
+    font-weight: var(--fw-regular);
+    letter-spacing: var(--ls-tight);
+    white-space: nowrap;
+  }
+  .ab-dates--1 { top: calc(592.5 * var(--u)); }
+  .ab-dates--2 { top: calc(689.5 * var(--u)); }
+
+  /* ink y596 - 2 */
+  .ab-exp {
+    left: calc(1456 * var(--u));
+    top:  calc(594 * var(--u));
+    width: calc(383 * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: 1;
+    letter-spacing: var(--ls-body);
+  }
+  .ab-exp__entry + .ab-exp__entry { margin-block-start: calc(36 * var(--u)); }
+  .ab-exp__role { font-weight: var(--fw-black); }
+  .ab-exp__org  { font-weight: var(--fw-regular); }
+  .ab-exp__desc {
+    font-size: calc(12 * var(--u));
+    font-weight: var(--fw-regular);
+    line-height: 1;
+  }
+
+  /* ink y787 - 2. Not a link yet — no resume file exists.  TODO(artboard-2) */
+  .ab-resume {
+    left: calc(1688 * var(--u));
+    top:  calc(785 * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: 1;
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-body);
+  }
+
+  /* ink y840 - 4 */
+  .ab-quote {
+    left: calc(1228 * var(--u));
+    top:  calc(836 * var(--u));
+    width: calc(606 * var(--u));
+    font-size: calc(46 * var(--u));
+    line-height: calc(43 / 46);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-tight);
+    white-space: nowrap;
+  }
+
+  /* The inline date exists only for the mobile layout, where the date column
+     is dropped and each date rides with its own entry. Declared before the
+     media query so the query can turn it on. */
+  .ab-exp__when { display: none; }
+
+  /* --- mobile -------------------------------------------------------------
+     The two-column composition collapses to one column in source order.
+     Coordinates stop applying; the PSD's 36px rhythm becomes proportional
+     spacing and the display type drops to a readable size. */
+  @media (max-width: 767px) {
+    #about .stage {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(28px, 7vw, 44px);
+      min-height: 100dvh;
+      padding-inline: var(--inset-x);
+      padding-block: calc(var(--safe-y) + var(--nav-tri-h)) var(--safe-y);
+    }
+
+    #about .stage > * {
+      position: static;
+      width: auto;
+      left: auto;
+      top: auto;
+    }
+
+    .ab-headline,
+    .ab-quote {
+      font-size: clamp(26px, 7.4vw, 38px);
+      line-height: 1.05;
+    }
+    .ab-headline br,
+    .ab-quote br { display: none; }
+    .ab-headline,
+    .ab-quote { white-space: normal; }
+
+    .ab-bio,
+    .ab-do,
+    .ab-exp,
+    .ab-contact-label,
+    .ab-email,
+    .ab-exp-label,
+    .ab-resume {
+      font-size: var(--fs-18);
+      line-height: 1.45;
+    }
+    .ab-bio p + p,
+    .ab-do__item,
+    .ab-exp__entry + .ab-exp__entry { margin-block-start: 1.45em; }
+
+    .ab-exp__desc { font-size: var(--fs-15); line-height: 1.4; }
+
+    .ab-photo {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      max-width: 420px;
+      align-self: center;
+    }
+
+    .ab-dates {
+      font-size: var(--fs-15);
+      line-height: 1.3;
+      white-space: normal;
+    }
+    .ab-dates br { display: none; }
+    .ab-dates--1, .ab-dates--2 { display: none; }
+
+    /* Dates ride with their entry on mobile instead of sitting in a column. */
+    .ab-exp__when {
+      display: block;
+      font-size: var(--fs-15);
+      font-weight: var(--fw-regular);
+      letter-spacing: var(--ls-tight);
+      margin-block-end: 0.35em;
+    }
+  }
+}
