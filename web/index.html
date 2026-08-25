@@ -6,12 +6,15 @@
 <title>aarondotjpeg</title>
 <meta name="description" content="Portfolio of aarondotjpeg — graphic design, brand development and art direction.">
 <meta name="color-scheme" content="light">
+<link rel="preload" href="assets/fonts/Satoshi-Black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Satoshi-Light.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="stylesheet" href="styles/reset.css">
 <link rel="stylesheet" href="styles/tokens.css">
 <link rel="stylesheet" href="styles/base.css">
 <link rel="stylesheet" href="styles/panels.css">
 <link rel="stylesheet" href="styles/nav.css">
+<link rel="stylesheet" href="styles/home.css">
 <link rel="stylesheet" href="styles/devtools.css">
 </head>
 <body>
@@ -36,10 +39,12 @@
 
   <button class="nav__toggle" id="navToggle" type="button"
           aria-expanded="true" aria-controls="navList">
-    <svg class="nav__triangle" viewBox="0 0 91.6025 80" fill="none" stroke="currentColor"
+    <svg class="nav__triangle" viewBox="0 0 91.6025 80" stroke="currentColor"
          stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path transform="matrix(1,0,0,-1,45.8013,58.1223)" d="M0 0 11.188-19.378H43.301L0 55.622-43.301-19.378H-11.188L0 0Z"/>
-      <path transform="matrix(1,0,0,-1,56.989,77.5)" d="M0 0-17.931 6.256"/>
+      <!-- Opaque fill: the mark itself masks the links sliding behind it, so
+           no white rectangle is needed. -->
+      <path fill="var(--c-bg)" transform="matrix(1,0,0,-1,45.8013,58.1223)" d="M0 0 11.188-19.378H43.301L0 55.622-43.301-19.378H-11.188L0 0Z"/>
+      <path fill="none" transform="matrix(1,0,0,-1,56.989,77.5)" d="M0 0-17.931 6.256"/>
     </svg>
     <svg class="nav__icon nav__icon--x" viewBox="0 0 12.1431 12.1431" fill="none"
          stroke="currentColor" stroke-width="1" aria-hidden="true">
@@ -66,10 +71,11 @@
   <section class="panel" id="home" data-transition="slide"
            style="--ar:0.562500; --i:1" aria-label="Home">
     <div class="panel__inner">
-      <div class="shell">
-        <p class="shell__num">01</p>
-        <h1 class="shell__title">Home</h1>
-        <p class="shell__meta">Panel 1 &middot; <b>Artboard 1</b> &middot; 1920 &times; 1080 &middot; slide</p>
+      <div class="stage">
+        <img class="home__logo" src="assets/img/logo.png"
+             alt="aarondotjpeg" width="677" height="150" fetchpriority="high" decoding="async">
+        <p class="home__wordmark">aaron <span class="jp">イーライ</span></p>
+        <p class="home__copyright"><span class="home__c">©</span>09-2026</p>
       </div>
     </div>
   </section>

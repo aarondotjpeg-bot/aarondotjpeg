@@ -1,0 +1,102 @@
+@layer components {
+  /* ==========================================================================
+     PANEL 1 — HOME (artboard 1)
+
+     Everything is placed in DESIGN PIXELS. `--u` is one artboard pixel, so a
+     coordinate written here is the same number that appears in the PSD:
+         left: calc(622 * var(--u))   <-- the logo's actual x in Photoshop
+
+     --u comes from container query units on .panel__inner, not from vw. vw
+     includes the scrollbar, which would push the whole composition ~15px right
+     on desktop; cqw measures the panel itself.
+
+     Ink extents measured off the rendered artboard, and the baselines derived
+     from real Satoshi metrics:
+         logo             622,465 -> 1299,615   (677 x 150)
+         aaron イーライ    origin x 633, baseline y 661
+         ©09-2026         origin x 1080, baseline y 664, © lifted 3px
+     ========================================================================== */
+
+  .home__logo {
+    position: absolute;
+    left:   calc(622 * var(--u));
+    top:    calc(465 * var(--u));
+    width:  calc(677 * var(--u));
+    height: calc(150 * var(--u));
+  }
+
+  /* Both lines are positioned by their text ORIGIN and BASELINE, not by a box.
+     line-height:1 makes the baseline sit a known distance below the box top:
+       half-leading + fontBoundingBoxAscent
+     Light 36  -> (36 - 45)/2 + 36 = 31.5   so box top = 661 - 31.5 = 629.5
+     Black 46  -> (46 - 57)/2 + 46 = 40.5   so box top = 664 - 40.5 = 623.5 */
+  .home__wordmark,
+  .home__copyright {
+    position: absolute;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: var(--ls-tight);
+    white-space: nowrap;
+    color: var(--c-ink);
+  }
+
+  .home__wordmark {
+    left: calc(633 * var(--u));
+    top:  calc(629.5 * var(--u));
+    font-size: calc(36 * var(--u));
+    font-weight: var(--fw-light);
+  }
+
+  .home__copyright {
+    left: calc(1080 * var(--u));
+    top:  calc(623.5 * var(--u));
+    font-size: calc(46 * var(--u));
+    font-weight: var(--fw-black);
+  }
+
+  /* The © is set 34px against the line's 46px and sits 3px above the shared
+     baseline — measured, not assumed. */
+  .home__c {
+    font-size: calc(34 * var(--u));
+    position: relative;
+    bottom: calc(3 * var(--u));
+  }
+
+  /* --- mobile -------------------------------------------------------------
+     A composition anchored to 1920 coordinates cannot survive a 390px portrait
+     screen, so below 768 the stage stops being a coordinate space and the
+     three elements become a centred stack at legible sizes. */
+  @media (max-width: 767px) {
+    .stage {
+      height: auto;
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      gap: 0;
+      min-height: calc(100dvh - var(--safe-y) * 2);
+      padding-inline: var(--inset-x);
+    }
+
+    .home__logo {
+      position: static;
+      width: min(100%, 420px);
+      height: auto;
+    }
+
+    .home__wordmark,
+    .home__copyright {
+      position: static;
+      font-size: clamp(15px, 4.6vw, 22px);
+      font-weight: var(--fw-light);
+    }
+
+    .home__wordmark { margin-block-start: calc(var(--safe-y) * 0.35); }
+
+    .home__copyright {
+      font-weight: var(--fw-black);
+      margin-block-start: 0.35em;
+    }
+
+    .home__c { font-size: 0.74em; bottom: 0.06em; }
+  }
+}

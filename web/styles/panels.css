@@ -58,8 +58,31 @@
     overflow: clip;
     display: grid;
     align-content: center;
-    padding-block: var(--safe-y);
-    padding-inline: var(--inset-x);
+
+    /* Makes this the container that --u measures against, so design-pixel
+       coordinates track the panel's real width rather than 100vw (which
+       includes the scrollbar). Safe here: .panel__inner is not the sticky
+       element, so its containment cannot affect .panel's stickiness. */
+    container-type: inline-size;
+  }
+
+  /* --- the design-coordinate stage ----------------------------------------
+     A panel's content is positioned in DESIGN PIXELS. `--u` is one artboard
+     pixel, so any coordinate written in a panel's CSS is the same number that
+     appears in Photoshop:  left: calc(622 * var(--u))
+
+     --u uses container query units, not vw: vw includes the scrollbar, which
+     would push every composition ~15px right on desktop. cqw measures
+     .panel__inner itself, so the artboard scales to the real content width and
+     the proportions stay exact.
+
+     Each panel sets its own --stage-h (its artboard height in design px).
+     ------------------------------------------------------------------------ */
+  .stage {
+    --u: calc(100cqw / 1920);
+    position: relative;
+    width: 100%;
+    height: calc(var(--stage-h, 1080) * var(--u));
   }
 
   /* --- fade boundaries ----------------------------------------------------
@@ -91,7 +114,7 @@
          portrait. Height is content, floored at one screen. */
       --panel-h: max(100dvh, var(--panel-measured, 0px));
     }
-    .panel__inner {
+    .shell {
       padding-block: calc(var(--safe-y) + var(--nav-tri-h));
     }
   }
@@ -105,6 +128,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.4em;
+    padding-block: var(--safe-y);
+    padding-inline: var(--inset-x);
   }
 
   .shell__num {

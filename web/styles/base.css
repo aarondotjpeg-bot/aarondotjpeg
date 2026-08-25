@@ -105,5 +105,12 @@
     white-space: nowrap;
   }
 
-  .jp { font-family: var(--font-jp); }
+  /* Japanese runs use proportional alternate widths. Photoshop applies these
+     by default with Kozuka Gothic; without "palt" Noto sets the katakana
+     full-width and the line runs 12.8px long against the PSD. With it, the
+     run measures 122.8 against Kozuka's 124. */
+  .jp {
+    font-family: var(--font-jp);
+    font-feature-settings: "palt" 1;
+  }
 }

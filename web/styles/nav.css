@@ -79,8 +79,9 @@
     height: var(--nav-tri-h);
     display: grid;
     place-items: center;
-    background: var(--c-bg);
     color: var(--c-ink);
+    /* No background here — the triangle's own opaque fill does the masking,
+       so nothing covers the page behind the mark. */
   }
 
   .nav__triangle {
@@ -94,7 +95,9 @@
      115,97 -> 28,24 from its corner). */
   .nav__icon {
     position: absolute;
-    inset-block-start: 40.7%;   /* (121 + 6.5 - 97) / 59 */
+    /* Geometric centre of the x layer is 40.7%, but a triangle's visual centre
+       sits lower, so this is nudged ~6px down at design size to look centred. */
+    inset-block-start: 51%;
     inset-inline-start: 50%;
     width: var(--nav-x-size);
     height: var(--nav-x-size);
