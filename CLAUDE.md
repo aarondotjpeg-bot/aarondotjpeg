@@ -69,6 +69,41 @@ long-lived immutable caching for fonts and images; HTML revalidates. If the
 Vercel project is created through the dashboard instead, its Root Directory
 must be set to `web`.
 
+## Where the build is
+
+| Panel | Artboard | State |
+|---|---|---|
+| 1 Home | 1 | **built, signed off** |
+| 2 About | 2 | **built, signed off** |
+| 3 Works index | 3 | **next.** 1628px — first panel taller than a viewport |
+| 4-5 NutraKey | 4 | placeholder shell |
+| 6-7 Repp Sports | 5 | placeholder shell |
+| 8-9 Nutrex | 6 | placeholder shell |
+| 7, 8 | — | drawn, awaiting a PSD that contains them |
+
+Artboards 4-6 are image collages of 21-29 overlapping layers. Composite the
+artwork into one optimised image per panel and keep only the real text as text
+— rebuilding 29 product shots as separate elements would be slower to load and
+no more faithful.
+
+## Settled — do not revisit without being asked
+
+These cost several rounds each. They are decisions, not defaults:
+
+- **Slide only.** The fade between the two halves of an artboard was built,
+  tested and removed. There is one transition.
+- **Nav starts collapsed** and never collapses itself. No auto-collapse on
+  scroll, no auto-open on returning home — an earlier version did both and the
+  competing animations fought each other.
+- **No current-page state.** The pill is hover and focus only. `aria-current`
+  stays for screen readers but paints nothing.
+- **Nav link slide is 684ms**, eased `cubic-bezier(0.4, 0, 0.2, 1)`, with a
+  **linear** opacity fade — on an eased curve the fade collapses in the first
+  third and reads as no fade at all.
+- **The clip window starts at the triangle's RIGHT edge.** At the left edge the
+  links show through the mark's transparent corners.
+- **The email hover is an underline**, not a weight change. Both were tried.
+
 ## Working agreement
 
 - **Rundown before execution, every time.** What was understood, what will be
