@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="styles/nav.css">
 <link rel="stylesheet" href="styles/home.css">
 <link rel="stylesheet" href="styles/about.css">
-<link rel="stylesheet" href="styles/devtools.css">
 </head>
 <body>
 
@@ -28,7 +27,7 @@
      keep. Artboard 1 draws it open, which is the toggled state.
      ========================================================================== -->
 <nav class="nav" id="nav" data-open="false" aria-label="Primary">
-  <!-- Clips at the triangle's left edge so the links vanish behind the mark. -->
+  <!-- Clips at the triangle's right edge so the links only ever emerge from it. -->
   <div class="nav__reveal">
     <ul class="nav__list" id="navList">
       <li class="nav__item"><a class="nav__link" href="#home"  data-panel="home">home</a></li>
@@ -145,8 +144,8 @@
           </div>
         </div>
 
-        <!-- TODO(artboard-2): no resume file exists yet, so this is not a link. -->
-        <p class="ab-resume">View Resume</p>
+        <a class="ab-resume" href="assets/aaron-hernandez-resume.pdf"
+           target="_blank" rel="noopener">View Resume</a>
 
         <h3 class="ab-quote">I like strange ideas, good<br>coffee, and making things that<br>are hard to ignore.</h3>
 
@@ -233,15 +232,7 @@
 
 </main>
 
-<!-- DEV ONLY — delete this block and devtools.css before launch. -->
-<aside class="devtools" id="devtools" aria-label="Development controls">
-  <p class="devtools__row"><b id="devPanel">01</b> <span id="devName">Home</span></p>
-  <p class="devtools__row"><span id="devSize"></span></p>
-  <button class="devtools__btn" id="devHide" type="button">hide</button>
-</aside>
-
 <script src="scripts/nav.js"></script>
 <script src="scripts/panels.js"></script>
-<script src="scripts/devtools.js"></script>
 </body>
 </html>

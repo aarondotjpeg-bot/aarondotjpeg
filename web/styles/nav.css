@@ -6,11 +6,12 @@
 
      Collapse behaviour
      ------------------
-     The links slide LEFT and vanish behind the triangle — they never travel
-     off the screen. .nav__reveal clips at the triangle's own left edge and
-     the triangle paints above the list, so the links visibly disappear into
-     the mark. The toggle shows the X while open and a downward caret while
-     closed, so the closed state reads as "opens downward" rather than "plus".
+     The links slide LEFT and vanish into the triangle — they never travel off
+     the screen. .nav__reveal clips at the triangle's RIGHT edge, so the links
+     only ever appear to emerge from the mark. The toggle shows the X while
+     open and a downward caret while closed, so the closed state reads as
+     "opens downward" rather than "plus". The state is entirely the visitor's:
+     nothing collapses it automatically.
      ========================================================================== */
 
   .nav {

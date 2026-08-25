@@ -7,7 +7,8 @@
                    taller-than-viewport panel can pin its bottom edge instead
                    of hiding it. Only mobile needs this; desktop derives the
                    height from --ar in CSS.
-     2. active   — marks the nav link for whichever panel is on screen.
+     2. active   — marks the nav link for whichever panel is on screen. This
+                   is aria-current only; nothing paints, by design.
      3. deeplink — keeps the URL hash in step with the panel, so #works is a
                    real, shareable address.
    =========================================================================== */
@@ -89,8 +90,6 @@
     if (window.history && history.replaceState) {
       history.replaceState(null, '', '#' + panel.id);
     }
-
-    document.dispatchEvent(new CustomEvent('panelchange', { detail: { panel: panel } }));
   }
 
   /* Throttled by timestamp rather than requestAnimationFrame. rAF is the

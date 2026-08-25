@@ -86,15 +86,12 @@
     line-height: 1;
     font-weight: var(--fw-regular);
     letter-spacing: var(--ls-body);
-    text-decoration-color: transparent;
-    text-underline-offset: 0.22em;
-    transition: text-decoration-color var(--dur-fast) var(--ease-out);
+    transition: font-weight var(--dur-fast) var(--ease-out);
   }
+  /* Weight, not an underline. Absolutely positioned with nothing to its right,
+     so the extra width pushes nothing around. */
   .ab-email:hover,
-  .ab-email:focus-visible {
-    text-decoration: underline;
-    text-decoration-color: currentColor;
-  }
+  .ab-email:focus-visible { font-weight: var(--fw-black); }
 
   /* --- right column ------------------------------------------------------- */
 
@@ -155,7 +152,7 @@
     line-height: 1;
   }
 
-  /* ink y787 - 2. Not a link yet — no resume file exists.  TODO(artboard-2) */
+  /* ink y787 - 2 */
   .ab-resume {
     left: calc(1688 * var(--u));
     top:  calc(785 * var(--u));
@@ -163,7 +160,10 @@
     line-height: 1;
     font-weight: var(--fw-black);
     letter-spacing: var(--ls-body);
+    display: block;
   }
+  .ab-resume:hover,
+  .ab-resume:focus-visible { text-decoration: underline; text-underline-offset: 0.22em; }
 
   /* ink y840 - 4 */
   .ab-quote {
