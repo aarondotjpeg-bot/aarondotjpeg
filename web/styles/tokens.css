@@ -114,6 +114,9 @@
     --nav-pill-b:   0.183em;   /* 5.5px below           -> pill bottom 147  */
     --nav-ink-top:  clamp(9px, 0.9375vw, 18px);   /* 115 - 97 */
     --nav-list-offset: clamp(54px, 5.344vw, 102.6px);  /* first pill left edge */
+    /* Distance from the triangle's RIGHT edge to the first pill: 102.6 - 68.
+       The clip window starts there, so links never render beside the mark. */
+    --nav-list-pad: calc(var(--nav-list-offset) - var(--nav-tri-w));
     --nav-gap-1:    0.200em;   /*  6.0px  home  -> about   */
     --nav-gap-2:    0.117em;   /*  3.5px  about -> works   */
     --nav-gap-3:    0.537em;   /* 16.1px  works -> contact */
@@ -123,7 +126,7 @@
     --dur-fast:  160ms;
     --dur-base:  280ms;
     --dur-slow:  520ms;
-    --dur-nav:   760ms;   /* the link slide — deliberately unhurried */
+    --dur-nav:   684ms;   /* the link slide */
     --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
     /* Even on both ends; --ease-out is too front-loaded for a slow travel. */

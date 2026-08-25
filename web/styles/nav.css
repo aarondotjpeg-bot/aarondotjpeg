@@ -34,14 +34,17 @@
   .nav__link { pointer-events: auto; }
 
   /* --- clip window --------------------------------------------------------
-     Starts at the triangle's left edge, so anything sliding left of that
-     point is gone. This is what makes the links read as going *into* the
-     triangle instead of flying off toward the edge of the screen. */
+     Starts at the triangle's RIGHT edge, not its left. The mark is an outline,
+     so the corners of its bounding box are transparent — clipping at the left
+     edge let the links show *beside* the triangle on their way past, which
+     broke the illusion. Clipping at the right edge means they only ever
+     appear to emerge from it. */
   .nav__reveal {
     overflow: clip;
     height: 100%;
-    max-width: 100%;
-    padding-inline-start: var(--nav-list-offset);
+    margin-inline-start: var(--nav-tri-w);
+    max-width: calc(100% - var(--nav-tri-w));
+    padding-inline-start: var(--nav-list-pad);
   }
 
   .nav__list {
@@ -52,16 +55,18 @@
     /* line box top = desired ink top minus the font's own 0.117em ink offset */
     padding-block-start: calc(var(--nav-ink-top) - var(--nav-pill-t));
     width: max-content;
-    /* The fade runs the full length of the travel so the links dissolve as
-       they go behind the mark rather than snapping out at the end. */
-    transition: translate var(--dur-nav) var(--ease-nav),
-                opacity   var(--dur-nav) var(--ease-nav),
+    /* Opacity is linear on purpose. On an eased curve the value collapses in
+       the first third and the rest of the travel is already invisible, which
+       reads as no fade at all. Linear spreads the change evenly across the
+       whole slide, so the dissolve is actually perceptible. */
+    transition: translate  var(--dur-nav) var(--ease-nav),
+                opacity    var(--dur-nav) linear,
                 visibility 0s linear 0s;
   }
 
   .nav[data-open="false"] .nav__list {
     /* right edge lands on the clip boundary = fully hidden behind the mark */
-    translate: calc(-1 * (var(--nav-list-offset) + 100%)) 0;
+    translate: calc(-1 * (var(--nav-list-pad) + 100%)) 0;
     opacity: 0;
     pointer-events: none;
     /* Hidden only once it has finished travelling, so collapsed links leave
