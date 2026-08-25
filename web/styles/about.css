@@ -86,12 +86,15 @@
     line-height: 1;
     font-weight: var(--fw-regular);
     letter-spacing: var(--ls-body);
-    transition: font-weight var(--dur-fast) var(--ease-out);
+    text-decoration-color: transparent;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
   }
-  /* Weight, not an underline. Absolutely positioned with nothing to its right,
-     so the extra width pushes nothing around. */
   .ab-email:hover,
-  .ab-email:focus-visible { font-weight: var(--fw-black); }
+  .ab-email:focus-visible {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+  }
 
   /* --- right column ------------------------------------------------------- */
 

@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="styles/nav.css">
 <link rel="stylesheet" href="styles/home.css">
 <link rel="stylesheet" href="styles/about.css">
+<link rel="stylesheet" href="styles/pdfview.css">
 </head>
 <body>
 
@@ -145,7 +146,7 @@
         </div>
 
         <a class="ab-resume" href="assets/aaron-hernandez-resume.pdf"
-           target="_blank" rel="noopener">View Resume</a>
+           data-pdf="Resume" target="_blank" rel="noopener">View Resume</a>
 
         <h3 class="ab-quote">I like strange ideas, good<br>coffee, and making things that<br>are hard to ignore.</h3>
 
@@ -232,7 +233,33 @@
 
 </main>
 
+<!-- ==========================================================================
+     PDF VIEWER — opens documents on the page instead of in a download prompt.
+     Not designed in the PSD; see styles/pdfview.css.
+     ========================================================================== -->
+<dialog class="pdfview" id="pdfview" aria-labelledby="pdfviewTitle">
+  <div class="pdfview__bar">
+    <p class="pdfview__title" id="pdfviewTitle">Resume</p>
+    <div class="pdfview__actions">
+      <a class="pdfview__link" id="pdfviewOpen" href="" target="_blank" rel="noopener">Open in new tab</a>
+      <button class="pdfview__close" id="pdfviewClose" type="button">
+        <svg viewBox="0 0 12.1431 12.1431" fill="none" stroke="currentColor"
+             stroke-width="1" aria-hidden="true">
+          <path transform="matrix(1,0,0,-1,.3535,.3535)" d="M0 0 11.436-11.436"/>
+          <path transform="matrix(1,0,0,-1,11.7896,.3535)" d="M0 0-11.436-11.436"/>
+        </svg>
+        <span class="visually-hidden">Close</span>
+      </button>
+    </div>
+  </div>
+  <iframe class="pdfview__frame" id="pdfviewFrame" title="Resume" src="about:blank"></iframe>
+  <p class="pdfview__fallback" id="pdfviewFallback">
+    This browser can’t display the document here. <a href="">Open it in a new tab</a>.
+  </p>
+</dialog>
+
 <script src="scripts/nav.js"></script>
 <script src="scripts/panels.js"></script>
+<script src="scripts/pdfview.js"></script>
 </body>
 </html>

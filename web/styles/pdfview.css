@@ -1,0 +1,116 @@
+@layer components {
+  /* ==========================================================================
+     PDF VIEWER
+
+     Not from the PSD — artboard 2 only specifies the "View Resume" text. This
+     is deliberately plain: paper, ink, Satoshi, the same x mark as the nav, and
+     nothing invented beyond what the job needs. Worth designing properly in the
+     file if it should carry more character.
+
+     Uses a native <dialog>, so Escape, focus trapping and inerting the page
+     behind come from the browser rather than from script.
+
+     NOTE: the page behind is deliberately NOT scroll-locked. The usual trick is
+     overflow:hidden on <html> or <body>, and that is exactly what kills
+     position:sticky and the entire panel stack. showModal() already blocks
+     pointer and keyboard interaction with the page, which is enough.
+     ========================================================================== */
+
+  .pdfview {
+    /* The reset's `* { margin: 0 }` also hits <dialog>, wiping the UA's
+       `margin: auto` that centres a modal in the top layer — without this it
+       renders hard against the top-left corner. */
+    margin: auto;
+
+    width: min(1100px, 92vw);
+    height: min(88dvh, 1400px);
+    max-width: none;
+    max-height: none;
+    padding: 0;
+    border: 1px solid var(--c-ink);
+    background: var(--c-paper);
+    color: var(--c-ink);
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pdfview::backdrop {
+    background: rgb(0 0 0 / 0.55);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pdfview[open] { animation: pdfview-in var(--dur-base) var(--ease-out) both; }
+    @keyframes pdfview-in {
+      from { opacity: 0; translate: 0 8px; }
+      to   { opacity: 1; translate: 0 0; }
+    }
+  }
+
+  .pdfview__bar {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+    border-block-end: 1px solid var(--c-ink);
+  }
+
+  .pdfview__title {
+    margin: 0;
+    font-size: var(--fs-18);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-body);
+    line-height: 1;
+  }
+
+  .pdfview__actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .pdfview__link {
+    font-size: var(--fs-15);
+    font-weight: var(--fw-regular);
+    letter-spacing: var(--ls-body);
+    text-decoration-color: transparent;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
+  }
+  .pdfview__link:hover,
+  .pdfview__link:focus-visible {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+  }
+
+  .pdfview__close {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    color: var(--c-ink);
+    transition: rotate var(--dur-base) var(--ease-out);
+  }
+  .pdfview__close:hover { rotate: 90deg; }
+  .pdfview__close svg { width: 13px; height: 13px; }
+
+  .pdfview__frame {
+    flex: 1;
+    width: 100%;
+    border: 0;
+    background: var(--c-paper);
+  }
+
+  /* Shown only if the browser cannot render the PDF inline. */
+  .pdfview__fallback {
+    display: none;
+    padding: 32px;
+    font-size: var(--fs-18);
+    letter-spacing: var(--ls-body);
+  }
+  .pdfview[data-embed="false"] .pdfview__frame { display: none; }
+  .pdfview[data-embed="false"] .pdfview__fallback { display: block; }
+}
