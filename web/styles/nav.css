@@ -21,7 +21,17 @@
     height: var(--nav-tri-h);
     color: var(--c-ink);
 
+    /* Never wider than the screen: the box is invisible but it is still a
+       fixed-position box, and an oversized one hangs off small viewports. */
+    max-width: calc(100vw - var(--nav-x) * 2);
+
+    /* The empty area around the mark and links must not intercept clicks on
+       the page beneath. Only the interactive children take pointer events. */
+    pointer-events: none;
   }
+
+  .nav__toggle,
+  .nav__link { pointer-events: auto; }
 
   /* --- clip window --------------------------------------------------------
      Starts at the triangle's left edge, so anything sliding left of that
@@ -30,6 +40,7 @@
   .nav__reveal {
     overflow: clip;
     height: 100%;
+    max-width: 100%;
     padding-inline-start: var(--nav-list-offset);
   }
 
