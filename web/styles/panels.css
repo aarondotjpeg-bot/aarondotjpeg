@@ -85,25 +85,6 @@
     height: calc(var(--stage-h, 1080) * var(--u));
   }
 
-  /* --- fade boundaries ----------------------------------------------------
-     P5, P7 and P9 are the second half of their artboard, so they cross-fade
-     in place instead of sliding up — the motion says "same section".
-     Scroll-linked via animation-timeline where supported; anywhere else the
-     panel simply slides, which is a correct and complete fallback. */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .panel[data-transition="fade"] {
-        animation: panel-fade-in linear both;
-        animation-timeline: view();
-        animation-range: cover 0% cover 35%;
-      }
-      @keyframes panel-fade-in {
-        from { opacity: 0; }
-        to   { opacity: 1; }
-      }
-    }
-  }
-
   /* --- mobile -------------------------------------------------------------
      A 16:9 landscape composition has no portrait equivalent, so height stops
      following --ar and follows content instead, floored at one screen.

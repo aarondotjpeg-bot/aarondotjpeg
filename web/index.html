@@ -67,10 +67,11 @@
      PANEL STACK — nine panels, artboards 1-6.
        --ar : artboard height / 1920, drives scroll length on desktop
        --i  : paint order, so each panel covers the one before it
+     Every panel slides; there is no second transition mode.
      ========================================================================== -->
 <main class="stack" id="main">
 
-  <section class="panel" id="home" data-transition="slide"
+  <section class="panel" id="home"
            style="--ar:0.562500; --i:1" aria-label="Home">
     <div class="panel__inner">
       <div class="stage">
@@ -82,7 +83,7 @@
     </div>
   </section>
 
-  <section class="panel" id="about" data-transition="slide"
+  <section class="panel" id="about"
            style="--ar:0.562500; --i:2" aria-label="About">
     <div class="panel__inner">
       <div class="stage">
@@ -153,7 +154,7 @@
     </div>
   </section>
 
-  <section class="panel" id="works" data-transition="slide"
+  <section class="panel" id="works"
            style="--ar:0.847917; --i:3" aria-label="Works">
     <div class="panel__inner">
       <div class="shell">
@@ -164,7 +165,7 @@
     </div>
   </section>
 
-  <section class="panel" id="work-01a" data-transition="slide"
+  <section class="panel" id="work-01a"
            style="--ar:0.562500; --i:4" aria-label="NutraKey Health">
     <div class="panel__inner">
       <div class="shell">
@@ -175,18 +176,18 @@
     </div>
   </section>
 
-  <section class="panel" id="work-01b" data-transition="fade"
+  <section class="panel" id="work-01b"
            style="--ar:0.583333; --i:5" aria-label="NutraKey Health, continued">
     <div class="panel__inner">
       <div class="shell">
         <p class="shell__num">05</p>
         <h2 class="shell__title">NutraKey Health &mdash; 2</h2>
-        <p class="shell__meta">Panel 5 &middot; <b>Artboard 4</b> bottom &middot; 1920 &times; 1120 &middot; <b>fade</b></p>
+        <p class="shell__meta">Panel 5 &middot; <b>Artboard 4</b> bottom &middot; 1920 &times; 1120 &middot; slide</p>
       </div>
     </div>
   </section>
 
-  <section class="panel" id="work-02a" data-transition="slide"
+  <section class="panel" id="work-02a"
            style="--ar:0.563021; --i:6" aria-label="Repp Sports">
     <div class="panel__inner">
       <div class="shell">
@@ -197,18 +198,18 @@
     </div>
   </section>
 
-  <section class="panel" id="work-02b" data-transition="fade"
+  <section class="panel" id="work-02b"
            style="--ar:0.622917; --i:7" aria-label="Repp Sports, continued">
     <div class="panel__inner">
       <div class="shell">
         <p class="shell__num">07</p>
         <h2 class="shell__title">Repp Sports &mdash; 2</h2>
-        <p class="shell__meta">Panel 7 &middot; <b>Artboard 5</b> bottom &middot; 1920 &times; 1196 &middot; <b>fade</b></p>
+        <p class="shell__meta">Panel 7 &middot; <b>Artboard 5</b> bottom &middot; 1920 &times; 1196 &middot; slide</p>
       </div>
     </div>
   </section>
 
-  <section class="panel" id="work-03a" data-transition="slide"
+  <section class="panel" id="work-03a"
            style="--ar:0.563021; --i:8" aria-label="Nutrex Research">
     <div class="panel__inner">
       <div class="shell">
@@ -219,13 +220,13 @@
     </div>
   </section>
 
-  <section class="panel" id="work-03b" data-transition="fade"
+  <section class="panel" id="work-03b"
            style="--ar:0.601563; --i:9" aria-label="Nutrex Research, continued">
     <div class="panel__inner">
       <div class="shell">
         <p class="shell__num">09</p>
         <h2 class="shell__title">Nutrex Research &mdash; 2</h2>
-        <p class="shell__meta">Panel 9 &middot; <b>Artboard 6</b> bottom &middot; 1920 &times; 1155 &middot; <b>fade</b></p>
+        <p class="shell__meta">Panel 9 &middot; <b>Artboard 6</b> bottom &middot; 1920 &times; 1155 &middot; slide</p>
       </div>
     </div>
   </section>
@@ -236,9 +237,6 @@
 <aside class="devtools" id="devtools" aria-label="Development controls">
   <p class="devtools__row"><b id="devPanel">01</b> <span id="devName">Home</span></p>
   <p class="devtools__row"><span id="devSize"></span></p>
-  <button class="devtools__btn" id="devTransition" type="button">
-    intra-artboard: <b id="devMode">fade</b>
-  </button>
   <button class="devtools__btn" id="devHide" type="button">hide</button>
 </aside>
 

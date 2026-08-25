@@ -74,16 +74,30 @@ each is fluid between 1024 and 1920, then clamps.</p>
 
 <h2>Navigation</h2>
 <p class="lede">Both states. The live one is fixed to the viewport; this copy is
-static so both can be seen at once.</p>
+static so both can be seen at once. There is no current-page state — the pill
+is hover and focus only.</p>
 
 <nav class="nav navdemo" data-open="true" aria-label="Expanded example">
+  <div class="nav__reveal"><ul class="nav__list"></ul></div>
   <span class="nav__toggle">
-    <img class="nav__triangle" src="assets/img/nav-triangle.png" alt="" width="68" height="59">
-    <img class="nav__x" src="assets/img/nav-x.png" alt="" width="13" height="13">
+    <svg class="nav__triangle" viewBox="0 0 91.6025 80" stroke="currentColor"
+         stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path fill="var(--c-bg)" transform="matrix(1,0,0,-1,45.8013,58.1223)" d="M0 0 11.188-19.378H43.301L0 55.622-43.301-19.378H-11.188L0 0Z"/>
+      <path fill="none" transform="matrix(1,0,0,-1,56.989,77.5)" d="M0 0-17.931 6.256"/>
+    </svg>
+    <svg class="nav__icon nav__icon--x" viewBox="0 0 12.1431 12.1431" fill="none"
+         stroke="currentColor" stroke-width="1" aria-hidden="true">
+      <path transform="matrix(1,0,0,-1,.3535,.3535)" d="M0 0 11.436-11.436"/>
+      <path transform="matrix(1,0,0,-1,11.7896,.3535)" d="M0 0-11.436-11.436"/>
+    </svg>
+    <svg class="nav__icon nav__icon--caret" viewBox="0 0 12.1431 12.1431" fill="none"
+         stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M1.1 4.3 6.07 9.27 11.04 4.3"/>
+    </svg>
   </span>
   <span class="nav__dot"></span>
   <ul class="nav__list">
-    <li><a class="nav__link" href="#" aria-current="true">home</a></li>
+    <li><a class="nav__link" href="#">home</a></li>
     <li><a class="nav__link" href="#">about</a></li>
     <li><a class="nav__link" href="#">works</a></li>
     <li><a class="nav__link" href="#" aria-disabled="true">contact</a></li>
@@ -91,9 +105,22 @@ static so both can be seen at once.</p>
 </nav>
 
 <nav class="nav navdemo" data-open="false" aria-label="Collapsed example">
+  <div class="nav__reveal"><ul class="nav__list"></ul></div>
   <span class="nav__toggle">
-    <img class="nav__triangle" src="assets/img/nav-triangle.png" alt="" width="68" height="59">
-    <img class="nav__x" src="assets/img/nav-x.png" alt="" width="13" height="13">
+    <svg class="nav__triangle" viewBox="0 0 91.6025 80" stroke="currentColor"
+         stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path fill="var(--c-bg)" transform="matrix(1,0,0,-1,45.8013,58.1223)" d="M0 0 11.188-19.378H43.301L0 55.622-43.301-19.378H-11.188L0 0Z"/>
+      <path fill="none" transform="matrix(1,0,0,-1,56.989,77.5)" d="M0 0-17.931 6.256"/>
+    </svg>
+    <svg class="nav__icon nav__icon--x" viewBox="0 0 12.1431 12.1431" fill="none"
+         stroke="currentColor" stroke-width="1" aria-hidden="true">
+      <path transform="matrix(1,0,0,-1,.3535,.3535)" d="M0 0 11.436-11.436"/>
+      <path transform="matrix(1,0,0,-1,11.7896,.3535)" d="M0 0-11.436-11.436"/>
+    </svg>
+    <svg class="nav__icon nav__icon--caret" viewBox="0 0 12.1431 12.1431" fill="none"
+         stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M1.1 4.3 6.07 9.27 11.04 4.3"/>
+    </svg>
   </span>
   <span class="nav__dot"></span>
   <ul class="nav__list">
@@ -110,11 +137,11 @@ static so both can be seen at once.</p>
   <tr><td>02</td><td><code>about</code></td><td>2</td><td>1920 × 1080</td><td>0.5625</td><td>slide</td></tr>
   <tr><td>03</td><td><code>works</code></td><td>3</td><td>1920 × 1628</td><td>0.847917</td><td>slide</td></tr>
   <tr><td>04</td><td><code>work-01a</code></td><td>4 top</td><td>1920 × 1080</td><td>0.5625</td><td>slide</td></tr>
-  <tr><td>05</td><td><code>work-01b</code></td><td>4 bottom</td><td>1920 × 1120</td><td>0.583333</td><td><b>fade</b></td></tr>
+  <tr><td>05</td><td><code>work-01b</code></td><td>4 bottom</td><td>1920 × 1120</td><td>0.583333</td><td>slide</td></tr>
   <tr><td>06</td><td><code>work-02a</code></td><td>5 top</td><td>1920 × 1081</td><td>0.563021</td><td>slide</td></tr>
-  <tr><td>07</td><td><code>work-02b</code></td><td>5 bottom</td><td>1920 × 1196</td><td>0.622917</td><td><b>fade</b></td></tr>
+  <tr><td>07</td><td><code>work-02b</code></td><td>5 bottom</td><td>1920 × 1196</td><td>0.622917</td><td>slide</td></tr>
   <tr><td>08</td><td><code>work-03a</code></td><td>6 top</td><td>1920 × 1081</td><td>0.563021</td><td>slide</td></tr>
-  <tr><td>09</td><td><code>work-03b</code></td><td>6 bottom</td><td>1920 × 1155</td><td>0.601563</td><td><b>fade</b></td></tr>
+  <tr><td>09</td><td><code>work-03b</code></td><td>6 bottom</td><td>1920 × 1155</td><td>0.601563</td><td>slide</td></tr>
 </table>
 
 </body>

@@ -33,14 +33,7 @@
     if (link) e.preventDefault();
   });
 
-  /* Collapsing on leaving home is one-way on purpose. Auto-opening on the way
-     back fought the user's own toggle: open the nav, click "home", and the
-     panel change re-opened something that was already animating — two slides
-     at once. Leaving is the only automatic transition; opening is always the
-     visitor's choice, and whatever they choose stays. */
-  document.addEventListener('panelchange', function (e) {
-    if (e.detail.panel.id !== 'home' && nav.dataset.open === 'true') {
-      setOpen(false);
-    }
-  });
+  /* No automatic collapsing. The toggle is the visitor's alone: whatever they
+     set it to stays that way across every panel. It starts closed, which is
+     the only default the page imposes. */
 })();

@@ -157,7 +157,8 @@
   .nav__item--works   { margin-inline-start: var(--nav-gap-2) !important; }
   .nav__item--contact { margin-inline-start: var(--nav-gap-3) !important; }
 
-  /* The pill from the PSD (Layer "hover", 90 x 39 behind "home"). */
+  /* The pill from the PSD (Layer "hover", 90 x 39). Hover and focus only —
+     there is deliberately no current-page state. */
   .nav__link::before {
     content: "";
     position: absolute;
@@ -170,12 +171,10 @@
   }
 
   .nav__link:hover::before,
-  .nav__link:focus-visible::before,
-  .nav__link[aria-current="true"]::before { opacity: 1; }
+  .nav__link:focus-visible::before { opacity: 1; }
 
   .nav__link:hover,
-  .nav__link:focus-visible,
-  .nav__link[aria-current="true"] { color: var(--c-paper); }
+  .nav__link:focus-visible { color: var(--c-paper); }
 
   /* contact has no destination until artboard 7 exists. */
   .nav__link[aria-disabled="true"] { opacity: 0.35; cursor: not-allowed; }

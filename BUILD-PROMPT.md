@@ -66,7 +66,7 @@ round works, what still needs deciding, and the traps worth heading off early.
 > - Self-hosted, subset, preloaded fonts with `font-display: swap` and a metric-matched
 >   fallback so there's no layout shift.
 > - **The panel primitive** — one reusable full-viewport panel component that every page
->   drops into, with the slide/fade transition controlled by a single data attribute.
+>   drops into. One transition only: the slide.
 >   Adding panel ten must be one file and one line in the panel list.
 > - A living style guide page (`/styleguide`) rendering every token, type style, button
 >   state and component in isolation.
@@ -76,11 +76,11 @@ round works, what still needs deciding, and the traps worth heading off early.
 >   horizontal scroll ever, tap targets at least 44px.
 > - Use `100dvh`/`svh`, never `100vh`, for panel height (mobile URL bar resize).
 > - **Mobile keeps the desktop experience, not the desktop layout.** Same panel sequence,
->   same slide and fade choreography. Columns stack, type uses its own scale with a 16 px
+>   same slide choreography. Columns stack, type uses its own scale with a 16 px
 >   body floor, images re-crop rather than shrink, and mobile panels are
 >   `min-height: 100dvh` rather than a fixed height.
-> - `prefers-reduced-motion: reduce` fully honored — fades resolve instantly, nothing
->   moves that the user didn't move.
+> - `prefers-reduced-motion: reduce` fully honored — nothing moves that the user
+>   didn't move.
 > - Keyboard navigable (arrows, Page Up/Down, Home/End all work — a consequence of not
 >   hijacking scroll), visible focus rings, semantic landmarks, skip link, real alt text,
 >   AA contrast.
@@ -123,23 +123,9 @@ round works, what still needs deciding, and the traps worth heading off early.
 
 ### Transition rules
 
-Slide when crossing into a new artboard. Fade when moving between the two pages
-*inside* one artboard — so the motion itself tells the visitor "still the same section."
-
-| Transition | Type |
-|---|---|
-| Panel 1 → 2 | slide up |
-| Panel 2 → 3 | slide up |
-| Panel 3 → 4 | slide up |
-| **Panel 4 → 5** | **fade (within artboard 4)** |
-| Panel 5 → 6 | slide up |
-| **Panel 6 → 7** | **fade (within artboard 5)** |
-| Panel 7 → 8 | slide up |
-| **Panel 8 → 9** | **fade (within artboard 6)** |
-
-Both transitions ship behind one attribute — `data-transition="slide"` or `"fade"` —
-so the fade/slide choice on the intra-artboard boundaries can be flipped and compared
-live during testing without a rebuild.
+**One transition, everywhere: the slide.** The fade that was planned for the
+two-page artboards was tested and dropped — every panel, including the second
+half of artboards 4, 5 and 6, slides up over the one before it.
 
 ### How the slide is built
 
@@ -176,7 +162,7 @@ Adding that guide to the PSD costs a minute and saves every panel.
 
 Mobile keeps the desktop **experience**, not the desktop **layout** — the apple.com
 approach. The choreography is identical: same nine panels, same order, same slide-up
-between artboards, same fade inside them. What changes is the composition:
+between every panel. What changes is the composition:
 
 - Columns and side-by-side pairs stack into a single column.
 - Type switches to its own mobile scale with a **16 px body floor** — never a
@@ -254,7 +240,7 @@ reduced-motion safe; images optimized; no console errors; every new token docume
 | # | Decision | Status |
 |---|---|---|
 | 1 | Routes vs. one long scroll | **Decided: one continuous scrolling page, 9 panels, hash deep-links.** |
-| 2 | Scroll feel | **Decided: sticky-stack slide-up, native scroll, no hijacking. Fade on intra-artboard boundaries.** |
+| 2 | Scroll feel | **Decided: sticky-stack slide-up, native scroll, no hijacking. Slide only — the fade was tested and dropped.** |
 | 3 | Canvas | **Decided: PSD stays as drawn. Build targets 390 / 768 / 1440 / 1920.** |
 | 4 | Artboard scope | **Decided: artboards 1–6 only. 7 and 8 untouched.** |
 | 5 | Mobile design | **Decided: I derive mobile from the desktop comps, apple.com-style — identical choreography, reflowed layout. You correct me per panel.** |
@@ -292,12 +278,12 @@ reduced-motion safe; images optimized; no console errors; every new token docume
    your actual phone catches what a desktop simulator won't.
 8. **Reduced motion is a real user setting.** Full-screen panel transitions are exactly
    the kind of motion that triggers it. The sticky-stack approach is inherently safe —
-   the "slide" is just the user's own scrolling — but the fades must resolve instantly.
+   the "slide" is just the user's own scrolling, so it stays safe by construction.
 9. **`CLAUDE.md` is the memory across sessions.** Once conventions are set they go in
    that file, so a future session picks up your naming, tokens and rules without you
    re-explaining. I'll write it during the foundation round.
 10. **Browser support floor.** Recommended: last 2 versions of Chrome, Safari, Firefox
     and Edge, plus iOS Safari 15+. It decides whether I can use CSS scroll-driven
-    animations natively for the fades or need an IntersectionObserver fallback.
+    queries natively or need fallbacks.
 11. **Favicon, OG image, page title, meta description, sitemap.** Invisible until you
     paste a link somewhere and it looks broken. Budget one round at the end.
