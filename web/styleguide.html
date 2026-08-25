@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style guide — aarondotjpeg</title>
+<link rel="stylesheet" href="styles/reset.css">
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/nav.css">
+<style>
+  body { padding: 48px var(--inset-x) 96px; }
+  h1 { font-size: var(--fs-73); font-weight: var(--fw-black); letter-spacing: var(--ls-tight); }
+  h2 { font-size: var(--fs-46); font-weight: var(--fw-black); margin-block: 56px 20px; }
+  .lede { font-size: var(--fs-18); color: var(--c-ink-60); max-width: 60ch; margin-block-start: 8px; }
+  table { border-collapse: collapse; width: 100%; max-width: 1100px; font-size: 14px; }
+  th, td { text-align: start; padding: 8px 12px; border-block-end: 1px solid var(--c-ink-12); vertical-align: baseline; }
+  th { font-weight: var(--fw-black); }
+  code { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 0.9em; }
+  .swatch { display: inline-block; width: 40px; height: 24px; border: 1px solid var(--c-ink-12); vertical-align: middle; }
+  .spec { color: var(--c-ink-60); font-size: 13px; }
+  .navdemo { position: static; margin-block: 24px; }
+  .row { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-end; margin-block: 20px; }
+  .box { border: 1px solid var(--c-ink-12); padding: 20px; }
+</style>
+</head>
+<body>
+
+<h1>Style guide</h1>
+<p class="lede">Every token in the system, rendered in isolation. Values are read
+from <code>pro26.psd</code> — if something here looks wrong, the token is wrong,
+not the page using it.</p>
+
+<h2>Colour</h2>
+<table>
+  <tr><th>Token</th><th>Value</th><th></th><th>Source</th></tr>
+  <tr><td><code>--c-ink</code></td><td>#000000</td><td><span class="swatch" style="background:var(--c-ink)"></span></td><td class="spec">sampled, 40,949 px on artboard 1</td></tr>
+  <tr><td><code>--c-paper</code></td><td>#ffffff</td><td><span class="swatch" style="background:var(--c-paper)"></span></td><td class="spec">sampled, 2,023,285 px on artboard 1</td></tr>
+  <tr><td><code>--c-ink-60</code></td><td>rgb(0 0 0 / .6)</td><td><span class="swatch" style="background:var(--c-ink-60)"></span></td><td class="spec">derived — secondary text</td></tr>
+  <tr><td><code>--c-ink-12</code></td><td>rgb(0 0 0 / .12)</td><td><span class="swatch" style="background:var(--c-ink-12)"></span></td><td class="spec">derived — hairlines</td></tr>
+</table>
+
+<h2>Type scale</h2>
+<p class="lede">The nine sizes actually present in the PSD. Resize the window —
+each is fluid between 1024 and 1920, then clamps.</p>
+<table>
+  <tr><th>Token</th><th>Design</th><th>Floor</th><th>Sample</th></tr>
+  <tr><td><code>--fs-150</code></td><td>150</td><td>64</td><td style="font-size:var(--fs-150);font-weight:var(--fw-black);line-height:1">Aa</td></tr>
+  <tr><td><code>--fs-73</code></td><td>73</td><td>40</td><td style="font-size:var(--fs-73);font-weight:var(--fw-black);line-height:1">Aa</td></tr>
+  <tr><td><code>--fs-69</code></td><td>69</td><td>38</td><td style="font-size:var(--fs-69);font-weight:var(--fw-black);line-height:1">Aa</td></tr>
+  <tr><td><code>--fs-57</code></td><td>57</td><td>32</td><td style="font-size:var(--fs-57);font-weight:var(--fw-light);line-height:1">aaron <span class="jp">イーライ</span></td></tr>
+  <tr><td><code>--fs-54</code></td><td>54</td><td>30</td><td style="font-size:var(--fs-54);font-weight:var(--fw-black);line-height:1">Aa</td></tr>
+  <tr><td><code>--fs-46</code></td><td>46</td><td>26</td><td style="font-size:var(--fs-46);font-weight:var(--fw-black);line-height:1">Making Identities</td></tr>
+  <tr><td><code>--fs-18</code></td><td>18</td><td>16</td><td style="font-size:var(--fs-18)">The quick brown fox jumps over the lazy dog</td></tr>
+  <tr><td><code>--fs-15</code></td><td>15</td><td>13</td><td style="font-size:var(--fs-15)">The quick brown fox jumps over the lazy dog</td></tr>
+  <tr><td><code>--fs-12</code></td><td>12</td><td>12</td><td style="font-size:var(--fs-12)">The quick brown fox jumps over the lazy dog</td></tr>
+</table>
+
+<h2>Weights</h2>
+<div class="row">
+  <div class="box"><p style="font-weight:300;font-size:var(--fs-46)">Light 300</p></div>
+  <div class="box"><p style="font-weight:400;font-size:var(--fs-46)">Regular 400</p></div>
+  <div class="box"><p style="font-weight:900;font-size:var(--fs-46)">Black 900</p></div>
+</div>
+
+<h2>Layout</h2>
+<table>
+  <tr><th>Token</th><th>Design</th><th>Fluid</th></tr>
+  <tr><td><code>--inset-x</code></td><td>115</td><td>clamp(20px, 5.99vw, 115px)</td></tr>
+  <tr><td><code>--inset-y</code></td><td>97</td><td>clamp(28px, 5.05vw, 97px)</td></tr>
+  <tr><td><code>--safe-y</code></td><td>100</td><td>clamp(32px, 5.21vw, 100px)</td></tr>
+  <tr><td><code>--gx-960</code></td><td>960</td><td>50% — centre guide</td></tr>
+</table>
+
+<h2>Navigation</h2>
+<p class="lede">Both states. The live one is fixed to the viewport; this copy is
+static so both can be seen at once.</p>
+
+<nav class="nav navdemo" data-open="true" aria-label="Expanded example">
+  <span class="nav__toggle">
+    <img class="nav__triangle" src="assets/img/nav-triangle.png" alt="" width="68" height="59">
+    <img class="nav__x" src="assets/img/nav-x.png" alt="" width="13" height="13">
+  </span>
+  <span class="nav__dot"></span>
+  <ul class="nav__list">
+    <li><a class="nav__link" href="#" aria-current="true">home</a></li>
+    <li><a class="nav__link" href="#">about</a></li>
+    <li><a class="nav__link" href="#">works</a></li>
+    <li><a class="nav__link" href="#" aria-disabled="true">contact</a></li>
+  </ul>
+</nav>
+
+<nav class="nav navdemo" data-open="false" aria-label="Collapsed example">
+  <span class="nav__toggle">
+    <img class="nav__triangle" src="assets/img/nav-triangle.png" alt="" width="68" height="59">
+    <img class="nav__x" src="assets/img/nav-x.png" alt="" width="13" height="13">
+  </span>
+  <span class="nav__dot"></span>
+  <ul class="nav__list">
+    <li><a class="nav__link" href="#">home</a></li>
+    <li><a class="nav__link" href="#">about</a></li>
+    <li><a class="nav__link" href="#">works</a></li>
+  </ul>
+</nav>
+
+<h2>Panel map</h2>
+<table>
+  <tr><th>#</th><th>id</th><th>Artboard</th><th>Design size</th><th>--ar</th><th>In</th></tr>
+  <tr><td>01</td><td><code>home</code></td><td>1</td><td>1920 × 1080</td><td>0.5625</td><td>slide</td></tr>
+  <tr><td>02</td><td><code>about</code></td><td>2</td><td>1920 × 1080</td><td>0.5625</td><td>slide</td></tr>
+  <tr><td>03</td><td><code>works</code></td><td>3</td><td>1920 × 1628</td><td>0.847917</td><td>slide</td></tr>
+  <tr><td>04</td><td><code>work-01a</code></td><td>4 top</td><td>1920 × 1080</td><td>0.5625</td><td>slide</td></tr>
+  <tr><td>05</td><td><code>work-01b</code></td><td>4 bottom</td><td>1920 × 1120</td><td>0.583333</td><td><b>fade</b></td></tr>
+  <tr><td>06</td><td><code>work-02a</code></td><td>5 top</td><td>1920 × 1081</td><td>0.563021</td><td>slide</td></tr>
+  <tr><td>07</td><td><code>work-02b</code></td><td>5 bottom</td><td>1920 × 1196</td><td>0.622917</td><td><b>fade</b></td></tr>
+  <tr><td>08</td><td><code>work-03a</code></td><td>6 top</td><td>1920 × 1081</td><td>0.563021</td><td>slide</td></tr>
+  <tr><td>09</td><td><code>work-03b</code></td><td>6 bottom</td><td>1920 × 1155</td><td>0.601563</td><td><b>fade</b></td></tr>
+</table>
+
+</body>
+</html>

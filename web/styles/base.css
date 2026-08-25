@@ -1,0 +1,91 @@
+@layer base {
+  /* ==========================================================================
+     FONTS
+     Satoshi is free for web use via Fontshare (fontshare.com/fonts/satoshi).
+     Download the WOFF2 files and drop them in web/assets/fonts/ — the names
+     below are what the build expects. Until they exist the fallback stack
+     renders and the layout still holds, because size-adjust below matches
+     the fallback's metrics to Satoshi's.
+     ========================================================================== */
+
+  @font-face {
+    font-family: "Satoshi";
+    src: url("../assets/fonts/Satoshi-Light.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Satoshi";
+    src: url("../assets/fonts/Satoshi-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Satoshi";
+    src: url("../assets/fonts/Satoshi-Black.woff2") format("woff2");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* Metric-matched fallback: prevents the layout shift when Satoshi swaps in. */
+  @font-face {
+    font-family: "Satoshi-fallback";
+    src: local("Arial"), local("Helvetica"), local("Segoe UI");
+    ascent-override: 96%;
+    descent-override: 24%;
+    line-gap-override: 0%;
+    size-adjust: 103%;
+  }
+
+  /* ========================================================================== */
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--c-bg);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-weight: var(--fw-regular);
+    font-size: var(--fs-18);
+    line-height: var(--lh-body);
+    color: var(--c-fg);
+    background: var(--c-bg);
+    /* No overflow-x:hidden here — it would break sticky. Panels clip internally
+       via .panel__inner instead. */
+  }
+
+  :where(:focus-visible) {
+    outline: 2px solid var(--c-focus);
+    outline-offset: 3px;
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-inline-start: var(--inset-x);
+    inset-block-start: 0;
+    transform: translateY(-120%);
+    z-index: calc(var(--z-nav) + 1);
+    padding: 0.6em 1em;
+    background: var(--c-ink);
+    color: var(--c-paper);
+    font-size: var(--fs-15);
+    font-weight: var(--fw-black);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .skip-link:focus-visible { transform: translateY(0); }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .jp { font-family: var(--font-jp); }
+}

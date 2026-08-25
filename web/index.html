@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>aarondotjpeg</title>
+<meta name="description" content="Portfolio of aarondotjpeg — graphic design, brand development and art direction.">
+<meta name="color-scheme" content="light">
+
+<link rel="stylesheet" href="styles/reset.css">
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/panels.css">
+<link rel="stylesheet" href="styles/nav.css">
+<link rel="stylesheet" href="styles/devtools.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ==========================================================================
+     NAV — persistent across all nine panels. Expanded by default, matching
+     artboard 1. The triangle toggles the links in and out.
+     ========================================================================== -->
+<nav class="nav" id="nav" data-open="true" aria-label="Primary">
+  <button class="nav__toggle" id="navToggle" type="button"
+          aria-expanded="true" aria-controls="navList">
+    <img class="nav__triangle" src="assets/img/nav-triangle.png" alt="" width="68" height="59">
+    <img class="nav__x" src="assets/img/nav-x.png" alt="" width="13" height="13">
+    <span class="visually-hidden">Toggle navigation</span>
+  </button>
+
+  <span class="nav__dot" aria-hidden="true"></span>
+
+  <ul class="nav__list" id="navList">
+    <li><a class="nav__link" href="#home"   data-panel="home">home</a></li>
+    <li><a class="nav__link" href="#about"  data-panel="about">about</a></li>
+    <li><a class="nav__link" href="#works"  data-panel="works">works</a></li>
+    <li><a class="nav__link" href="#contact" aria-disabled="true"
+           title="Coming soon">contact</a></li>
+  </ul>
+</nav>
+
+<!-- ==========================================================================
+     PANEL STACK — nine panels, artboards 1-6.
+       --ar : artboard height / 1920, drives scroll length on desktop
+       --i  : paint order, so each panel covers the one before it
+     ========================================================================== -->
+<main class="stack" id="main">
+
+  <section class="panel" id="home" data-transition="slide"
+           style="--ar:0.562500; --i:1" aria-label="Home">
+    <div class="panel__inner">
+      <div class="shell">
+        <p class="shell__num">01</p>
+        <h1 class="shell__title">Home</h1>
+        <p class="shell__meta">Panel 1 &middot; <b>Artboard 1</b> &middot; 1920 &times; 1080 &middot; slide</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="about" data-transition="slide"
+           style="--ar:0.562500; --i:2" aria-label="About">
+    <div class="panel__inner">
+      <div class="shell">
+        <p class="shell__num">02</p>
+        <h2 class="shell__title">About</h2>
+        <p class="shell__meta">Panel 2 &middot; <b>Artboard 2</b> &middot; 1920 &times; 1080 &middot; slide</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="works" data-transition="slide"
+           style="--ar:0.847917; --i:3" aria-label="Works">
+    <div class="panel__inner">
+      <div class="shell">
+        <p class="shell__num">03</p>
+        <h2 class="shell__title">Works &mdash; Making Identities</h2>
+        <p class="shell__meta">Panel 3 &middot; <b>Artboard 3</b> &middot; 1920 &times; 1628 &middot; <b>1.51 screens</b> &middot; slide</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="work-01a" data-transition="slide"
+           style="--ar:0.562500; --i:4" aria-label="NutraKey Health">
+    <div class="panel__inner">
+      <div class="shell">
+        <p class="shell__num">04</p>
+        <h2 class="shell__title">NutraKey Health</h2>
+        <p class="shell__meta">Panel 4 &middot; <b>Artboard 4</b> top &middot; 1920 &times; 1080 &middot; slide</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="work-01b" data-transition="fade"
+           style="--ar:0.583333; --i:5" aria-label="NutraKey Health, continued">
+    <div class="panel__inner">
+      <div class="shell">
+        <p class="shell__num">05</p>
+        <h2 class="shell__title">NutraKey Health &mdash; 2</h2>
+        <p class="shell__meta">Panel 5 &middot; <b>Artboard 4</b> bottom &middot; 1920 &times; 1120 &middot; <b>fade</b></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="work-02a" data-transition="slide"
+           style="--ar:0.563021; --i:6" aria-label="Repp Sports">
+    <div class="panel__inner">
+      <div class="shell">
+        <p class="shell__num">06</p>
+        <h2 class="shell__title">Repp Sports</h2>
+        <p class="shell__meta">Panel 6 &middot; <b>Artboard 5</b> top &middot; 1920 &times; 1081 &middot; slide</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="work-02b" data-transition="fade"
+           style="--ar:0.622917; --i:7" aria-label="Repp Sports, continued">
+    <div class="panel__inner">
+      <div class="shell">
+        <p class="shell__num">07</p>
+        <h2 class="shell__title">Repp Sports &mdash; 2</h2>
+        <p class="shell__meta">Panel 7 &middot; <b>Artboard 5</b> bottom &middot; 1920 &times; 1196 &middot; <b>fade</b></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="work-03a" data-transition="slide"
+           style="--ar:0.563021; --i:8" aria-label="Nutrex Research">
+    <div class="panel__inner">
+      <div class="shell">
+        <p class="shell__num">08</p>
+        <h2 class="shell__title">Nutrex Research</h2>
+        <p class="shell__meta">Panel 8 &middot; <b>Artboard 6</b> top &middot; 1920 &times; 1081 &middot; slide</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="work-03b" data-transition="fade"
+           style="--ar:0.601563; --i:9" aria-label="Nutrex Research, continued">
+    <div class="panel__inner">
+      <div class="shell">
+        <p class="shell__num">09</p>
+        <h2 class="shell__title">Nutrex Research &mdash; 2</h2>
+        <p class="shell__meta">Panel 9 &middot; <b>Artboard 6</b> bottom &middot; 1920 &times; 1155 &middot; <b>fade</b></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- DEV ONLY — delete this block and devtools.css before launch. -->
+<aside class="devtools" id="devtools" aria-label="Development controls">
+  <p class="devtools__row"><b id="devPanel">01</b> <span id="devName">Home</span></p>
+  <p class="devtools__row"><span id="devSize"></span></p>
+  <button class="devtools__btn" id="devTransition" type="button">
+    intra-artboard: <b id="devMode">fade</b>
+  </button>
+  <button class="devtools__btn" id="devHide" type="button">hide</button>
+</aside>
+
+<script src="scripts/nav.js"></script>
+<script src="scripts/panels.js"></script>
+<script src="scripts/devtools.js"></script>
+</body>
+</html>

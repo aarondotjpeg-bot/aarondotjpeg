@@ -1,0 +1,103 @@
+@layer tokens {
+  /* ==========================================================================
+     DESIGN TOKENS — every value traced to pro26.psd
+     Design canvas: 1920 wide. Left/right guides: x=115 and x=1805.
+     Top/bottom safe guides: ~100px in on all six artboards.
+     Palette sampled from rendered artboards: pure #000 on pure #FFF.
+
+     Fluid values interpolate across 1024 -> 1920 and clamp at both ends.
+     Nothing below this line may use a raw hex or a magic number.
+     ========================================================================== */
+
+  :root {
+    /* --- colour ------------------------------------------------------------ */
+    --c-ink:        #000000;   /* sampled: 40,949 px on artboard 1 */
+    --c-paper:      #ffffff;   /* sampled: 2,023,285 px on artboard 1 */
+    --c-ink-60:     rgb(0 0 0 / 0.6);
+    --c-ink-30:     rgb(0 0 0 / 0.3);
+    --c-ink-12:     rgb(0 0 0 / 0.12);
+    --c-focus:      #000000;
+
+    --c-bg:         var(--c-paper);
+    --c-fg:         var(--c-ink);
+
+    /* --- typography -------------------------------------------------------- */
+    --font-sans: "Satoshi", "Satoshi-fallback", system-ui, -apple-system,
+                 "Segoe UI", Arial, sans-serif;
+    /* Japanese glyphs (aaron イーライ) — Satoshi has no CJK coverage.
+       Noto Sans JP replaces Kozuka Gothic Pr6N from the PSD. */
+    --font-jp:   "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic",
+                 "Meiryo", sans-serif;
+
+    --fw-light:   300;   /* Satoshi-Light   — used at 57 */
+    --fw-regular: 400;   /* Satoshi-Regular — used at 12/15/18 */
+    --fw-black:   900;   /* Satoshi-Black   — used at 18/46/54/69/73 */
+
+    /* Type scale — the nine sizes actually present in the PSD.
+       clamp(floor, fluid, design size). Floors keep small text legible;
+       display sizes scale down harder because they are decorative. */
+    --fs-12:  12px;                                          /* fixed: already minimal */
+    --fs-15:  clamp(13px,  calc(0.2232vw + 10.71px), 15px);
+    --fs-18:  clamp(16px,  calc(0.2232vw + 13.71px), 18px);
+    --fs-46:  clamp(26px,  calc(2.2321vw +  3.14px), 46px);
+    --fs-54:  clamp(30px,  calc(2.6786vw +  2.57px), 54px);
+    --fs-57:  clamp(32px,  calc(2.7902vw +  3.43px), 57px);
+    --fs-69:  clamp(38px,  calc(3.4598vw +  2.57px), 69px);
+    --fs-73:  clamp(40px,  calc(3.6830vw +  2.29px), 73px);
+    --fs-150: clamp(64px,  calc(9.5982vw - 34.29px), 150px);
+
+    --lh-tight: 1.05;
+    --lh-snug:  1.2;
+    --lh-body:  1.45;
+
+    --ls-tight: -0.02em;
+    --ls-normal: 0;
+
+    /* --- layout ------------------------------------------------------------ */
+    --design-w: 1920;
+
+    /* 115 / 1920 = 5.99vw. Floors at 20px so mobile keeps a real margin. */
+    --inset-x: clamp(20px, 5.99vw, 115px);
+    /* Nav guide sits at y=97; the safe-area guide at y=100. */
+    --inset-y: clamp(28px, 5.05vw, 97px);
+    --safe-y:  clamp(32px, 5.21vw, 100px);
+
+    --content-max: 1920px;
+
+    /* Vertical alignment guides present in the PSD, as fractions of 1920 */
+    --gx-128:  6.667%;
+    --gx-632: 32.917%;
+    --gx-731: 38.073%;
+    --gx-960: 50.000%;   /* centre */
+    --gx-1289: 67.135%;
+    --gx-1330: 69.271%;
+
+    /* --- navigation (measured from artboard 1) ----------------------------- */
+    --nav-tri-w:   clamp(44px, 3.542vw, 68px);   /* 68  */
+    --nav-tri-h:   clamp(38px, 3.073vw, 59px);   /* 59  */
+    --nav-dot-w:   clamp(7px,  0.573vw, 11px);   /* 11  */
+    --nav-dot-h:   clamp(6px,  0.469vw,  9px);   /*  9  */
+    --nav-dot-gap: clamp(3px,  0.260vw,  5px);   /* 188 - 183 */
+    --nav-gap:     clamp(14px, 1.771vw, 34px);   /* 217 - 183 */
+    --nav-pill-px: clamp(6px,  0.469vw,  9px);   /* 226 - 217 */
+    --nav-pill-py: clamp(4px,  0.365vw,  7px);   /* 115 - 108 */
+    --nav-link-gap: clamp(12px, 1.25vw, 24px);
+    --nav-x: var(--inset-x);                     /* 115 */
+    --nav-y: var(--inset-y);                     /* 97  */
+
+    /* --- motion ------------------------------------------------------------ */
+    --dur-fast:  160ms;
+    --dur-base:  280ms;
+    --dur-slow:  520ms;
+    --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+    /* --- elevation --------------------------------------------------------- */
+    --z-panel-base: 1;
+    --z-nav:      100;
+    --z-devtools: 900;
+
+    --radius-0: 0px;
+    --radius-pill: 999px;
+  }
+}

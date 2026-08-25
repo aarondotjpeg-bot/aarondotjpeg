@@ -1,0 +1,128 @@
+@layer components {
+  /* ==========================================================================
+     TRIANGLE NAV — geometry measured from artboard 1
+       triangle  115, 97   68 x 59
+       x         143, 121  13 x 13   (centred in the triangle)
+       dot       188, 147  11 x  9   (baseline-aligned to triangle bottom)
+       pill      217, 108  90 x 39   (active state, behind "home")
+       links     226, 115           (18px, Satoshi Black)
+     Fixed to the viewport, above every panel, present on all nine.
+     ========================================================================== */
+
+  .nav {
+    position: fixed;
+    inset-block-start: var(--nav-y);
+    inset-inline-start: var(--nav-x);
+    z-index: var(--z-nav);
+    display: flex;
+    align-items: flex-end;
+    gap: var(--nav-dot-gap);
+  }
+
+  /* --- the triangle toggle ------------------------------------------------ */
+  .nav__toggle {
+    position: relative;
+    flex: none;
+    width: var(--nav-tri-w);
+    height: var(--nav-tri-h);
+    display: grid;
+    place-items: center;
+  }
+
+  .nav__triangle {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .nav__x {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    width: clamp(9px, 0.677vw, 13px);
+    height: clamp(9px, 0.677vw, 13px);
+    translate: -50% -40%;
+    transition: rotate var(--dur-base) var(--ease-out),
+                opacity var(--dur-fast) linear;
+  }
+
+  /* Closed: the X reads as a "reopen" mark. */
+  .nav[data-open="false"] .nav__x { rotate: 45deg; }
+
+  /* --- the dot ------------------------------------------------------------ */
+  .nav__dot {
+    flex: none;
+    width: var(--nav-dot-w);
+    height: var(--nav-dot-h);
+    margin-block-end: 0;
+    background: var(--c-ink);
+    /* The PSD draws this as a 150px Helvetica full stop. Rebuilt as a shape so
+       it carries no font dependency and stays exact at any size. */
+  }
+
+  /* --- the links ---------------------------------------------------------- */
+  .nav__list {
+    display: flex;
+    align-items: center;
+    gap: var(--nav-link-gap);
+    margin-inline-start: var(--nav-gap);
+    margin-block-end: calc(var(--nav-dot-h) * -1);
+    transition: translate var(--dur-slow) var(--ease-out),
+                opacity var(--dur-base) var(--ease-out),
+                visibility 0s linear var(--dur-slow);
+  }
+
+  /* Collapsed: links retract leftward into the triangle and disappear. */
+  .nav[data-open="false"] .nav__list {
+    translate: calc(-1 * (var(--nav-gap) + 100%)) 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .nav[data-open="true"] .nav__list {
+    translate: 0 0;
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  .nav__link {
+    display: inline-block;
+    padding: var(--nav-pill-py) var(--nav-pill-px);
+    font-size: var(--fs-18);
+    font-weight: var(--fw-black);
+    line-height: 1;
+    color: var(--c-ink);
+    background: transparent;
+    transition: background var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out);
+  }
+
+  /* Active + hover both use the pill from the PSD (Layer "hover", 90 x 39). */
+  .nav__link:hover,
+  .nav__link:focus-visible {
+    background: var(--c-ink);
+    color: var(--c-paper);
+  }
+
+  .nav__link[aria-current="true"] {
+    background: var(--c-ink);
+    color: var(--c-paper);
+  }
+
+  /* contact has no destination until artboard 7 exists. */
+  .nav__link[aria-disabled="true"] {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .nav__link[aria-disabled="true"]:hover {
+    background: transparent;
+    color: var(--c-ink);
+  }
+
+  @media (max-width: 767px) {
+    .nav__list { gap: clamp(8px, 2.4vw, 14px); }
+    .nav__link { font-size: var(--fs-15); }
+  }
+}

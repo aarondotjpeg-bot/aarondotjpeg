@@ -1,0 +1,133 @@
+@layer panels {
+  /* ==========================================================================
+     THE PANEL PRIMITIVE
+     Nine full-viewport panels stacked with position:sticky. The browser's own
+     scroll drives everything — no wheel/touch interception, no scroll library.
+
+     How the slide works
+     -------------------
+     Every panel is sticky at the top of the scrollport and paints over the one
+     before it (later DOM order = higher --i). Scrolling brings the next panel
+     up from the bottom edge until it covers the pinned one behind it. That is
+     the entire effect.
+
+     Panels taller than the viewport
+     ------------------------------
+     Four of the nine are taller than one screen (artboard 3 is 1.51x). A tall
+     sticky panel pinned at top:0 would hide its own bottom, so `top` is offset
+     by the overflow: the panel scrolls fully into view, pins when its bottom
+     edge meets the viewport bottom, and only then gets covered.
+       --ar  = design height / 1920, set per panel in the HTML
+     ========================================================================== */
+
+  .stack {
+    position: relative;
+    /* No overflow property here. See reset.css. */
+  }
+
+  .panel {
+    /* Height is the largest of: one screen, the artboard's own proportions, and
+       whatever the content actually measures. That last term matters — if
+       content outgrows the proportional height, `top` must account for it or
+       the panel pins with its bottom cut off. panels.js writes it. */
+    --panel-h: max(
+      100dvh,
+      calc(100vw * var(--ar, 0.5625)),
+      var(--panel-measured, 0px)
+    );
+
+    position: sticky;
+    top: min(0px, calc(100dvh - var(--panel-h)));
+    z-index: var(--i, 1);
+
+    min-height: var(--panel-h);
+    background: var(--c-bg);
+    color: var(--c-fg);
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Bleeding artwork is clipped here, never on .panel or an ancestor —
+     a non-visible overflow above the sticky element kills the whole effect.
+     flex:1 makes this fill the panel without inheriting min-height, which
+     would otherwise be double-counted against this element's own padding. */
+  .panel__inner {
+    position: relative;
+    flex: 1;
+    overflow: clip;
+    display: grid;
+    align-content: center;
+    padding-block: var(--safe-y);
+    padding-inline: var(--inset-x);
+  }
+
+  /* --- fade boundaries ----------------------------------------------------
+     P5, P7 and P9 are the second half of their artboard, so they cross-fade
+     in place instead of sliding up — the motion says "same section".
+     Scroll-linked via animation-timeline where supported; anywhere else the
+     panel simply slides, which is a correct and complete fallback. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .panel[data-transition="fade"] {
+        animation: panel-fade-in linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 35%;
+      }
+      @keyframes panel-fade-in {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+    }
+  }
+
+  /* --- mobile -------------------------------------------------------------
+     A 16:9 landscape composition has no portrait equivalent, so height stops
+     following --ar and follows content instead, floored at one screen.
+     --panel-measured is written by scripts/panels.js from the real height. */
+  @media (max-width: 767px) {
+    .panel {
+      /* --ar drops out entirely: a 16:9 landscape ratio means nothing in
+         portrait. Height is content, floored at one screen. */
+      --panel-h: max(100dvh, var(--panel-measured, 0px));
+    }
+    .panel__inner {
+      padding-block: calc(var(--safe-y) + var(--nav-tri-h));
+    }
+  }
+
+  /* ==========================================================================
+     SHELL PLACEHOLDERS — foundation round only.
+     Every rule below is deleted as each artboard gets its real design.
+     ========================================================================== */
+
+  .shell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+    border-top: 1px solid var(--c-ink-12);
+    padding-block-start: 0.4em;
+  }
+
+  .shell__num {
+    font-size: var(--fs-150);
+    font-weight: var(--fw-black);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+  }
+
+  .shell__title {
+    font-size: var(--fs-46);
+    font-weight: var(--fw-black);
+    line-height: var(--lh-snug);
+  }
+
+  .shell__meta {
+    font-size: var(--fs-15);
+    font-weight: var(--fw-regular);
+    color: var(--c-ink-60);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .shell__meta b { font-weight: var(--fw-black); color: var(--c-ink); }
+}
