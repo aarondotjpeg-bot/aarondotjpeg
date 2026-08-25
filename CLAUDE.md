@@ -49,10 +49,11 @@ line box, sitting 3.5px below the box top.
 
 The repo lives on GitHub; the PSD does not (it is 242 MB and gitignored).
 
-- **PSD:** `Dropbox/PRO26/pro26.psd`, synced by the Dropbox **desktop app** so it
-  is a real local file. Reading it needs a filesystem path — a dropbox.com URL
-  is not usable. Confirm the local path at the start of a session on a machine
-  that has not been used before.
+- **PSD:** kept in Dropbox under `PRO26/`, downloaded by hand to `design/pro26.psd`
+  inside the project. `design/` is gitignored, so the path is identical on every
+  machine and the 242 MB file never reaches a commit. Reading it needs a real
+  filesystem path — a dropbox.com URL is not usable. When the user says the PSD
+  has been updated, re-parse and diff before touching anything already built.
 - **Laptop setup:** Claude Code, git, Python 3, then
   `python -m pip install psd-tools pillow fonttools brotli pymupdf`.
   Those five are what read the PSD, render artboards, subset fonts and pull
@@ -74,7 +75,8 @@ must be set to `web`.
   built, which files change, what is assumed, what is deliberately deferred.
   Wait for approval.
 - **Artboard by artboard.** Finish one, get sign-off, freeze it, move on.
-- **Artboards 7 and 8 do not exist.** Do not build, stub or reference them.
+- **Artboards 7 and 8** were empty in the parsed version. They are being
+  finished; build them only from a PSD that actually contains them.
 - After each round, hand over the run command and what specifically to check.
 
 ## Architecture
@@ -113,7 +115,12 @@ Only two tracking values exist: `-0.05em` (display, nav, dates) and `+0.01em`
 
 ## Still open
 
-- Artboard 7 (contact) not designed; the nav's `contact` link is disabled.
+- Artboard 7 (contact) is drawn but not yet in a PSD here; the nav's `contact`
+  link stays disabled until it is built. Its guides suggest two pages, and
+  artboard 8 is the same height again — so the panel count grows past nine.
+- Domain `aarondotjpeg.com` is owned and needs pointing at Vercel.
 - The `logo` layer is raster-only in the PSD — an SVG export would sharpen it
   on high-density screens.
-- Body copy on artboards 2-6 is placeholder and repeats.
+- Body copy on artboards 3-6 still repeats the About paragraph; artboard 2's
+  copy turned out to be real and final.
+- No favicon, OG image or per-panel meta yet.
