@@ -17,7 +17,7 @@ fonts, and pull vector artwork out of smart objects.
 ## Get the code
 
 ```bash
-git clone https://github.com/aarondotjpeg-bot/pro26.git
+git clone https://github.com/aarondotjpeg-bot/aarondotjpeg.git
 ```
 
 ## Get the PSD
