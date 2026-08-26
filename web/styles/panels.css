@@ -99,39 +99,4 @@
       padding-block: calc(var(--safe-y) + var(--nav-tri-h));
     }
   }
-
-  /* ==========================================================================
-     SHELL PLACEHOLDERS — foundation round only.
-     Every rule below is deleted as each artboard gets its real design.
-     ========================================================================== */
-
-  .shell {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4em;
-    padding-block: var(--safe-y);
-    padding-inline: var(--inset-x);
-  }
-
-  .shell__num {
-    font-size: var(--fs-57);
-    font-weight: var(--fw-black);
-    line-height: var(--lh-tight);
-    letter-spacing: var(--ls-tight);
-  }
-
-  .shell__title {
-    font-size: var(--fs-46);
-    font-weight: var(--fw-black);
-    line-height: var(--lh-snug);
-  }
-
-  .shell__meta {
-    font-size: var(--fs-15);
-    font-weight: var(--fw-regular);
-    color: var(--c-ink-60);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .shell__meta b { font-weight: var(--fw-black); color: var(--c-ink); }
 }

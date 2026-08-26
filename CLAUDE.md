@@ -72,6 +72,9 @@ must be set to `web`.
 
 ## Where the build is
 
+All nine panels are built from artboards 1-6. No placeholder shells remain.
+
+
 | Panel | Artboard | State |
 |---|---|---|
 | 1 Home | 1 | **built, signed off** |
@@ -79,7 +82,7 @@ must be set to `web`.
 | 3 Works index | 3 | **built, signed off** |
 | 4-5 NutraKey | 4 | **built** |
 | 6-7 Repp Sports | 5 | **built** |
-| 8-9 Nutrex | 6 | **next.** Same pattern |
+| 8-9 Nutrex | 6 | **built** |
 | 7, 8 | — | drawn, awaiting a PSD that contains them |
 
 Artboards 4-6 are image collages of 21-29 overlapping layers. Composite the
