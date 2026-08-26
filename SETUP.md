@@ -28,7 +28,7 @@ Dropbox at `PRO26/`.
 Download it from Dropbox and put it in a `design/` folder inside the project:
 
 ```
-pro26/
+aarondotjpeg/
   design/pro26.psd      <- gitignored, download it here
   web/                  <- the site
 ```
