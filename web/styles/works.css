@@ -1,0 +1,116 @@
+@layer components {
+  /* ==========================================================================
+     PANEL 3 — WORKS INDEX (artboard 3)
+
+     1920 x 1628 — the first panel taller than a viewport. It scrolls about one
+     and a half screens before panel 4 slides over it; the tall-panel handling
+     lives in panels.css and needs nothing extra here.
+
+     Fourteen logos, a heading and the intro paragraph. Each logo carries its
+     own PSD coordinates as inline custom properties (--x, --y, --w, --h), so
+     one rule places all fourteen and the numbers sit next to the image they
+     belong to instead of in a wall of near-identical CSS classes.
+
+     Text tops are the PSD ink position minus the measured ink offset:
+         46px / lh43  ->  4.0
+         18px / lh18  ->  2.0
+     ========================================================================== */
+
+  .wk-title,
+  .wk-bio {
+    position: absolute;
+    margin: 0;
+  }
+
+  /* ink y890 - 4 */
+  .wk-title {
+    left: calc(115 * var(--u));
+    top:  calc(886 * var(--u));
+    font-size: calc(46 * var(--u));
+    line-height: calc(43 / 46);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-tight);
+    white-space: nowrap;
+  }
+
+  /* ink y952 - 2.  Copy is not final — this is holding the layout. */
+  .wk-bio {
+    left: calc(115 * var(--u));
+    top:  calc(950 * var(--u));
+    /* 601 is the widest rendered line, not Photoshop's frame width. At 601 the
+       second paragraph runs a line long; the frame is wider than its ink, the
+       same as the What-I-do block on artboard 2. 602-616 all give the PSD's
+       4 + 5 lines, so 610 sits in the middle of that window. */
+    width: calc(610 * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: 1;
+    font-weight: var(--fw-regular);
+    letter-spacing: var(--ls-body);
+  }
+  .wk-bio p + p { margin-block-start: calc(36 * var(--u)); }
+  .wk-bio b { font-weight: var(--fw-black); }
+
+  .wk-logo {
+    position: absolute;
+    left:   calc(var(--x) * var(--u));
+    top:    calc(var(--y) * var(--u));
+    width:  calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    object-fit: contain;
+  }
+
+  /* --- tablet and mobile ---------------------------------------------------
+     The four-column grid cannot hold below 1024, and the coordinates stop
+     meaning anything, so the panel becomes a heading, the paragraph, and a
+     plain grid of logos. Each logo keeps its own aspect ratio inside an even
+     cell, which is what the fourth column is already doing in the PSD.
+     ------------------------------------------------------------------------ */
+  @media (max-width: 1023px) {
+    #works .stage {
+      height: auto;
+      min-height: 100dvh;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(20px, 4vw, 40px);
+      align-content: start;
+      padding-inline: var(--inset-x);
+      padding-block: calc(var(--safe-y) + var(--nav-tri-h)) var(--safe-y);
+    }
+
+    #works .stage > * {
+      position: static;
+      left: auto;
+      top: auto;
+    }
+
+    .wk-title,
+    .wk-bio {
+      grid-column: 1 / -1;
+      width: auto;
+    }
+
+    .wk-title {
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.05;
+      white-space: normal;
+    }
+
+    .wk-bio {
+      font-size: var(--fs-18);
+      line-height: 1.45;
+      max-width: 62ch;
+    }
+    .wk-bio p + p { margin-block-start: 1.45em; }
+
+    .wk-logo {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+    }
+  }
+
+  @media (max-width: 599px) {
+    #works .stage { grid-template-columns: repeat(2, 1fr); }
+  }
+}
