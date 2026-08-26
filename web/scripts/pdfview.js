@@ -1,10 +1,18 @@
 /* ===========================================================================
-   PDF VIEWER
-   Any link carrying data-pdf opens in the on-page dialog instead of handing
-   the file to the browser's download prompt.
+   DOCUMENT VIEWER
+   Any link carrying data-pdf opens on the page instead of being handed to the
+   browser's download prompt.
 
-   Generic on purpose: the resume is the first document, not the only one that
-   will ever want this.
+   It shows PRE-RENDERED PAGE IMAGES, not the PDF itself. An <iframe> pointed at
+   a .pdf depends entirely on the visitor's browser having its PDF plugin
+   enabled — and when it is set to "download PDFs instead of opening them", the
+   frame renders as a blank white panel with no error. That is not something CSS
+   or JS can override, and it is exactly the behaviour that made the resume link
+   feel broken. Rendering the pages at build time removes the browser from the
+   decision entirely.
+
+   Pages come from data-pdf-pages (comma-separated). Without it the link is left
+   alone and the browser opens the file however it likes.
    =========================================================================== */
 (function () {
   'use strict';
@@ -12,53 +20,64 @@
   var dialog = document.getElementById('pdfview');
   if (!dialog || typeof dialog.showModal !== 'function') return;
 
-  var frame    = document.getElementById('pdfviewFrame');
+  var pagesBox = document.getElementById('pdfviewPages');
   var title    = document.getElementById('pdfviewTitle');
   var openLink = document.getElementById('pdfviewOpen');
-  var fallback = document.getElementById('pdfviewFallback');
   var closeBtn = document.getElementById('pdfviewClose');
   var lastFocus = null;
 
-  /* Phones get the browser's own PDF view. iOS Safari renders a PDF in an
-     iframe as a single non-scrolling page, so an embedded viewer there is
-     worse than the native one — and a document is unreadable in a 375px
-     modal regardless. */
+  /* Phones get the browser's own view: a document is unreadable in a 375px
+     modal, and the native viewer pinch-zooms properly. */
   function embeddable() {
     return window.matchMedia('(min-width: 768px)').matches;
   }
 
-  function open(href, label) {
+  function open(link) {
+    var pages = (link.dataset.pdfPages || '').split(',')
+                  .map(function (s) { return s.trim(); })
+                  .filter(Boolean);
+    if (!pages.length) return false;
+
     lastFocus = document.activeElement;
-    title.textContent = label || 'Document';
-    frame.title = label || 'Document';
-    openLink.href = href;
-    fallback.querySelector('a').href = href;
-    dialog.dataset.embed = 'true';
-    frame.src = href;
+    var label = link.dataset.pdf || link.textContent.trim();
+    title.textContent = label;
+    openLink.href = link.getAttribute('href');
+
+    pagesBox.textContent = '';
+    pages.forEach(function (src, i) {
+      var img = document.createElement('img');
+      img.className = 'pdfview__page';
+      img.src = src;
+      img.alt = label + ' — page ' + (i + 1) + ' of ' + pages.length;
+      img.decoding = 'async';
+      if (i > 0) img.loading = 'lazy';
+      pagesBox.appendChild(img);
+    });
+
     dialog.showModal();
+    pagesBox.scrollTop = 0;
+    return true;
   }
 
   function close() {
-    /* Drop the src so the plugin stops rendering and the next open starts
-       from page one rather than wherever the last visitor left off. */
-    frame.src = 'about:blank';
+    /* Drop the images so a reopen starts at page one and the memory goes back. */
+    pagesBox.textContent = '';
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
   document.addEventListener('click', function (e) {
     var link = e.target.closest && e.target.closest('a[data-pdf]');
     if (!link) return;
-    if (!embeddable()) return;            /* let the browser handle it */
+    if (!embeddable()) return;
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
 
-    e.preventDefault();
-    open(link.getAttribute('href'), link.dataset.pdf || link.textContent.trim());
+    if (open(link)) e.preventDefault();
   });
 
   closeBtn.addEventListener('click', function () { dialog.close(); });
 
-  /* Clicking the backdrop. The dialog fills its own box, so any click that
-     lands outside that box came from the backdrop. */
+  /* Backdrop click: the dialog fills its own box, so anything outside it is
+     the backdrop. */
   dialog.addEventListener('click', function (e) {
     if (e.target !== dialog) return;
     var r = dialog.getBoundingClientRect();
@@ -67,11 +86,6 @@
     if (!inside) dialog.close();
   });
 
-  /* Covers the close button, Escape, and the backdrop alike. */
+  /* Covers the close button, Escape and the backdrop alike. */
   dialog.addEventListener('close', close);
-
-  /* If the frame never loads, show the plain link instead of a blank panel. */
-  frame.addEventListener('error', function () {
-    dialog.dataset.embed = 'false';
-  });
 })();

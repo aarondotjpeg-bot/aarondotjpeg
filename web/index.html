@@ -146,7 +146,8 @@
         </div>
 
         <a class="ab-resume" href="assets/aaron-hernandez-resume.pdf"
-           data-pdf="Resume" target="_blank" rel="noopener">View Resume</a>
+           data-pdf="Resume" data-pdf-pages="assets/img/resume-1.webp"
+           target="_blank" rel="noopener">View Resume</a>
 
         <h3 class="ab-quote">I like strange ideas, good<br>coffee, and making things that<br>are hard to ignore.</h3>
 
@@ -241,7 +242,7 @@
   <div class="pdfview__bar">
     <p class="pdfview__title" id="pdfviewTitle">Resume</p>
     <div class="pdfview__actions">
-      <a class="pdfview__link" id="pdfviewOpen" href="" target="_blank" rel="noopener">Open in new tab</a>
+      <a class="pdfview__link" id="pdfviewOpen" href="" target="_blank" rel="noopener">Open PDF</a>
       <button class="pdfview__close" id="pdfviewClose" type="button">
         <svg viewBox="0 0 12.1431 12.1431" fill="none" stroke="currentColor"
              stroke-width="1" aria-hidden="true">
@@ -252,14 +253,12 @@
       </button>
     </div>
   </div>
-  <iframe class="pdfview__frame" id="pdfviewFrame" title="Resume" src="about:blank"></iframe>
-  <p class="pdfview__fallback" id="pdfviewFallback">
-    This browser can’t display the document here. <a href="">Open it in a new tab</a>.
-  </p>
+  <div class="pdfview__pages" id="pdfviewPages"></div>
 </dialog>
 
 <script src="scripts/nav.js"></script>
 <script src="scripts/panels.js"></script>
 <script src="scripts/pdfview.js"></script>
+<script src="scripts/contact.js"></script>
 </body>
 </html>

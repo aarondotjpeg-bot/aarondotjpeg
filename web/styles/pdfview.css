@@ -8,7 +8,9 @@
      file if it should carry more character.
 
      Uses a native <dialog>, so Escape, focus trapping and inerting the page
-     behind come from the browser rather than from script.
+     behind come from the browser rather than from script. The document itself
+     is shown as pre-rendered page images; pdfview.js explains why an iframe
+     cannot be trusted with a PDF.
 
      NOTE: the page behind is deliberately NOT scroll-locked. The usual trick is
      overflow:hidden on <html> or <body>, and that is exactly what kills
@@ -97,20 +99,21 @@
   .pdfview__close:hover { rotate: 90deg; }
   .pdfview__close svg { width: 13px; height: 13px; }
 
-  .pdfview__frame {
+  /* Pre-rendered pages rather than an embedded PDF — see pdfview.js for why. */
+  .pdfview__pages {
     flex: 1;
-    width: 100%;
-    border: 0;
-    background: var(--c-paper);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--c-ink-12);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  /* Shown only if the browser cannot render the PDF inline. */
-  .pdfview__fallback {
-    display: none;
-    padding: 32px;
-    font-size: var(--fs-18);
-    letter-spacing: var(--ls-body);
+  .pdfview__page {
+    width: 100%;
+    height: auto;
+    background: var(--c-paper);
   }
-  .pdfview[data-embed="false"] .pdfview__frame { display: none; }
-  .pdfview[data-embed="false"] .pdfview__fallback { display: block; }
 }

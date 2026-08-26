@@ -96,6 +96,17 @@
     text-decoration-color: currentColor;
   }
 
+  /* Not in the PSD. A mailto dies silently when the OS has no mail app set, so
+     the click also copies the address — this is the only acknowledgement that
+     anything happened. See scripts/contact.js. */
+  .ab-email[data-copied]::after {
+    content: "copied";
+    margin-inline-start: 0.7em;
+    font-size: 0.78em;
+    font-weight: var(--fw-black);
+    opacity: 0.5;
+  }
+
   /* --- right column ------------------------------------------------------- */
 
   /* ink y124 - 2 */

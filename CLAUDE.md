@@ -58,7 +58,8 @@ The repo lives on GitHub; the PSD does not (it is 242 MB and gitignored).
   `python -m pip install psd-tools pillow fonttools brotli pymupdf`.
   Those five are what read the PSD, render artboards, subset fonts and pull
   vector out of smart objects. Nothing else is needed — the dev server is
-  `python -m http.server 8765 --directory web`.
+  `python dev-server.py` (a no-cache wrapper; the stock http.server lets the
+  browser serve stale JS, which reads as a bug that was already fixed).
 - **Rhythm:** `git pull` before a session, `git push` after. Every round ends in
   a commit, so that is already the boundary.
 

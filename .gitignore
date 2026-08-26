@@ -3,3 +3,11 @@ node_modules/
 design/
 .DS_Store
 Thumbs.db
+
+# Wayback salvage of the previous site — deliberately not part of this build.
+site/
+content/
+recovery/
+resumes/
+RECONCILIATION.md
+wb_root.json

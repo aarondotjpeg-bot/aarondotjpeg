@@ -43,10 +43,15 @@ the file has been updated — it re-parses and diffs against what it already kno
 ## Run it
 
 ```bash
-python -m http.server 8765 --directory web
+python dev-server.py
 ```
 
 Then <http://127.0.0.1:8765>. The style guide is at `/styleguide`.
+
+Use `dev-server.py` rather than `python -m http.server` — it is the same thing
+but sends no-cache headers. The stock server sends none at all, so the browser
+holds onto stale CSS and JS and you end up debugging a bug that was already
+fixed.
 
 ## Moving between machines
 
