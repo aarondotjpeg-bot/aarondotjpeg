@@ -78,14 +78,18 @@ must be set to `web`.
 | 2 About | 2 | **built, signed off** |
 | 3 Works index | 3 | **built, signed off** |
 | 4-5 NutraKey | 4 | **built** |
-| 6-7 Repp Sports | 5 | **next.** Same pattern as artboard 4 |
-| 8-9 Nutrex | 6 | placeholder shell |
+| 6-7 Repp Sports | 5 | **built** |
+| 8-9 Nutrex | 6 | **next.** Same pattern |
 | 7, 8 | — | drawn, awaiting a PSD that contains them |
 
 Artboards 4-6 are image collages of 21-29 overlapping layers. Composite the
-artwork into one optimised image per panel and keep only the real text as text
-— rebuilding 29 product shots as separate elements would be slower to load and
-no more faithful.
+artwork into one image per panel and keep only the real text as text.
+
+**Two things that will bite:** several shadow layers are MULTIPLY, and
+psd-tools composites those as NORMAL — opaque grey slabs instead of darkening
+what is beneath. Composite manually with real per-layer blending. And save
+LOSSLESS: this artwork is hard product edges on flat white, the worst case for
+lossy ringing; even quality 98 leaves visible halos.
 
 ## Settled — do not revisit without being asked
 
