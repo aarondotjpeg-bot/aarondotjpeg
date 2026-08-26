@@ -1,0 +1,119 @@
+@layer components {
+  /* ==========================================================================
+     PROJECT PANELS — artboards 4, 5 and 6 (panels 4-9)
+
+     Each project is two panels: a title half and an artwork half. They share
+     one structure, so this file serves all six rather than three near-identical
+     stylesheets.
+
+     The artwork is a COMPOSITE. Artboards 4-6 are collages of 21-29 overlapping
+     product shots; rebuilding those as separate positioned elements would be
+     dozens of requests, heavier to load, and no more faithful than one image.
+     The text is the only thing that stays live text.
+
+     Per-project positions vary, so each panel passes its own coordinates as
+     inline custom properties (--y, --w) rather than getting its own class.
+
+     Ink offsets, measured from real Satoshi metrics:
+         46px / lh43    -> 4.0
+         18px / lh18    -> 2.0
+         56.6px / lh53  -> 4.62  (the project numeral)
+     ========================================================================== */
+
+  .pj-art {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .pj-num,
+  .pj-title,
+  .pj-bio {
+    position: absolute;
+    margin: 0;
+    left: calc(var(--x, 115) * var(--u));
+    top:  calc(var(--y) * var(--u));
+  }
+
+  /* The project numeral. Helvetica-Bold in the PSD, mapped to Satoshi Black. */
+  .pj-num {
+    font-size: calc(56.6 * var(--u));
+    line-height: calc(53 / 56.6);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-tight);
+  }
+
+  .pj-title {
+    font-size: calc(46 * var(--u));
+    line-height: calc(43 / 46);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-tight);
+    white-space: nowrap;
+  }
+
+  .pj-bio {
+    width: calc(var(--w) * var(--u));
+    font-size: calc(18 * var(--u));
+    line-height: 1;
+    font-weight: var(--fw-regular);
+    letter-spacing: var(--ls-body);
+  }
+  .pj-bio p + p { margin-block-start: calc(36 * var(--u)); }
+
+  /* --- tablet and mobile ---------------------------------------------------
+     A 16:9 collage cannot carry a portrait screen, so the panel becomes the
+     text followed by the artwork at its natural width. The composition still
+     reads; it just stops being the full screen.
+     ------------------------------------------------------------------------ */
+  @media (max-width: 1023px) {
+    .panel--project .stage {
+      height: auto;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(20px, 4vw, 36px);
+      padding-inline: var(--inset-x);
+      padding-block: calc(var(--safe-y) + var(--nav-tri-h)) var(--safe-y);
+    }
+
+    .panel--project .stage > * {
+      position: static;
+      inset: auto;
+      left: auto;
+      top: auto;
+      width: auto;
+    }
+
+    .pj-num {
+      font-size: clamp(30px, 6vw, 44px);
+      line-height: 1;
+    }
+
+    .pj-title {
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.05;
+      white-space: normal;
+    }
+
+    .pj-bio {
+      font-size: var(--fs-18);
+      line-height: 1.45;
+      max-width: 62ch;
+    }
+    .pj-bio p + p { margin-block-start: 1.45em; }
+
+    .pj-art {
+      /* Last, not first: the numeral, title and paragraph introduce the project
+         the way they do on desktop, where the eye starts top-left. In source
+         order the artwork comes first because it sits behind everything. */
+      order: 1;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+}

@@ -76,9 +76,9 @@ must be set to `web`.
 |---|---|---|
 | 1 Home | 1 | **built, signed off** |
 | 2 About | 2 | **built, signed off** |
-| 3 Works index | 3 | **next.** 1628px — first panel taller than a viewport |
-| 4-5 NutraKey | 4 | placeholder shell |
-| 6-7 Repp Sports | 5 | placeholder shell |
+| 3 Works index | 3 | **built, signed off** |
+| 4-5 NutraKey | 4 | **built** |
+| 6-7 Repp Sports | 5 | **next.** Same pattern as artboard 4 |
 | 8-9 Nutrex | 6 | placeholder shell |
 | 7, 8 | — | drawn, awaiting a PSD that contains them |
 
