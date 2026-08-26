@@ -95,8 +95,5 @@
          portrait. Height is content, floored at one screen. */
       --panel-h: max(100dvh, var(--panel-measured, 0px));
     }
-    .shell {
-      padding-block: calc(var(--safe-y) + var(--nav-tri-h));
-    }
   }
 }
