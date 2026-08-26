@@ -33,7 +33,12 @@
     background: var(--c-paper);
     color: var(--c-ink);
     overflow: hidden;
+  }
 
+  /* Only when open. A closed <dialog> is display:none from the UA stylesheet,
+     but any author `display` beats that — so declaring flex on .pdfview itself
+     left the panel rendered inline at the bottom of the page. */
+  .pdfview[open] {
     display: flex;
     flex-direction: column;
   }
