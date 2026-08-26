@@ -20,13 +20,23 @@
          56.6px / lh53  -> 4.62  (the project numeral)
      ========================================================================== */
 
+  /* The artwork fills the PANEL, not the stage.
+
+     The stage is locked to the artboard's 16:9 proportion, but a panel is a
+     full viewport height — and a browser window is almost always taller than
+     16:9 relative to its width. Sitting inside the stage, the artwork was
+     letterboxed into the middle ~56% of the screen with white bands above and
+     below, which also made the products render small and soft.
+
+     Filling the panel and cropping is the trade: at real desktop ratios that
+     costs a little off the top and bottom and nothing off the sides. */
   .pj-art {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center;
   }
 
   .pj-num,
@@ -69,6 +79,24 @@
      reads; it just stops being the full screen.
      ------------------------------------------------------------------------ */
   @media (max-width: 1023px) {
+    /* Portrait screens cannot crop a 16:9 collage without losing most of it,
+       so the artwork rejoins the flow at its natural width, after the text. */
+    .panel--project .panel__inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(20px, 4vw, 36px);
+    }
+
+    .panel--project .pj-art {
+      order: 1;
+      position: static;
+      inset: auto;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
     .panel--project .stage {
       height: auto;
       min-height: 100dvh;
@@ -106,14 +134,5 @@
     }
     .pj-bio p + p { margin-block-start: 1.45em; }
 
-    .pj-art {
-      /* Last, not first: the numeral, title and paragraph introduce the project
-         the way they do on desktop, where the eye starts top-left. In source
-         order the artwork comes first because it sits behind everything. */
-      order: 1;
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-    }
   }
 }
