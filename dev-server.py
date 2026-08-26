@@ -9,14 +9,17 @@ and costs a debugging cycle every time.
 Production caching is Vercel's job and is configured in vercel.json; this only
 affects local development.
 
-    python dev-server.py [port]
+    python dev-server.py [port]        # or PORT=1234 python dev-server.py
 """
 
+import os
 import sys
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
-PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8765
+# PORT env var first (set by the harness when it assigns a free port), then an
+# explicit argument, then the usual default.
+PORT = int(os.environ.get("PORT") or (sys.argv[1] if len(sys.argv) > 1 else 8765))
 
 
 class NoCacheHandler(SimpleHTTPRequestHandler):
