@@ -89,6 +89,13 @@ Twelve panels from artboards 1-8. No placeholder shells remain.
 Artboards 4-6 are image collages of 21-29 overlapping layers. Composite the
 artwork into one image per panel and keep only the real text as text.
 
+**Check the artboard for MULTIPLY layers first.** If there are none, use
+`ab.composite()` — psd-tools is correct without blend modes and gets layer
+order right. The manual compositor below is only for artboards that DO have
+multiply layers, and its paint order has been wrong at least once: on artboard
+8 a full-bleed white layer wiped everything beneath it. Always sanity-check the
+output against `ab.composite()`.
+
 **Two things that will bite:** several shadow layers are MULTIPLY, and
 psd-tools composites those as NORMAL — opaque grey slabs instead of darkening
 what is beneath. Composite manually with real per-layer blending. And save

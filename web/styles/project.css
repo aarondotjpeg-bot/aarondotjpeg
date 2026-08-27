@@ -64,6 +64,20 @@
     white-space: nowrap;
   }
 
+  /* Caption under an image. 28px Black; ink offset 3.08 (the 30px Black on the
+     contact panel measures 3.3, scaled to 28). */
+  .pj-caption {
+    position: absolute;
+    margin: 0;
+    left: calc(var(--x) * var(--u));
+    top:  calc(var(--y) * var(--u));
+    font-size: calc(28 * var(--u));
+    line-height: 1;
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-tight);
+    white-space: nowrap;
+  }
+
   .pj-bio {
     width: calc(var(--w) * var(--u));
     font-size: calc(18 * var(--u));
@@ -126,6 +140,8 @@
       line-height: 1.05;
       white-space: normal;
     }
+
+    .pj-caption { font-size: var(--fs-18); }
 
     .pj-bio {
       font-size: var(--fs-18);
