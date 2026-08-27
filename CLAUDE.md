@@ -72,7 +72,7 @@ must be set to `web`.
 
 ## Where the build is
 
-All nine panels are built from artboards 1-6. No placeholder shells remain.
+Twelve panels from artboards 1-8. No placeholder shells remain.
 
 
 | Panel | Artboard | State |
@@ -83,7 +83,8 @@ All nine panels are built from artboards 1-6. No placeholder shells remain.
 | 4-5 NutraKey | 4 | **built** |
 | 6-7 Repp Sports | 5 | **built** |
 | 8-9 Nutrex | 6 | **built** |
-| 7, 8 | — | drawn, awaiting a PSD that contains them |
+| 10-11 World Wide Web / Content Creation | 7 | **framework built** — artwork placeholder |
+| 12 Contact | 8 | **framework built** — artwork placeholder, nav link live |
 
 Artboards 4-6 are image collages of 21-29 overlapping layers. Composite the
 artwork into one image per panel and keep only the real text as text.
@@ -129,7 +130,7 @@ Static HTML/CSS/JS in `web/`. No framework, no build step, no scroll library.
 - `styles/` — cascade layers: `reset, tokens, base, layout, panels, components,
   utilities, overrides`. Component CSS consumes tokens only; no raw hex, no
   magic numbers.
-- Nine panels in one document, stacked with `position: sticky`. Native scroll
+- Twelve panels in one document, stacked with `position: sticky`. Native scroll
   drives the slide — **no wheel or touch listener exists in this build, and none
   should be added.**
 - **`overflow` other than `visible` on `html`, `body` or `.stack` kills
@@ -158,9 +159,9 @@ Only two tracking values exist: `-0.05em` (display, nav, dates) and `+0.01em`
 
 ## Still open
 
-- Artboard 7 (contact) is drawn but not yet in a PSD here; the nav's `contact`
-  link stays disabled until it is built. Its guides suggest two pages, and
-  artboard 8 is the same height again — so the panel count grows past nine.
+- Artboards 7 and 8 are framework only. Text and coordinates are exact from the
+  PSD; the artwork is placeholder and gets replaced when the final images land.
+  Artboard 8 is the contact page and the nav link now points at it.
 - Domain `aarondotjpeg.com` is owned and needs pointing at Vercel.
 - The `logo` layer is raster-only in the PSD — an SVG export would sharpen it
   on high-density screens.

@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="styles/about.css">
 <link rel="stylesheet" href="styles/works.css">
 <link rel="stylesheet" href="styles/project.css">
+<link rel="stylesheet" href="styles/contact.css">
 <link rel="stylesheet" href="styles/pdfview.css">
 </head>
 <body>
@@ -36,8 +37,7 @@
       <li class="nav__item"><a class="nav__link" href="#home"  data-panel="home">home</a></li>
       <li class="nav__item"><a class="nav__link" href="#about" data-panel="about">about</a></li>
       <li class="nav__item nav__item--works"><a class="nav__link" href="#works" data-panel="works">works</a></li>
-      <li class="nav__item nav__item--contact"><a class="nav__link" href="#contact"
-             aria-disabled="true" title="Coming soon">contact</a></li>
+      <li class="nav__item nav__item--contact"><a class="nav__link" href="#contact" data-panel="contact">contact</a></li>
     </ul>
   </div>
 
@@ -66,7 +66,7 @@
 </nav>
 
 <!-- ==========================================================================
-     PANEL STACK — nine panels, artboards 1-6.
+     PANEL STACK — twelve panels, artboards 1-8.
        --ar : artboard height / 1920, drives scroll length on desktop
        --i  : paint order, so each panel covers the one before it
      Every panel slides; there is no second transition mode.
@@ -299,6 +299,53 @@
            alt="Nutrex Research product range"
            width="1920" height="1155" loading="lazy" decoding="async">
       <div class="stage" style="--stage-h:1155"></div>
+    </div>
+  </section>
+
+  <!-- ARTBOARD 7 — framework only; artwork is placeholder pending final images. -->
+  <section class="panel panel--project" id="work-04a"
+           style="--ar:0.563021; --i:10" aria-label="World Wide Web">
+    <div class="panel__inner">
+      <img class="pj-art" src="assets/img/work/web-a.webp" alt=""
+           width="1920" height="1081" loading="lazy" decoding="async">
+      <div class="stage" style="--stage-h:1081">
+        <h2 class="pj-title" style="--x:111; --y:171">World Wide Web</h2>
+        <!-- TODO(artboard-7): copy and artwork not final. -->
+        <div class="pj-bio" style="--y:234; --w:499"><p>I’m aarondotjpeg, a multidisciplinary creative working across graphic design, branding, art direction, illustration, and digital experiences. I move between disciplines freely, using whatever medium best brings an idea to life.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel panel--project" id="work-04b"
+           style="--ar:0.686979; --i:11" aria-label="Content Creation">
+    <div class="panel__inner">
+      <img class="pj-art" src="assets/img/work/web-b.webp" alt=""
+           width="1920" height="1319" loading="lazy" decoding="async">
+      <div class="stage" style="--stage-h:1319">
+        <h2 class="pj-title" style="--x:113; --y:530">Content Creation</h2>
+        <!-- TODO(artboard-7): copy and artwork not final. -->
+        <div class="pj-bio" style="--y:594; --w:601">
+          <p>I’m aarondotjpeg, a multidisciplinary creative working across graphic design, branding, art direction, illustration, and digital experiences. I move between disciplines freely, using whatever medium best brings an idea to life.</p>
+          <p>Born in New York and now based in Florida, my creative path has taken me across the country, shaped by different people, places, and experiences along the way. Drawing, photography, and design have always been interconnected parts of how I create, eventually growing into a broader practice that includes branding, digital experiences, and creative direction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTBOARD 8 — contact. Framework only; artwork pending. -->
+  <section class="panel" id="contact"
+           style="--ar:0.562500; --i:12" aria-label="Contact">
+    <div class="panel__inner">
+      <img class="pj-art" src="assets/img/work/contact.webp" alt=""
+           width="1920" height="1080" loading="lazy" decoding="async">
+      <div class="stage" style="--stage-h:1080">
+        <img class="ct-logo" src="assets/img/logo.png" alt="aarondotjpeg"
+             width="677" height="150" loading="lazy" decoding="async">
+        <p class="ct-wordmark">aaron <span class="jp">イーライ</span></p>
+        <p class="ct-copyright"><span class="ct-c">©</span>09-2026</p>
+        <p class="ct-name">Aaron Hernandez</p>
+        <a class="ct-email" href="mailto:aarondotjpeg@gmail.com">aarondotjpeg@gmail.com</a>
+      </div>
     </div>
   </section>
 

@@ -1,0 +1,121 @@
+@layer components {
+  /* ==========================================================================
+     PANEL 12 — CONTACT (artboard 8)
+
+     Framework only. The artwork is placeholder pending final images; the text
+     and its coordinates are read from the PSD and are already exact.
+
+     Ink offsets as elsewhere: 46/lh43 -> 4.0, 30/lh30 -> ~3.3, 36 -> measured.
+         logo        1126,126  677x150
+         aaron イーライ  origin x1137, ink y293
+         ©09-2026    origin x1584, ink y290  (© 34px, numerals 46px)
+         name        x672, ink y888   30px Black
+         email       x673, ink y932   30px Regular
+     ========================================================================== */
+
+  .ct-logo,
+  .ct-wordmark,
+  .ct-copyright,
+  .ct-name,
+  .ct-email {
+    position: absolute;
+    margin: 0;
+  }
+
+  .ct-logo {
+    left:   calc(1126 * var(--u));
+    top:    calc(126 * var(--u));
+    width:  calc(677 * var(--u));
+    height: calc(150 * var(--u));
+  }
+
+  /* 36px Light, ink offset 4.0 at line-height 1 */
+  .ct-wordmark {
+    left: calc(1137 * var(--u));
+    top:  calc(289 * var(--u));
+    font-size: calc(36 * var(--u));
+    line-height: 1;
+    font-weight: var(--fw-light);
+    letter-spacing: var(--ls-tight);
+    white-space: nowrap;
+  }
+
+  /* Matches the home panel: © set 34 against the line's 46, lifted 3px. */
+  .ct-copyright {
+    left: calc(1584 * var(--u));
+    top:  calc(284.5 * var(--u));
+    font-size: calc(46 * var(--u));
+    line-height: 1;
+    font-weight: var(--fw-black);
+    letter-spacing: var(--ls-tight);
+    white-space: nowrap;
+  }
+  .ct-c {
+    font-size: calc(34 * var(--u));
+    position: relative;
+    bottom: calc(3 * var(--u));
+  }
+
+  .ct-name,
+  .ct-email {
+    font-size: calc(30 * var(--u));
+    line-height: 1;
+    letter-spacing: var(--ls-body);
+    white-space: nowrap;
+  }
+  .ct-name  { left: calc(672 * var(--u)); top: calc(884.7 * var(--u)); font-weight: var(--fw-black); }
+  .ct-email {
+    left: calc(673 * var(--u));
+    top:  calc(928.7 * var(--u));
+    font-weight: var(--fw-regular);
+    text-decoration-color: transparent;
+    text-underline-offset: 0.22em;
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
+  }
+  .ct-email:hover,
+  .ct-email:focus-visible {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+  }
+
+  /* --- tablet and mobile --------------------------------------------------- */
+  @media (max-width: 1023px) {
+    #contact .panel__inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(20px, 4vw, 36px);
+    }
+    #contact .pj-art {
+      order: 1;
+      position: static;
+      inset: auto;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+    #contact .stage {
+      height: auto;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: clamp(14px, 3vw, 24px);
+      padding-inline: var(--inset-x);
+      padding-block: calc(var(--safe-y) + var(--nav-tri-h)) var(--safe-y);
+    }
+    #contact .stage > * {
+      position: static;
+      left: auto;
+      top: auto;
+      width: auto;
+    }
+    .ct-logo { width: min(100%, 420px); height: auto; }
+    .ct-wordmark,
+    .ct-copyright { font-size: clamp(15px, 4.6vw, 22px); }
+    .ct-name,
+    .ct-email { font-size: var(--fs-18); }
+  }
+}
