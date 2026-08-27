@@ -145,6 +145,12 @@ Static HTML/CSS/JS in `web/`. No framework, no build step, no scroll library.
   `.panel__inner`.
 - Panels taller than the viewport offset their `top` so they reveal fully
   before being covered.
+- **Artwork and text share one coordinate space.** The artwork lives INSIDE
+  `.stage` at exactly the artboard's size, and the stage scales to cover the
+  panel. Never fit the artwork to the panel while the text sits on the stage —
+  that is two coordinate spaces, and they drift apart at every window that is
+  not exactly the artboard's ratio. It put a caption nowhere near its image and
+  the contact placeholder off its mark.
 - Sticky elements report their *pinned* position, so `offsetTop` and
   `scrollIntoView()` both lie. Anchor jumps compute flow position from
   cumulative panel heights — see `flowTop()` in `scripts/panels.js`.
