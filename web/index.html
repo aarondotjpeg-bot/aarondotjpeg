@@ -302,16 +302,27 @@
     </div>
   </section>
 
-  <!-- ARTBOARD 7 — framework only; artwork is placeholder pending final images. -->
+  <!-- ARTBOARD 7 — World Wide Web. Three laptops from the PSD (Layer 81 /
+       copy / copy 2, at x -566/465/1496, all y383, 996x555 each) become a
+       6-slide drag carousel; the caption tracks whichever slide is centered.
+       See webcarousel.js. -->
   <section class="panel panel--project" id="work-04a"
            style="--ar:0.563021; --i:10" aria-label="World Wide Web">
     <div class="panel__inner">
       <div class="stage" style="--stage-h:1081">
-        <img class="pj-art" src="assets/img/work/web-a.webp" alt=""
-           width="1920" height="1081" loading="lazy" decoding="async">
         <h2 class="pj-title" style="--x:111; --y:171">World Wide Web</h2>
-        <p class="pj-caption" style="--x:889; --y:965.9">Repp Sports</p>
-        <!-- TODO(artboard-7): copy and artwork not final. -->
+        <div class="wc-carousel" data-carousel data-loop>
+          <ul class="wc-track" data-carousel-track>
+            <li class="wc-slide"><img src="assets/img/work/carousel-rearrange-us.webp" alt="Rearrange Us" data-title="Rearrange Us" width="996" height="555" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-carwraps.webp" alt="CarWraps.com" data-title="CarWraps.com" width="996" height="555" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-bear-necessity-cabin.webp" alt="The Bear Necessity Cabin" data-title="The Bear Necessity Cabin" width="996" height="555" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-pin.webp" alt="PIN" data-title="PIN" width="996" height="555" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-plastic-martyr.webp" alt="Plastic Martyr" data-title="Plastic Martyr" width="996" height="555" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-repp-sports.webp" alt="Repp Sports" data-title="Repp Sports" width="996" height="555" loading="lazy" decoding="async"></li>
+          </ul>
+        </div>
+        <p class="pj-caption" style="--x:889; --y:965.9" data-carousel-caption>Rearrange Us</p>
+        <!-- TODO(artboard-7): bio copy not final. -->
         <div class="pj-bio" style="--y:234; --w:499"><p>I’m aarondotjpeg, a multidisciplinary creative working across graphic design, branding, art direction, illustration, and digital experiences. I move between disciplines freely, using whatever medium best brings an idea to life.</p></div>
       </div>
     </div>
@@ -380,5 +391,6 @@
 <script src="scripts/panels.js"></script>
 <script src="scripts/pdfview.js"></script>
 <script src="scripts/contact.js"></script>
+<script src="scripts/webcarousel.js"></script>
 </body>
 </html>

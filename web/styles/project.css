@@ -57,7 +57,8 @@
   }
 
   /* Caption under an image. 28px Black; ink offset 3.08 (the 30px Black on the
-     contact panel measures 3.3, scaled to 28). */
+     contact panel measures 3.3, scaled to 28). Fades when the carousel below
+     it changes the centered slide — see webcarousel.js. */
   .pj-caption {
     position: absolute;
     margin: 0;
@@ -68,6 +69,62 @@
     font-weight: var(--fw-black);
     letter-spacing: var(--ls-tight);
     white-space: nowrap;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+  .pj-caption[data-fading] { opacity: 0; }
+
+  /* ==========================================================================
+     WORLD WIDE WEB CAROUSEL — artboard 7's three laptops (PSD Layer 81 /
+     copy / copy 2 at x -566/465/1496, y383, 996x555 each, spaced 1031
+     center-to-center = a 35px gap). Six slides loop through that same 3-up
+     peek layout; the .pj-caption above tracks whichever slide is centered.
+
+     Native scroll-snap does the centering math and gives touch/trackpad
+     dragging for free — webcarousel.js only adds mouse click-drag (which
+     the browser has no native gesture for) and the loop illusion via
+     cloned slides at each end. touch-action:pan-y keeps a vertical touch
+     gesture free to fall through to the page's own scroll. */
+  .wc-carousel {
+    position: absolute;
+    left: 0;
+    top: calc(383 * var(--u));
+    width: 100%;
+    height: calc(555 * var(--u));
+  }
+
+  .wc-track {
+    list-style: none;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: calc(35 * var(--u));
+    padding-inline: calc(462 * var(--u));
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    cursor: grab;
+    touch-action: pan-y;
+  }
+  .wc-track::-webkit-scrollbar { display: none; }
+  .wc-track[data-dragging] { cursor: grabbing; scroll-snap-type: none; }
+
+  .wc-slide {
+    flex: none;
+    width: calc(996 * var(--u));
+    height: calc(555 * var(--u));
+    scroll-snap-align: center;
+  }
+  .wc-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-user-drag: none;
+    user-select: none;
+    pointer-events: none;
   }
 
   .pj-bio {
@@ -120,6 +177,27 @@
       left: auto;
       top: auto;
       width: auto;
+    }
+
+    /* Overrides the generic `width: auto` above — the carousel needs to
+       stay exactly viewport-wide for its own internal scroll/snap/drag to
+       clip correctly. Order after that rule matters: same specificity.
+       The slide itself stops following --u too: at mobile widths that
+       scales the whole 3-up desktop composition down to a postage stamp,
+       same reason .pj-title switches to clamp() below instead of --u. */
+    .panel--project .wc-carousel {
+      order: 1;
+      width: 100%;
+      height: auto;
+    }
+    .panel--project .wc-track {
+      gap: 16px;
+      padding-inline: calc((100% - min(560px, 78vw)) / 2);
+    }
+    .panel--project .wc-slide {
+      width: min(560px, 78vw);
+      height: auto;
+      aspect-ratio: 996 / 555;
     }
 
     .pj-num {
