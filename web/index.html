@@ -217,13 +217,17 @@
     </div>
   </section>
 
+  <!-- pj-bg sits OUTSIDE .stage now: it's a full-bleed cover background sized
+       to the panel itself, not the design-pixel stage, so it always fills the
+       panel edge-to-edge with no gap at any window shape. Text stays on the
+       untouched, already-verified width-fit .stage. See project.css. -->
   <section class="panel panel--project" id="work-01a"
            style="--ar:0.562500; --i:4" aria-label="NutraKey Health">
     <div class="panel__inner">
+      <img class="pj-bg" src="assets/img/work/nutrakey-a.webp"
+           alt="NutraKey supplement packaging — Envié, Fish Oil, MCT Oil and Optima"
+           width="1920" height="1080" loading="lazy" decoding="async">
       <div class="stage" style="--stage-h:1080">
-        <img class="pj-art" src="assets/img/work/nutrakey-a.webp"
-             alt="NutraKey supplement packaging — Envié, Fish Oil, MCT Oil and Optima"
-             width="1920" height="1080" loading="lazy" decoding="async">
         <p class="pj-num"   style="--x:112; --y:172.4">01</p>
         <h2 class="pj-title" style="--y:755">NutraKey Health</h2>
         <!-- TODO(artboard-4): copy is not final; holding the layout. -->
@@ -238,21 +242,20 @@
   <section class="panel panel--project" id="work-01b"
            style="--ar:0.583333; --i:5" aria-label="NutraKey Health, continued">
     <div class="panel__inner">
-      <div class="stage" style="--stage-h:1120">
-        <img class="pj-art" src="assets/img/work/nutrakey-b.webp"
-             alt="NutraKey product range and social campaign — BCAA, L-Carnitine, Whey Optima, TruPre and V Pro"
-             width="1920" height="1120" loading="lazy" decoding="async">
-      </div>
+      <img class="pj-bg" src="assets/img/work/nutrakey-b.webp"
+           alt="NutraKey product range and social campaign — BCAA, L-Carnitine, Whey Optima, TruPre and V Pro"
+           width="1920" height="1120" loading="lazy" decoding="async">
+      <div class="stage" style="--stage-h:1120"></div>
     </div>
   </section>
 
   <section class="panel panel--project" id="work-02a"
            style="--ar:0.563021; --i:6" aria-label="Repp Sports">
     <div class="panel__inner">
+      <img class="pj-bg" src="assets/img/work/repp-a.webp"
+         alt="Repp Sports supplement packaging"
+         width="1920" height="1081" loading="lazy" decoding="async">
       <div class="stage" style="--stage-h:1081">
-        <img class="pj-art" src="assets/img/work/repp-a.webp"
-           alt="Repp Sports supplement packaging"
-           width="1920" height="1081" loading="lazy" decoding="async">
         <p class="pj-num"   style="--x:112; --y:172.4">02</p>
         <h2 class="pj-title" style="--y:677">Repp Sports</h2>
         <!-- TODO(artboard-5): copy is not final; holding the layout. -->
@@ -267,20 +270,20 @@
   <section class="panel panel--project" id="work-02b"
            style="--ar:0.622917; --i:7" aria-label="Repp Sports, continued">
     <div class="panel__inner">
-      <div class="stage" style="--stage-h:1196">
-        <img class="pj-art" src="assets/img/work/repp-b.webp"
-           alt="Repp Sports product range"
-           width="1920" height="1196" loading="lazy" decoding="async"></div>
+      <img class="pj-bg" src="assets/img/work/repp-b.webp"
+         alt="Repp Sports product range"
+         width="1920" height="1196" loading="lazy" decoding="async">
+      <div class="stage" style="--stage-h:1196"></div>
     </div>
   </section>
 
   <section class="panel panel--project" id="work-03a"
            style="--ar:0.563021; --i:8" aria-label="Nutrex Research">
     <div class="panel__inner">
+      <img class="pj-bg" src="assets/img/work/nutrex-a.webp"
+         alt="Nutrex Research supplement packaging"
+         width="1920" height="1081" loading="lazy" decoding="async">
       <div class="stage" style="--stage-h:1081">
-        <img class="pj-art" src="assets/img/work/nutrex-a.webp"
-           alt="Nutrex Research supplement packaging"
-           width="1920" height="1081" loading="lazy" decoding="async">
         <p class="pj-num"   style="--x:112; --y:172.4">03</p>
         <h2 class="pj-title" style="--y:662">Nutrex Research</h2>
         <!-- TODO(artboard-6): copy is not final; holding the layout. -->
@@ -295,10 +298,10 @@
   <section class="panel panel--project" id="work-03b"
            style="--ar:0.601563; --i:9" aria-label="Nutrex Research, continued">
     <div class="panel__inner">
-      <div class="stage" style="--stage-h:1155">
-        <img class="pj-art" src="assets/img/work/nutrex-b.webp"
-           alt="Nutrex Research product range"
-           width="1920" height="1155" loading="lazy" decoding="async"></div>
+      <img class="pj-bg" src="assets/img/work/nutrex-b.webp"
+         alt="Nutrex Research product range"
+         width="1920" height="1155" loading="lazy" decoding="async">
+      <div class="stage" style="--stage-h:1155"></div>
     </div>
   </section>
 
@@ -313,12 +316,12 @@
         <h2 class="pj-title" style="--x:111; --y:171">World Wide Web</h2>
         <div class="wc-carousel" data-carousel data-loop>
           <ul class="wc-track" data-carousel-track>
-            <li class="wc-slide"><img src="assets/img/work/carousel-rearrange-us.webp" alt="Rearrange Us" data-title="Rearrange Us" width="996" height="555" loading="lazy" decoding="async"></li>
-            <li class="wc-slide"><img src="assets/img/work/carousel-carwraps.webp" alt="CarWraps.com" data-title="CarWraps.com" width="996" height="555" loading="lazy" decoding="async"></li>
-            <li class="wc-slide"><img src="assets/img/work/carousel-bear-necessity-cabin.webp" alt="The Bear Necessity Cabin" data-title="The Bear Necessity Cabin" width="996" height="555" loading="lazy" decoding="async"></li>
-            <li class="wc-slide"><img src="assets/img/work/carousel-pin.webp" alt="PIN" data-title="PIN" width="996" height="555" loading="lazy" decoding="async"></li>
-            <li class="wc-slide"><img src="assets/img/work/carousel-plastic-martyr.webp" alt="Plastic Martyr" data-title="Plastic Martyr" width="996" height="555" loading="lazy" decoding="async"></li>
-            <li class="wc-slide"><img src="assets/img/work/carousel-repp-sports.webp" alt="Repp Sports" data-title="Repp Sports" width="996" height="555" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-rearrange-us.webp" alt="Rearrange Us" data-title="Rearrange Us" width="1350" height="875" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-carwraps.webp" alt="CarWraps.com" data-title="CarWraps.com" width="1350" height="875" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-bear-necessity-cabin.webp" alt="The Bear Necessity Cabin" data-title="The Bear Necessity Cabin" width="1350" height="875" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-pin.webp" alt="PIN" data-title="PIN" width="1350" height="875" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-plastic-martyr.webp" alt="Plastic Martyr" data-title="Plastic Martyr" width="1350" height="875" loading="lazy" decoding="async"></li>
+            <li class="wc-slide"><img src="assets/img/work/carousel-repp-sports.webp" alt="Repp Sports" data-title="Repp Sports" width="1350" height="875" loading="lazy" decoding="async"></li>
           </ul>
         </div>
         <p class="pj-caption" style="--x:889; --y:965.9" data-carousel-caption>Rearrange Us</p>

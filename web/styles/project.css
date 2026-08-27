@@ -20,9 +20,31 @@
          56.6px / lh53  -> 4.62  (the project numeral)
      ========================================================================== */
 
-  /* The artwork sits ON THE STAGE at exactly the artboard's size, so every
-     pixel of it lines up with the text coordinates. The stage itself covers the
-     panel (see panels.css), so there is no white gap and no divergence. */
+  /* Two different kinds of artwork here.
+
+     .pj-bg — the artboard-4/5/6 collages. These are full-bleed: the PSD art
+     fills the entire artboard edge to edge, so it has to keep filling the
+     entire panel edge to edge at every window shape, cropping instead of
+     gapping. It sits on .panel__inner directly (NOT on .stage — the stage's
+     own width-fit scale is sized to fit the window without cropping, which
+     is the wrong job for a background that must never show a seam) and is
+     positioned/sized independently of the design-pixel coordinate system.
+     Text keeps using the untouched, already-verified .stage positions —
+     the two layers are deliberately decoupled, not locked together, because
+     a single shared scale can satisfy "background never gaps" or "text
+     never crops" but not both at every aspect ratio. See panels.css. */
+  .pj-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* .pj-art — artwork that ISN'T full-bleed: it's sized to a specific spot
+     on the artboard (the Content Creation photo grid, the Contact
+     placeholder), so it stays part of the .stage coordinate space like any
+     other positioned element, filling only the stage's own box. */
   .pj-art {
     position: absolute;
     inset: 0;
@@ -121,7 +143,11 @@
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* contain, not cover — the slide asset is trimmed tight to the laptop's
+       own silhouette on a transparent background, so it should sit centered
+       at its real proportions rather than being stretched or cropped to
+       force-fill a box shaped like the old untrimmed screenshot. */
+    object-fit: contain;
     -webkit-user-drag: none;
     user-select: none;
     pointer-events: none;
@@ -151,7 +177,8 @@
       gap: clamp(20px, 4vw, 36px);
     }
 
-    .panel--project .pj-art {
+    .panel--project .pj-art,
+    .panel--project .pj-bg {
       order: 1;
       position: static;
       inset: auto;
