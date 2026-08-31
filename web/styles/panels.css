@@ -25,6 +25,11 @@
     color: var(--c-fg);
     display: flex;
     flex-direction: column;
+    /* A nav click's scrollIntoView({block:'start'}) otherwise lands the
+       panel flush with the very top of the viewport — content sits jammed
+       under the nav with no breathing room. This holds the scroll stop
+       point back by --safe-y, so there's air above the content instead. */
+    scroll-margin-block-start: var(--safe-y);
   }
 
   /* Sections otherwise touch edge to edge — this is the only source of

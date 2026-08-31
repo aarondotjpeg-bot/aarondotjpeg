@@ -23,8 +23,7 @@
   .ab-email,
   .ab-do,
   .ab-exp-label,
-  .ab-dates,
-  .ab-exp,
+  .ab-exp-scroll,
   .ab-resume,
   .ab-quote,
   .ab-photo {
@@ -136,28 +135,53 @@
     letter-spacing: var(--ls-body);
   }
 
-  /* 15px on an 18px line: ink y596 - 3.5 and y693 - 3.5 */
-  .ab-dates {
-    left: calc(1330 * var(--u));
-    font-size: calc(15 * var(--u));
-    line-height: calc(18 / 15);
-    font-weight: var(--fw-regular);
-    letter-spacing: var(--ls-tight);
-    white-space: nowrap;
-  }
-  .ab-dates--1 { top: calc(592.5 * var(--u)); }
-  .ab-dates--2 { top: calc(689.5 * var(--u)); }
+  /* Auto-scrolling marquee, six entries. Dates used to live in their own
+     absolutely-positioned column (a separate .ab-dates--N per visible
+     entry) — incompatible with scrolling, since the entries move and a
+     fixed column can't follow them. Each date now rides inside its own
+     entry instead (.ab-exp__when, previously mobile-only). The box widens
+     leftward to reclaim the old date column's space (1330, not 1456), since
+     nothing needs that column separately any more.
 
-  /* ink y596 - 2 */
-  .ab-exp {
-    left: calc(1456 * var(--u));
+     Looping: .ab-exp-track holds the entry list TWICE, back to back, and
+     animates by exactly -50%. Because the two halves are identical, the
+     instant the animation completes, the second copy is sitting exactly
+     where the first one started — no visible seam or reset. */
+  .ab-exp-scroll {
+    left: calc(1330 * var(--u));
     top:  calc(594 * var(--u));
-    width: calc(383 * var(--u));
+    width: calc(509 * var(--u));
+    height: calc(190 * var(--u));
+    overflow: hidden;
+  }
+
+  .ab-exp-track {
+    animation: ab-exp-marquee 42s linear infinite;
+  }
+
+  .ab-exp-scroll:hover .ab-exp-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes ab-exp-marquee {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-50%); }
+  }
+
+  .ab-exp {
     font-size: calc(18 * var(--u));
     line-height: 1;
     letter-spacing: var(--ls-body);
   }
   .ab-exp__entry + .ab-exp__entry { margin-block-start: calc(36 * var(--u)); }
+  .ab-exp__when {
+    display: block;
+    font-size: calc(15 * var(--u));
+    line-height: calc(18 / 15);
+    font-weight: var(--fw-regular);
+    letter-spacing: var(--ls-tight);
+    margin-block-end: calc(4 * var(--u));
+  }
   .ab-exp__role { font-weight: var(--fw-black); }
   .ab-exp__org  { font-weight: var(--fw-regular); }
   .ab-exp__desc {
@@ -190,11 +214,6 @@
     letter-spacing: var(--ls-tight);
     white-space: nowrap;
   }
-
-  /* The inline date exists only for the mobile layout, where the date column
-     is dropped and each date rides with its own entry. Declared before the
-     media query so the query can turn it on. */
-  .ab-exp__when { display: none; }
 
   /* --- tablet and mobile ----------------------------------------------------
      The two-column composition collapses to one column in source order.
@@ -254,15 +273,6 @@
       align-self: center;
     }
 
-    .ab-dates {
-      font-size: var(--fs-15);
-      line-height: 1.3;
-      white-space: normal;
-    }
-    .ab-dates br { display: none; }
-    .ab-dates--1, .ab-dates--2 { display: none; }
-
-    /* Dates ride with their entry on mobile instead of sitting in a column. */
     .ab-exp__when {
       display: block;
       font-size: var(--fs-15);
