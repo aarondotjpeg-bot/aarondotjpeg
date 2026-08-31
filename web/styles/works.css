@@ -68,7 +68,6 @@
   @media (max-width: 1023px) {
     #works .stage {
       height: auto;
-      min-height: 100dvh;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: clamp(20px, 4vw, 40px);

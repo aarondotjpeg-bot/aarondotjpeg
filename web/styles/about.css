@@ -206,7 +206,6 @@
       display: flex;
       flex-direction: column;
       gap: clamp(28px, 7vw, 44px);
-      min-height: 100dvh;
       padding-inline: var(--inset-x);
       padding-block: calc(var(--safe-y) + var(--nav-tri-h)) var(--safe-y);
     }

@@ -72,8 +72,6 @@
     letter-spacing: var(--ls-body);
     color: var(--c-fg);
     background: var(--c-bg);
-    /* No overflow-x:hidden here — it would break sticky. Panels clip internally
-       via .panel__inner instead. */
   }
 
   :where(:focus-visible) {

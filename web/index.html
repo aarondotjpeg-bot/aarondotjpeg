@@ -66,15 +66,16 @@
 </nav>
 
 <!-- ==========================================================================
-     PANEL STACK — twelve panels, artboards 1-8.
-       --ar : artboard height / 1920, drives scroll length on desktop
-       --i  : paint order, so each panel covers the one before it
-     Every panel slides; there is no second transition mode.
+     PANEL STACK — twelve sections, artboards 1-8, continuous normal-flow
+     scroll (no sticky, no slide transition — settled 2026-08-27, replacing
+     the earlier sticky-stack build).
+       --ar : artboard height / 1920 — sets each section's proportional
+              min-height so the composition keeps the PSD's ratio.
      ========================================================================== -->
 <main class="stack" id="main">
 
   <section class="panel" id="home"
-           style="--ar:0.562500; --i:1" aria-label="Home">
+           style="--ar:0.562500" aria-label="Home">
     <div class="panel__inner">
       <div class="stage">
         <img class="home__logo" src="assets/img/logo.png"
@@ -86,7 +87,7 @@
   </section>
 
   <section class="panel" id="about"
-           style="--ar:0.562500; --i:2" aria-label="About">
+           style="--ar:0.562500" aria-label="About">
     <div class="panel__inner">
       <div class="stage">
 
@@ -158,7 +159,7 @@
   </section>
 
   <section class="panel" id="works"
-           style="--ar:0.847917; --i:3" aria-label="Works">
+           style="--ar:0.847917" aria-label="Works">
     <div class="panel__inner">
       <div class="stage" style="--stage-h:1628">
 
@@ -221,8 +222,8 @@
        to the panel itself, not the design-pixel stage, so it always fills the
        panel edge-to-edge with no gap at any window shape. Text stays on the
        untouched, already-verified width-fit .stage. See project.css. -->
-  <section class="panel panel--project" id="work-01a"
-           style="--ar:0.562500; --i:4" aria-label="NutraKey Health">
+  <section class="panel panel--project" id="nutrakey"
+           style="--ar:0.562500" aria-label="NutraKey Health">
     <div class="panel__inner">
       <img class="pj-bg" src="assets/img/work/nutrakey-a.webp"
            alt="NutraKey supplement packaging — Envié, Fish Oil, MCT Oil and Optima"
@@ -239,8 +240,8 @@
     </div>
   </section>
 
-  <section class="panel panel--project" id="work-01b"
-           style="--ar:0.583333; --i:5" aria-label="NutraKey Health, continued">
+  <section class="panel panel--project" id="nutrakey-work"
+           style="--ar:0.583333" aria-label="NutraKey Health, continued">
     <div class="panel__inner">
       <img class="pj-bg" src="assets/img/work/nutrakey-b.webp"
            alt="NutraKey product range and social campaign — BCAA, L-Carnitine, Whey Optima, TruPre and V Pro"
@@ -249,8 +250,8 @@
     </div>
   </section>
 
-  <section class="panel panel--project" id="work-02a"
-           style="--ar:0.563021; --i:6" aria-label="Repp Sports">
+  <section class="panel panel--project" id="repp-sports"
+           style="--ar:0.563021" aria-label="Repp Sports">
     <div class="panel__inner">
       <img class="pj-bg" src="assets/img/work/repp-a.webp"
          alt="Repp Sports supplement packaging"
@@ -267,8 +268,8 @@
     </div>
   </section>
 
-  <section class="panel panel--project" id="work-02b"
-           style="--ar:0.622917; --i:7" aria-label="Repp Sports, continued">
+  <section class="panel panel--project" id="repp-sports-work"
+           style="--ar:0.622917" aria-label="Repp Sports, continued">
     <div class="panel__inner">
       <img class="pj-bg" src="assets/img/work/repp-b.webp"
          alt="Repp Sports product range"
@@ -277,8 +278,8 @@
     </div>
   </section>
 
-  <section class="panel panel--project" id="work-03a"
-           style="--ar:0.563021; --i:8" aria-label="Nutrex Research">
+  <section class="panel panel--project" id="nutrex"
+           style="--ar:0.563021" aria-label="Nutrex Research">
     <div class="panel__inner">
       <img class="pj-bg" src="assets/img/work/nutrex-a.webp"
          alt="Nutrex Research supplement packaging"
@@ -295,8 +296,8 @@
     </div>
   </section>
 
-  <section class="panel panel--project" id="work-03b"
-           style="--ar:0.601563; --i:9" aria-label="Nutrex Research, continued">
+  <section class="panel panel--project" id="nutrex-work"
+           style="--ar:0.601563" aria-label="Nutrex Research, continued">
     <div class="panel__inner">
       <img class="pj-bg" src="assets/img/work/nutrex-b.webp"
          alt="Nutrex Research product range"
@@ -309,8 +310,8 @@
        copy / copy 2, at x -566/465/1496, all y383, 996x555 each) become a
        6-slide drag carousel; the caption tracks whichever slide is centered.
        See webcarousel.js. -->
-  <section class="panel panel--project" id="work-04a"
-           style="--ar:0.563021; --i:10" aria-label="World Wide Web">
+  <section class="panel panel--project" id="world-wide-web"
+           style="--ar:0.563021" aria-label="World Wide Web">
     <div class="panel__inner">
       <div class="stage" style="--stage-h:1081">
         <h2 class="pj-title" style="--x:111; --y:171">World Wide Web</h2>
@@ -331,8 +332,8 @@
     </div>
   </section>
 
-  <section class="panel panel--project" id="work-04b"
-           style="--ar:0.686979; --i:11" aria-label="Content Creation">
+  <section class="panel panel--project" id="content-creation"
+           style="--ar:0.686979" aria-label="Content Creation">
     <div class="panel__inner">
       <div class="stage" style="--stage-h:1319">
         <img class="pj-art" src="assets/img/work/web-b.webp" alt=""
@@ -349,7 +350,7 @@
 
   <!-- ARTBOARD 8 — contact. Framework only; artwork pending. -->
   <section class="panel" id="contact"
-           style="--ar:0.562500; --i:12" aria-label="Contact">
+           style="--ar:0.562500" aria-label="Contact">
     <div class="panel__inner">
       <!-- TODO(artboard-8): the grey block is the image placeholder from the
            PSD, waiting on final artwork. -->

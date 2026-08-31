@@ -12,10 +12,9 @@
      is shown as pre-rendered page images; pdfview.js explains why an iframe
      cannot be trusted with a PDF.
 
-     NOTE: the page behind is deliberately NOT scroll-locked. The usual trick is
-     overflow:hidden on <html> or <body>, and that is exactly what kills
-     position:sticky and the entire panel stack. showModal() already blocks
-     pointer and keyboard interaction with the page, which is enough.
+     NOTE: the page behind is deliberately NOT scroll-locked. showModal()
+     already blocks pointer and keyboard interaction with the page, which is
+     enough — no need for the usual overflow:hidden-on-<body> trick.
      ========================================================================== */
 
   .pdfview {

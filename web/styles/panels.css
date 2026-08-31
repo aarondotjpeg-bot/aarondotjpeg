@@ -1,57 +1,33 @@
 @layer panels {
   /* ==========================================================================
      THE PANEL PRIMITIVE
-     Nine full-viewport panels stacked with position:sticky. The browser's own
-     scroll drives everything — no wheel/touch interception, no scroll library.
+     Continuous scroll. Panels stack in normal document flow, one after
+     another — no position:sticky, no JS-driven pinning, no slide transition.
+     The browser's own scroll is the entire mechanism.
 
-     How the slide works
-     -------------------
-     Every panel is sticky at the top of the scrollport and paints over the one
-     before it (later DOM order = higher --i). Scrolling brings the next panel
-     up from the bottom edge until it covers the pinned one behind it. That is
-     the entire effect.
-
-     Panels taller than the viewport
-     ------------------------------
-     Four of the nine are taller than one screen (artboard 3 is 1.51x). A tall
-     sticky panel pinned at top:0 would hide its own bottom, so `top` is offset
-     by the overflow: the panel scrolls fully into view, pins when its bottom
-     edge meets the viewport bottom, and only then gets covered.
-       --ar  = design height / 1920, set per panel in the HTML
+     Each panel is sized to its own artboard's proportions via min-height
+     (--ar = design height / 1920, set per panel in the HTML), so the
+     composition keeps the PSD's proportions at any viewport width. It is a
+     floor, not a fixed height: content that genuinely needs more room (a
+     long bio, a stacked mobile layout) just grows the panel to fit — no JS
+     measurement required.
      ========================================================================== */
 
   .stack {
     position: relative;
-    /* No overflow property here. See reset.css. */
   }
 
   .panel {
-    /* Height is the largest of: one screen, the artboard's own proportions, and
-       whatever the content actually measures. That last term matters — if
-       content outgrows the proportional height, `top` must account for it or
-       the panel pins with its bottom cut off. panels.js writes it. */
-    --panel-h: max(
-      100dvh,
-      calc(100vw * var(--ar, 0.5625)),
-      var(--panel-measured, 0px)
-    );
-
-    position: sticky;
-    top: min(0px, calc(100dvh - var(--panel-h)));
-    z-index: var(--i, 1);
-
-    min-height: var(--panel-h);
+    position: relative;
+    width: 100%;
+    min-height: calc(100vw * var(--ar, 0.5625));
     background: var(--c-bg);
     color: var(--c-fg);
-
     display: flex;
     flex-direction: column;
   }
 
-  /* Bleeding artwork is clipped here, never on .panel or an ancestor —
-     a non-visible overflow above the sticky element kills the whole effect.
-     flex:1 makes this fill the panel without inheriting min-height, which
-     would otherwise be double-counted against this element's own padding. */
+  /* Bleeding artwork (the carousel's peeking side slides) is clipped here. */
   .panel__inner {
     position: relative;
     flex: 1;
@@ -61,8 +37,7 @@
 
     /* Makes this the container that --u measures against, so design-pixel
        coordinates track the panel's real width rather than 100vw (which
-       includes the scrollbar). Safe here: .panel__inner is not the sticky
-       element, so its containment cannot affect .panel's stickiness. */
+       includes the scrollbar). */
     container-type: inline-size;
   }
 
@@ -78,28 +53,10 @@
 
      Each panel sets its own --stage-h (its artboard height in design px).
      ------------------------------------------------------------------------ */
-  /* --u is the WIDTH fit and only the width fit. The full 1920 of the artboard
-     must always be on screen — scaling to cover the panel height instead makes
-     the stage wider than the window and slices the design off both sides.
-     A window taller than the artboard leaves white above and below; that is the
-     correct trade, and it is the same for the artwork and the text because both
-     live on this stage. */
   .stage {
     --u: calc(100cqw / 1920);
     position: relative;
     width: 100%;
     height: calc(var(--stage-h, 1080) * var(--u));
-  }
-
-  /* --- mobile -------------------------------------------------------------
-     A 16:9 landscape composition has no portrait equivalent, so height stops
-     following --ar and follows content instead, floored at one screen.
-     --panel-measured is written by scripts/panels.js from the real height. */
-  @media (max-width: 767px) {
-    .panel {
-      /* --ar drops out entirely: a 16:9 landscape ratio means nothing in
-         portrait. Height is content, floored at one screen. */
-      --panel-h: max(100dvh, var(--panel-measured, 0px));
-    }
   }
 }

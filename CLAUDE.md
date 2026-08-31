@@ -106,8 +106,14 @@ lossy ringing; even quality 98 leaves visible halos.
 
 These cost several rounds each. They are decisions, not defaults:
 
-- **Slide only.** The fade between the two halves of an artboard was built,
-  tested and removed. There is one transition.
+- **Continuous scroll, no page transition.** The site was originally built as
+  a sticky-panel stack where each artboard slid up to cover the one before it
+  (see git history before 2026-08-27 if that mechanic is ever needed for
+  reference). It was removed entirely — not swapped for a different
+  transition, removed — because it read poorly on mobile/tablet. Panels are
+  now plain sections in normal document flow, one after another. Do not
+  reintroduce `position: sticky` on `.panel` or any per-panel slide/fade
+  effect without being explicitly asked.
 - **Nav starts collapsed** and never collapses itself. No auto-collapse on
   scroll, no auto-open on returning home — an earlier version did both and the
   competing animations fought each other.
@@ -137,23 +143,34 @@ Static HTML/CSS/JS in `web/`. No framework, no build step, no scroll library.
 - `styles/` — cascade layers: `reset, tokens, base, layout, panels, components,
   utilities, overrides`. Component CSS consumes tokens only; no raw hex, no
   magic numbers.
-- Twelve panels in one document, stacked with `position: sticky`. Native scroll
-  drives the slide — **no wheel or touch listener exists in this build, and none
-  should be added.**
-- **`overflow` other than `visible` on `html`, `body` or `.stack` kills
-  `position: sticky` and the entire effect.** Panels clip internally via
-  `.panel__inner`.
-- Panels taller than the viewport offset their `top` so they reveal fully
-  before being covered.
-- **Artwork and text share one coordinate space.** The artwork lives INSIDE
-  `.stage` at exactly the artboard's size, and the stage scales to cover the
-  panel. Never fit the artwork to the panel while the text sits on the stage —
-  that is two coordinate spaces, and they drift apart at every window that is
-  not exactly the artboard's ratio. It put a caption nowhere near its image and
-  the contact placeholder off its mark.
-- Sticky elements report their *pinned* position, so `offsetTop` and
-  `scrollIntoView()` both lie. Anchor jumps compute flow position from
-  cumulative panel heights — see `flowTop()` in `scripts/panels.js`.
+- Twelve sections in one document, in normal document flow (continuous
+  scroll — no `position: sticky`, no JS-driven pinning). The browser's own
+  scroll is the entire mechanism — **no wheel or touch listener exists in
+  this build, and none should be added.** Each section's `--ar` (design
+  height / 1920) sets a `min-height` so the composition keeps the PSD's
+  proportions at any viewport width; a section with more content than that
+  floor just grows to fit, no JS measurement involved.
+- Anchor ids name the section they point to (`nutrakey`, `repp-sports`,
+  `world-wide-web`, etc., not `work-01a`/`work-01b`). Nav only links to
+  home/about/works/contact — individual project sections are addressable by
+  hash but not surfaced in the nav UI.
+- Panels are normal flow now, so `getBoundingClientRect()`/`scrollIntoView()`
+  are trustworthy — no cumulative-height workaround needed for anchor jumps.
+- **Two different artwork patterns, don't mix them up:**
+  - **Full-bleed collages** (NutraKey, Repp Sports, Nutrex) use `.pj-bg`: a
+    plain background image sized to the *panel* (`position:absolute;inset:0;
+    object-fit:cover`), living OUTSIDE `.stage` as a sibling, not inside it.
+    It always fills edge-to-edge and crops instead of leaving a gap.
+  - **Everything else** (Content Creation, Contact's placeholder, the World
+    Wide Web carousel) uses `.pj-art` / lives inside `.stage`: positioned in
+    the same design-pixel coordinate space as the text around it, because
+    it's a specific element at a specific spot, not full-bleed background.
+  - These are deliberately decoupled, not locked to one shared scale — a
+    single coordinate space can guarantee "background never gaps" or "text
+    never crops" but not both at every aspect ratio. Locking them together
+    is what caused the caption-drift bug from before; forcing everything to
+    `.pj-bg`-style cover scaling is what caused the text-gets-clipped-off-
+    the-edge bug after that. See `styles/project.css` for the reasoning.
 
 ## Type and fonts
 

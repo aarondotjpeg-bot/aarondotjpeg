@@ -189,7 +189,6 @@
 
     .panel--project .stage {
       height: auto;
-      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       justify-content: center;
