@@ -68,11 +68,12 @@
      before. Mobile turns it into the real flex row that groups them. */
   .home__sub { display: contents; }
 
-  /* --- mobile -------------------------------------------------------------
-     A composition anchored to 1920 coordinates cannot survive a 390px portrait
-     screen, so below 768 the stage stops being a coordinate space and the
-     three elements become a centred stack at legible sizes. */
-  @media (max-width: 767px) {
+  /* --- tablet and mobile ----------------------------------------------------
+     A composition anchored to 1920 coordinates cannot survive a narrow
+     screen, so below 1024 (matching project.css/works.css/contact.css's
+     breakpoint) the stage stops being a coordinate space and the three
+     elements become a centred stack at legible sizes. */
+  @media (max-width: 1023px) {
     /* The two text lines share a row here, as they do in the PSD — the
        wordmark and the copyright sit on one baseline either side of centre,
        with the logo above them.

@@ -196,11 +196,14 @@
      media query so the query can turn it on. */
   .ab-exp__when { display: none; }
 
-  /* --- mobile -------------------------------------------------------------
+  /* --- tablet and mobile ----------------------------------------------------
      The two-column composition collapses to one column in source order.
      Coordinates stop applying; the PSD's 36px rhythm becomes proportional
-     spacing and the display type drops to a readable size. */
-  @media (max-width: 767px) {
+     spacing and the display type drops to a readable size. 1023px, not 767 —
+     matching project.css/works.css/contact.css's breakpoint. At 767 the range
+     768-1023 (most real tablets) fell through to the full desktop --u scale,
+     rendering the 18px body copy at under 8px. */
+  @media (max-width: 1023px) {
     #about .stage {
       height: auto;
       display: flex;
