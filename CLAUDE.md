@@ -114,9 +114,10 @@ These cost several rounds each. They are decisions, not defaults:
   now plain sections in normal document flow, one after another. Do not
   reintroduce `position: sticky` on `.panel` or any per-panel slide/fade
   effect without being explicitly asked.
-- **Nav starts collapsed** and never collapses itself. No auto-collapse on
-  scroll, no auto-open on returning home — an earlier version did both and the
-  competing animations fought each other.
+- **Nav starts open** (`data-open="true"` in the HTML, matching artboard 1)
+  and never collapses itself. No auto-collapse on scroll, no auto-open on
+  returning home — an earlier version did both and the competing animations
+  fought each other. The toggle is still the visitor's alone from there.
 - **No current-page state.** The pill is hover and focus only. `aria-current`
   stays for screen readers but paints nothing.
 - **Nav link slide is 684ms**, eased `cubic-bezier(0.4, 0, 0.2, 1)`, with a
