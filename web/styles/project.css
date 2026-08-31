@@ -53,6 +53,27 @@
     object-fit: fill;
   }
 
+  /* .pj-window — a fixed-size viewport onto artwork taller than the box it
+     sits in (NutraKey's right-hand collage). Stays in the .stage
+     coordinate space like .pj-art; the taller image inside scrolls into
+     view as the panel transits the viewport — see scripts/parallax.js. */
+  .pj-window {
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top:  calc(var(--y) * var(--u));
+    width:  calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    overflow: hidden;
+  }
+  .pj-parallax {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
+
   .pj-num,
   .pj-title,
   .pj-bio {
@@ -187,6 +208,47 @@
       object-fit: contain;
     }
 
+    /* NutraKey's second panel is nothing but this image (no text sharing
+       the flow), so the generic "full natural aspect, no crop" rule above
+       just leaves visible gap around it wherever the panel's own height
+       doesn't match the image exactly. Covering a shorter aspect-ratio box
+       instead crops in and fills the panel with no gap possible — tighter
+       again on phones than tablets, per the request. */
+    #nutrakey-work .pj-bg {
+      height: auto;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+    }
+
+    /* #nutrakey's --ar is tuned for the desktop-only parallax window (see
+       scripts/parallax.js), which needs real extra height to have room to
+       reveal. Mobile/tablet don't run that effect — the artwork rejoins
+       normal flow at its natural width above — so keeping that inflated
+       --ar just padded the panel out with empty space above/below the
+       (much shorter) stacked content, reading as a huge gap before the
+       next panel. Auto lets it size to its actual content again. */
+    #nutrakey { min-height: auto; }
+
+    /* The desktop parallax window doesn't fit a stacked mobile layout — no
+       room to scroll-reveal a tall image inside a fixed box, and
+       scripts/parallax.js already skips applying its transform below
+       1024px. This rejoins the artwork to the flow at full width instead,
+       same as .pj-art/.pj-bg above; !important beats the inline transform
+       parallax.js may have already set before the viewport narrowed. */
+    .panel--project .pj-window {
+      order: 1;
+      position: static;
+      overflow: visible;
+      width: 100%;
+      height: auto;
+    }
+    .panel--project .pj-parallax {
+      position: static;
+      width: 100%;
+      height: auto;
+      transform: none !important;
+    }
+
     .panel--project .stage {
       height: auto;
       display: flex;
@@ -246,5 +308,10 @@
     }
     .pj-bio p + p { margin-block-start: 1.45em; }
 
+  }
+
+  /* Phone only: crop in further than the tablet aspect-ratio above. */
+  @media (max-width: 767px) {
+    #nutrakey-work .pj-bg { aspect-ratio: 4 / 3; }
   }
 }
