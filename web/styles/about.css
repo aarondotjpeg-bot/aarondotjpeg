@@ -31,6 +31,16 @@
     margin: 0;
   }
 
+  /* .ab-contact and .ab-exp exist only to give their two children their own
+     tight gap on mobile/tablet (see the media query below) — on desktop
+     they must be invisible to the box tree so .ab-contact-label/.ab-email
+     and .ab-exp-label/.ab-exp-scroll keep positioning against .stage
+     exactly as before. */
+  .ab-contact,
+  .ab-exp {
+    display: contents;
+  }
+
   /* --- left column -------------------------------------------------------- */
 
   /* ink y196 - 4 */
@@ -236,7 +246,9 @@
       padding-block: calc(var(--safe-y) + var(--nav-tri-h)) var(--safe-y);
     }
 
-    #about .stage > * {
+    #about .stage > *,
+    .ab-contact > *,
+    .ab-exp > * {
       position: static;
       width: auto;
       left: auto;
@@ -247,20 +259,22 @@
     .ab-quote {
       font-size: clamp(26px, 7.4vw, 38px);
       line-height: 1.05;
+      white-space: normal;
     }
-    .ab-headline br,
-    .ab-quote br { display: none; }
-    .ab-headline,
-    .ab-quote { white-space: normal; }
+    /* The <br>s carry the SAME line breaks as desktop — they used to be
+       hidden here so the browser could reflow freely, but that let words
+       across a break run together with no space at all. Keeping them means
+       each authored line still starts a new line; a segment too wide for
+       the viewport just wraps again underneath it, same as any other text. */
 
-    /* The typewriter word varies from 6 to 10 letters, which wraps the
-       headline across 4 or 5 lines depending which one is showing (measured
-       directly, not guessed) — without a reserved height, everything below
-       it visibly jumps up and down as the animation cycles. 5 lines' worth
-       is the worst case at the narrowest width; in em so it scales with the
-       clamp() above, and errs generous rather than deficient at wider
-       widths, where the same text wraps to fewer lines anyway. */
-    .ab-headline { min-height: calc(5 * 1.05em); }
+    /* The typewriter word varies from 6 to 10 letters, and each authored
+       line can now also wrap on its own at narrow widths — measured
+       directly (not guessed): at 375px the tallest word ("inventions" /
+       "campaigns") renders at 175px against a 27.75px font-size, ~6.3em.
+       6.5em in reserve covers that with a small margin; 820px+ never gets
+       close (worst case there measured at 3 lines / 120px), so this one
+       value covers both breakpoints in this shared block. */
+    .ab-headline { min-height: 6.5em; }
 
     .ab-bio,
     .ab-do,
@@ -278,6 +292,35 @@
 
     .ab-exp__desc { font-size: var(--fs-15); line-height: 1.4; }
 
+    /* Contact label + email read as a single tight pair, not two unrelated
+       stage items sharing the big inter-block gap — and sit right-aligned,
+       per the reference screenshot. */
+    #about .ab-contact {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      width: 100%;
+      gap: 0.35em;
+    }
+    .ab-contact-label,
+    .ab-email { text-align: right; }
+
+    /* Experience label + the scroll window right-align the same way. */
+    #about .ab-exp {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6em;
+      width: 100%;
+    }
+    .ab-exp-label { text-align: right; }
+    .ab-exp-track,
+    .ab-exp__entry,
+    .ab-exp__when,
+    .ab-exp__role,
+    .ab-exp__org,
+    .ab-exp__desc { text-align: right; }
+
     /* The desktop box (509 x 190 design px) is driven by --u, which is tiny
        at phone widths — a fixed, viewport-relative window instead, wide
        enough to comfortably show about two entries at readable size. */
@@ -286,7 +329,10 @@
       height: clamp(220px, 40vh, 320px);
     }
 
-    .ab-photo {
+    /* #about-prefixed to out-specify `#about .stage > *` above, which also
+       sets width and would otherwise win by specificity over a bare
+       .ab-photo rule despite coming later in the source. */
+    #about .ab-photo {
       width: 100%;
       height: auto;
       aspect-ratio: 1;
@@ -301,5 +347,12 @@
       letter-spacing: var(--ls-tight);
       margin-block-end: 0.35em;
     }
+  }
+
+  /* Tablet only: the 420px phone cap leaves the portrait stranded in the
+     middle of a much wider column (real width 768-1023px) — let it fill
+     the row instead, matching the reference screenshot. */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    #about .ab-photo { max-width: none; }
   }
 }
