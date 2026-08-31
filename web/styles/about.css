@@ -392,5 +392,13 @@
        tablet column is wide enough that no word ever forces a second
        line, so there's no variance to reserve slack for here either. */
     #about .ab-headline { min-height: 3.15em; }
+
+    /* The quote still carried mobile's forced breaks (after "good", after
+       "things") even though this column is wide enough to fit more words
+       per line — hide all three break points so the whole quote flows as
+       one run and wraps only where the width actually requires it. */
+    .ab-quote__br--head,
+    .ab-quote__br--a,
+    .ab-quote__br--b { display: none; }
   }
 }

@@ -22,6 +22,21 @@
     margin: 0;
   }
 
+  /* A nav click lands on the panel's own top edge, same as every other
+     panel — the heading-targeted anchor tried here previously landed
+     wrong and was reverted. This drops the standard --safe-y gap
+     entirely on desktop, landing flush with the viewport top instead —
+     safe here because the first logo row sits well down the tall canvas
+     (design y265 of 1628) and clears the fixed nav on its own regardless.
+     Desktop-only: mobile/tablet's grid layout puts the heading right at
+     the panel's own top, so the normal --safe-y gap is what keeps it
+     clear of the nav there. */
+  @media (min-width: 1024px) {
+    #works {
+      scroll-margin-block-start: 0;
+    }
+  }
+
   /* ink y890 - 4 */
   .wk-title {
     left: calc(115 * var(--u));
@@ -50,12 +65,20 @@
   .wk-bio p + p { margin-block-start: calc(36 * var(--u)); }
   .wk-bio b { font-weight: var(--fw-black); }
 
+  /* --x/--y are each logo's ROW/COLUMN CENTER point, not a top-left
+     corner — the four column x-values and four row y-values are shared
+     across every logo in that row/column, so translate(-50%, -50%)
+     centers every logo on the same line regardless of its own width or
+     height. --w/--h is that logo's own real size (scripts/works.js keeps
+     it paired with the logo's identity through the shuffle), so nothing
+     stretches or shrinks to fill someone else's slot. */
   .wk-logo {
     position: absolute;
     left:   calc(var(--x) * var(--u));
     top:    calc(var(--y) * var(--u));
     width:  calc(var(--w) * var(--u));
     height: calc(var(--h) * var(--u));
+    transform: translate(-50%, -50%);
     object-fit: contain;
   }
 
@@ -70,7 +93,12 @@
       height: auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: clamp(20px, 4vw, 40px);
+      /* Logos are trimmed tight to their own ink now (no built-in padding
+         from the source image), so the old 20-40px gap read as touching —
+         row-gap is wider than column-gap since a cramped column read worse
+         with these narrow columns than a cramped row did. */
+      column-gap: clamp(24px, 6vw, 48px);
+      row-gap: clamp(36px, 9vw, 64px);
       align-content: start;
       padding-inline: var(--inset-x);
       padding-block: calc(var(--safe-y) + var(--nav-tri-h)) var(--safe-y);
@@ -106,6 +134,10 @@
       height: auto;
       aspect-ratio: 16 / 9;
       object-fit: contain;
+      /* The desktop centering transform is measured against left/top,
+         which position:static ignores — left on, it would still shift
+         every logo up-left by half its own size. */
+      transform: none;
     }
   }
 

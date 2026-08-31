@@ -89,10 +89,24 @@
 
   /* --- 2. anchor jumps ------------------------------------------------------
      Panels are normal flow now, so the browser's own geometry is trustworthy
-     — no cumulative-height workaround needed here anymore. */
+     — no cumulative-height workaround needed here anymore.
+
+     Works is taller than one screen and its heading sits mid-canvas per the
+     PSD (the grid of logos starts well above it) — jumping to the panel's
+     own top landed visitors eight logos deep with the heading cut off at
+     the bottom of the screen. data-scroll-target lets a panel name a more
+     useful landing element (its heading); every other panel has none and
+     falls back to the panel itself, unchanged. */
+  function scrollTargetFor(panel) {
+    var sel = panel.getAttribute('data-scroll-target');
+    var target = sel && panel.querySelector(sel);
+    return target || panel;
+  }
+
   function goTo(panel, smooth) {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    panel.scrollIntoView({ behavior: (smooth && !reduce) ? 'smooth' : 'instant', block: 'start' });
+    var target = scrollTargetFor(panel);
+    target.scrollIntoView({ behavior: (smooth && !reduce) ? 'smooth' : 'instant', block: 'start' });
   }
 
   document.addEventListener('click', function (e) {
