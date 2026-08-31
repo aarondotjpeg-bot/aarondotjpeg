@@ -27,6 +27,13 @@
     flex-direction: column;
   }
 
+  /* Sections otherwise touch edge to edge — this is the only source of
+     spacing between them now that there's no sticky stack. Not on the
+     first panel, so Home still sits flush with the very top of the page. */
+  .panel + .panel {
+    margin-block-start: var(--panel-gap);
+  }
+
   /* Bleeding artwork (the carousel's peeking side slides) is clipped here. */
   .panel__inner {
     position: relative;
