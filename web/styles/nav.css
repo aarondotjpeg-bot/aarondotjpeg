@@ -75,7 +75,16 @@
   .nav__list::before {
     content: "";
     position: absolute;
-    inset: calc(-1 * var(--nav-pill-t)) 0 calc(-1 * var(--nav-pill-b)) 0;
+    /* Top can't reuse the per-link pill's -nav-pill-t verbatim: that value is
+       measured from .nav__link's own box, which already sits below
+       .nav__list's padding-block-start. This box is measured from
+       .nav__list's box directly, so the top inset has to subtract that same
+       padding-block-start to land on the same edge the per-link pill uses:
+         nav__link's top (padding-block-start) + (-nav-pill-t)
+       = (nav-ink-top - nav-pill-t) - nav-pill-t = nav-ink-top - 2*nav-pill-t
+       The bottom edge needs no such correction — .nav__list has no
+       padding-block-end, so its bottom already coincides with the link's. */
+    inset: calc(var(--nav-ink-top) - 2 * var(--nav-pill-t)) 0 calc(-1 * var(--nav-pill-b)) 0;
     background: var(--c-paper);
     z-index: -1;
   }
