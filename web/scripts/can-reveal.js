@@ -2,7 +2,7 @@
    REPP SPORTS CAN REVEAL
    The four cans fade in right to left (watermelon first, galaxy last —
    data-can-order counts down from the rightmost can) once the panel
-   scrolls into view, after a 1.5s pause. Runs once; the observer
+   scrolls into view, after a 0.75s pause. Runs once; the observer
    disconnects after the first reveal so it doesn't refire on repeat
    scrolls past the panel.
    =========================================================================== */
@@ -22,7 +22,7 @@
     return Number(a.dataset.canOrder) - Number(b.dataset.canOrder);
   });
 
-  var START_DELAY_MS = 1500;
+  var START_DELAY_MS = 750;
   var STAGGER_MS = 180;
 
   function reveal() {

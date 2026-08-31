@@ -272,15 +272,27 @@
        scripts/parallax.js already skips applying its transform below
        1024px. This rejoins the artwork to the flow at full width instead,
        same as .pj-art/.pj-bg above; !important beats the inline transform
-       parallax.js may have already set before the viewport narrowed. */
-    .panel--project .pj-window {
+       parallax.js may have already set before the viewport narrowed.
+       #nutrakey-prefixed to out-specify `.panel--project .stage > *`
+       below, which also sets width and — being a direct-child selector
+       that matches .pj-window itself (unlike .pj-cans, which shields its
+       .pj-can children behind a wrapper) — would otherwise win by source
+       order despite coming first here. */
+    #nutrakey .pj-window {
       order: 1;
       position: static;
       overflow: visible;
-      width: 100%;
+      /* True edge-to-edge, not just full-width-of-the-padded-column: the
+         stage carries padding-inline: var(--inset-x) for the text above
+         it, which a plain 100% here would inherit too, leaving the same
+         gap on both sides that the text has. Widening past that padding
+         and pulling back with a matching negative margin bleeds the
+         image to the actual viewport edges instead. */
+      width: calc(100% + 2 * var(--inset-x));
+      margin-inline: calc(-1 * var(--inset-x));
       height: auto;
     }
-    .panel--project .pj-parallax {
+    #nutrakey .pj-parallax {
       position: static;
       width: 100%;
       height: auto;
