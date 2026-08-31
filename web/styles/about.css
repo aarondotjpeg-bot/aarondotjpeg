@@ -41,6 +41,14 @@
     display: contents;
   }
 
+  /* Responsive-only break points inside the headline and quote: hidden here
+     (desktop keeps its original single-line/PSD-specified breaks), shown in
+     the mobile/tablet query below where they matter. */
+  .ab-headline__br--word,
+  .ab-quote__br--a {
+    display: none;
+  }
+
   /* --- left column -------------------------------------------------------- */
 
   /* ink y196 - 4 */
@@ -198,8 +206,9 @@
   }
   .ab-exp__role { font-weight: var(--fw-black); }
   .ab-exp__org  { font-weight: var(--fw-regular); }
+  /* Same size as .ab-exp__org (the company name) — inherits .ab-exp-track's
+     font-size rather than setting its own smaller one. */
   .ab-exp__desc {
-    font-size: calc(12 * var(--u));
     font-weight: var(--fw-regular);
     line-height: 1;
   }
@@ -267,14 +276,20 @@
        each authored line still starts a new line; a segment too wide for
        the viewport just wraps again underneath it, same as any other text. */
 
-    /* The typewriter word varies from 6 to 10 letters, and each authored
-       line can now also wrap on its own at narrow widths — measured
-       directly (not guessed): at 375px the tallest word ("inventions" /
-       "campaigns") renders at 175px against a 27.75px font-size, ~6.3em.
-       6.5em in reserve covers that with a small margin; 820px+ never gets
-       close (worst case there measured at 3 lines / 120px), so this one
-       value covers both breakpoints in this shared block. */
-    .ab-headline { min-height: 6.5em; }
+    /* The tail of the headline ("always polished, sometimes raw, but
+       always intentional with personality.") used to carry a forced break
+       after "raw," even where the viewport had room to keep going — too
+       many short, choppy lines. Letting it flow as one run of text and
+       wrap only where the width actually requires it reads more natural,
+       here and in the mobile-only block below. */
+    .ab-headline__br--tail { display: none; }
+
+    /* Likewise the quote's "that" used to orphan-wrap onto its own line
+       between "coffee, and making things" and "are hard to ignore." at
+       narrow widths — this swaps which of the two break points is active
+       so "that" always rides with "are hard to ignore." instead. */
+    .ab-quote__br--a { display: block; }
+    .ab-quote__br--b { display: none; }
 
     .ab-bio,
     .ab-do,
@@ -290,36 +305,35 @@
     .ab-do__item,
     .ab-exp__entry + .ab-exp__entry { margin-block-start: 1.45em; }
 
-    .ab-exp__desc { font-size: var(--fs-15); line-height: 1.4; }
+    /* Same size as .ab-exp__org (the company name), inherited from the
+       .ab-exp-track, .ab-contact-label, etc. font-size rule above. */
+    .ab-exp__desc { line-height: 1.4; }
 
     /* Contact label + email read as a single tight pair, not two unrelated
-       stage items sharing the big inter-block gap — and sit right-aligned,
-       per the reference screenshot. */
+       stage items sharing the big inter-block gap. */
     #about .ab-contact {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
       width: 100%;
       gap: 0.35em;
     }
     .ab-contact-label,
-    .ab-email { text-align: right; }
+    .ab-email { text-align: left; }
 
-    /* Experience label + the scroll window right-align the same way. */
+    /* Experience label + the scroll window group the same way. */
     #about .ab-exp {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
       gap: 0.6em;
       width: 100%;
     }
-    .ab-exp-label { text-align: right; }
+    .ab-exp-label { text-align: left; }
     .ab-exp-track,
     .ab-exp__entry,
     .ab-exp__when,
     .ab-exp__role,
     .ab-exp__org,
-    .ab-exp__desc { text-align: right; }
+    .ab-exp__desc { text-align: left; }
 
     /* The desktop box (509 x 190 design px) is driven by --u, which is tiny
        at phone widths — a fixed, viewport-relative window instead, wide
@@ -349,10 +363,34 @@
     }
   }
 
+  /* Phone only: at this width "I build ideas into [word]_" doesn't
+     reliably fit on one line, so a long word wraps it to a second line
+     while a short one doesn't — everything below it would shift a full
+     line-height as the word cycles. Forcing the word onto its own line
+     always removes that variance entirely (every word then renders at the
+     same headline height). Tablet has the width to keep the word on the
+     same line as "into" without that problem (see below), so this stays
+     phone-only. */
+  @media (max-width: 767px) {
+    .ab-headline__br--word { display: block; }
+
+    /* Measured directly: with the word forced onto its own line, every
+       word in the list renders the same 146px at 375px (27.75px font,
+       5.25em). */
+    .ab-headline { min-height: 5.25em; }
+  }
+
   /* Tablet only: the 420px phone cap leaves the portrait stranded in the
      middle of a much wider column (real width 768-1023px) — let it fill
      the row instead, matching the reference screenshot. */
   @media (min-width: 768px) and (max-width: 1023px) {
     #about .ab-photo { max-width: none; }
+
+    /* Measured directly at both ends of this range (768px and 1023px) with
+       the word sharing the line with "into" (per the request above):
+       every word renders identically at 120px (38px font, 3.15em) — the
+       tablet column is wide enough that no word ever forces a second
+       line, so there's no variance to reserve slack for here either. */
+    #about .ab-headline { min-height: 3.15em; }
   }
 }

@@ -83,7 +83,7 @@
        centering the two-column group didn't center the wordmark/copyright
        pair under the logo — it centered two mismatched columns instead.
        Flex keeps the sub-line row as one block, so centering it is exact. */
-    .stage {
+    #home .stage {
       height: auto;
       display: flex;
       flex-direction: column;
