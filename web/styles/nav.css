@@ -49,6 +49,7 @@
   }
 
   .nav__list {
+    position: relative;
     display: flex;
     align-items: flex-start;
     /* font-size here so every em below resolves against the link type */
@@ -63,6 +64,20 @@
     transition: translate  var(--dur-nav) var(--ease-nav),
                 opacity    var(--dur-nav) linear,
                 visibility 0s linear 0s;
+  }
+
+  /* One plate behind the whole link group, always on — so the nav stays
+     readable scrolled over any artwork, not just on hover. Same vertical
+     size as the per-link hover pill below, but spans start-to-end of the
+     list instead of repeating per link, so there's no gap between links for
+     page content to show through. It rides along with .nav__list's own
+     slide/fade for free, since a ::before is part of its host's box. */
+  .nav__list::before {
+    content: "";
+    position: absolute;
+    inset: calc(-1 * var(--nav-pill-t)) 0 calc(-1 * var(--nav-pill-b)) 0;
+    background: var(--c-paper);
+    z-index: -1;
   }
 
   .nav[data-open="false"] .nav__list {

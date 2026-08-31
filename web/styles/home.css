@@ -62,6 +62,12 @@
     bottom: calc(3 * var(--u));
   }
 
+  /* Layout-only wrapper for the two sub-lines — display:contents on desktop
+     keeps it out of the box tree entirely, so .home__wordmark and
+     .home__copyright still position:absolute against .stage exactly as
+     before. Mobile turns it into the real flex row that groups them. */
+  .home__sub { display: contents; }
+
   /* --- mobile -------------------------------------------------------------
      A composition anchored to 1920 coordinates cannot survive a 390px portrait
      screen, so below 768 the stage stops being a coordinate space and the
@@ -69,26 +75,34 @@
   @media (max-width: 767px) {
     /* The two text lines share a row here, as they do in the PSD — the
        wordmark and the copyright sit on one baseline either side of centre,
-       with the logo above them. */
+       with the logo above them.
+
+       This is flex, not grid: a grid with the logo spanning both columns
+       let the logo's own width inflate each auto column unevenly, so
+       centering the two-column group didn't center the wordmark/copyright
+       pair under the logo — it centered two mismatched columns instead.
+       Flex keeps the sub-line row as one block, so centering it is exact. */
     .stage {
       height: auto;
-      display: grid;
-      grid-template-columns: auto auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      align-content: center;
-      align-items: baseline;
-      column-gap: clamp(16px, 7vw, 56px);
+      gap: calc(var(--safe-y) * 0.35);
       min-height: calc(100dvh - var(--safe-y) * 2);
       padding-inline: var(--inset-x);
     }
 
     .home__logo {
       position: static;
-      grid-column: 1 / -1;
-      justify-self: center;
       width: min(100%, 420px);
       height: auto;
-      margin-block-end: calc(var(--safe-y) * 0.35);
+    }
+
+    .home__sub {
+      display: flex;
+      align-items: baseline;
+      gap: clamp(16px, 7vw, 56px);
     }
 
     .home__wordmark,
@@ -98,8 +112,8 @@
       font-size: clamp(15px, 4.6vw, 22px);
     }
 
-    .home__wordmark  { grid-column: 1; font-weight: var(--fw-light); }
-    .home__copyright { grid-column: 2; font-weight: var(--fw-black); }
+    .home__wordmark  { font-weight: var(--fw-light); }
+    .home__copyright { font-weight: var(--fw-black); }
 
     .home__c { font-size: 0.74em; bottom: 0.06em; }
   }
