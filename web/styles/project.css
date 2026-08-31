@@ -74,6 +74,41 @@
     height: auto;
   }
 
+  /* .pj-cans exists only so mobile/tablet can lay the four cans out as a
+     real row (see the media query below) — on desktop it must be invisible
+     to the box tree so each .pj-can keeps positioning against .stage
+     directly, same reasoning as About's .ab-contact/.ab-exp. */
+  .pj-cans {
+    display: contents;
+  }
+
+  /* .pj-can — Repp Sports' four cans, positioned like any other .stage
+     element. Each starts hidden and fades in on its own once the panel is
+     in view — see scripts/can-reveal.js. Starting a few px lower and
+     settling into place reads as a soft rise, not just an opacity fade. */
+  .pj-can {
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top:  calc(var(--y) * var(--u));
+    width:  calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    opacity: 0;
+    transform: translateY(calc(16 * var(--u)));
+    transition: opacity var(--dur-slow, 600ms) var(--ease-out),
+                transform var(--dur-slow, 600ms) var(--ease-out);
+  }
+  .pj-can[data-revealed] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pj-can {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
   .pj-num,
   .pj-title,
   .pj-bio {
@@ -249,6 +284,37 @@
       transform: none !important;
     }
 
+    /* Repp Sports' four cans: the desktop absolute-positioned row doesn't
+       fit a stacked mobile layout, so .pj-cans becomes a real (wrapping)
+       row of its own instead of four separate column items — same
+       left-to-right order, just centered and sized to the viewport
+       instead of the 1920 canvas. The reveal animation itself (see
+       scripts/can-reveal.js) still runs unchanged; only position/size are
+       overridden here. */
+    .panel--project .pj-cans {
+      order: 1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: clamp(8px, 3vw, 20px);
+      width: 100%;
+    }
+    .panel--project .pj-can {
+      position: static;
+      width: calc(25% - 15px);
+      height: auto;
+    }
+
+    /* Repp Sports' second panel is the same "one full-bleed image, no
+       text" shape as NutraKey's — same fix: cover a fixed aspect-ratio
+       instead of showing the full natural aspect with whatever gap that
+       leaves around it, tighter again on phones than tablets. */
+    #repp-sports-work .pj-bg {
+      height: auto;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+    }
+
     .panel--project .stage {
       height: auto;
       display: flex;
@@ -312,6 +378,7 @@
 
   /* Phone only: crop in further than the tablet aspect-ratio above. */
   @media (max-width: 767px) {
-    #nutrakey-work .pj-bg { aspect-ratio: 4 / 3; }
+    #nutrakey-work .pj-bg,
+    #repp-sports-work .pj-bg { aspect-ratio: 4 / 3; }
   }
 }

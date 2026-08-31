@@ -337,30 +337,45 @@
     </div>
   </section>
 
+  <!-- The four cans are separate elements (not a flat composite) so each
+       can fade in on its own — see scripts/can-reveal.js. Left-to-right
+       order matches the PSD (galaxy, sour, guava, watermelon); watermelon
+       sits partly past the panel's right edge and is clipped by
+       .panel__inner's own overflow:clip, same as the PSD's crop. -->
   <section class="panel panel--project" id="repp-sports"
            style="--ar:0.563021" aria-label="Repp Sports">
     <div class="panel__inner">
-      <img class="pj-bg" src="assets/img/work/repp-a.webp"
-         alt="Repp Sports supplement packaging"
-         width="1920" height="1081" loading="lazy" decoding="async">
       <div class="stage" style="--stage-h:1081">
         <p class="pj-num"   style="--x:112; --y:172.4">02</p>
         <h2 class="pj-title" style="--y:677">Repp Sports</h2>
-        <!-- TODO(artboard-5): copy is not final; holding the layout. -->
         <div class="pj-bio" style="--y:741; --w:506">
-          <p>I’m aarondotjpeg, a multidisciplinary creative working across graphic design, branding, art direction, illustration, and digital experiences. I move between disciplines freely, using whatever medium best brings an idea to life.</p>
-          <p>Born in New York and now based in Florida, my creative path has taken me across the country, shaped by different people, places, and experiences along the way. Drawing, photography, and design have always been interconnected parts of how I create, eventually growing into a broader practice that includes branding, digital experiences, and creative direction.</p>
+          <p>As Lead Creative Director and Marketing Manager at REPP Sports, I worked across branding, packaging, web, and marketing for a growing lineup of sports nutrition and performance products.</p>
+          <p>I developed branding and packaging for more than 35 products, including the first seven Raze Energy SKUs, while also creating websites, campaigns, photography, video, and social content that helped build the brands around them.</p>
+        </div>
+        <div class="pj-cans">
+          <img class="pj-can" data-can-order="4" style="--x:725; --y:138; --w:331; --h:844"
+               src="assets/img/work/repp-can-galaxy.webp" alt="Raze Energy, Galaxy Burst"
+               width="331" height="844" loading="lazy" decoding="async">
+          <img class="pj-can" data-can-order="3" style="--x:1073; --y:138; --w:331; --h:844"
+               src="assets/img/work/repp-can-sour.webp" alt="Raze Energy, Sour Gummy Worms"
+               width="331" height="844" loading="lazy" decoding="async">
+          <img class="pj-can" data-can-order="2" style="--x:1421; --y:138; --w:331; --h:844"
+               src="assets/img/work/repp-can-guava.webp" alt="Raze Energy, Guava Mango"
+               width="331" height="844" loading="lazy" decoding="async">
+          <img class="pj-can" data-can-order="1" style="--x:1769; --y:138; --w:331; --h:844"
+               src="assets/img/work/repp-can-watermelon.webp" alt="Raze Energy, Watermelon Frost"
+               width="331" height="844" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
   </section>
 
   <section class="panel panel--project" id="repp-sports-work"
-           style="--ar:0.622917" aria-label="Repp Sports, continued">
+           style="--ar:0.620973" aria-label="Repp Sports, continued">
     <div class="panel__inner">
       <img class="pj-bg" src="assets/img/work/repp-b.webp"
-         alt="Repp Sports product range"
-         width="1920" height="1196" loading="lazy" decoding="async">
+         alt="Repp Sports product range — REACTR, RAZE, Whey+, apparel and Raze Energy 12-pack"
+         width="1707" height="1060" loading="lazy" decoding="async">
     </div>
   </section>
 
@@ -481,5 +496,6 @@
 <script src="scripts/typewriter.js"></script>
 <script src="scripts/marquee.js"></script>
 <script src="scripts/parallax.js"></script>
+<script src="scripts/can-reveal.js"></script>
 </body>
 </html>
