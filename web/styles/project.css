@@ -93,9 +93,12 @@
     width:  calc(var(--w) * var(--u));
     height: calc(var(--h) * var(--u));
     opacity: 0;
-    transform: translateY(calc(16 * var(--u)));
-    transition: opacity var(--dur-slow, 600ms) var(--ease-out),
-                transform var(--dur-slow, 600ms) var(--ease-out);
+    /* Subtler and slower than the site's usual --dur-slow: a small rise
+       (8 design px, half the old 16) over 1.1s reads as a gentle settle
+       rather than something popping in. */
+    transform: translateY(calc(8 * var(--u)));
+    transition: opacity 1100ms var(--ease-out),
+                transform 1100ms var(--ease-out);
   }
   .pj-can[data-revealed] {
     opacity: 1;
@@ -285,23 +288,23 @@
     }
 
     /* Repp Sports' four cans: the desktop absolute-positioned row doesn't
-       fit a stacked mobile layout, so .pj-cans becomes a real (wrapping)
-       row of its own instead of four separate column items — same
-       left-to-right order, just centered and sized to the viewport
-       instead of the 1920 canvas. The reveal animation itself (see
-       scripts/can-reveal.js) still runs unchanged; only position/size are
-       overridden here. */
+       fit a stacked mobile layout, so .pj-cans becomes a real row of its
+       own instead of four separate column items — same left-to-right
+       order and still one line at every width (no wrap), just sized to
+       the viewport instead of the 1920 canvas. The reveal animation
+       itself (see scripts/can-reveal.js) still runs unchanged; only
+       position/size are overridden here. */
     .panel--project .pj-cans {
       order: 1;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
-      gap: clamp(8px, 3vw, 20px);
+      gap: clamp(4px, 1.5vw, 14px);
       width: 100%;
     }
     .panel--project .pj-can {
       position: static;
-      width: calc(25% - 15px);
+      width: calc(25% - 8px);
       height: auto;
     }
 
