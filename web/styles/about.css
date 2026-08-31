@@ -66,6 +66,7 @@
     letter-spacing: var(--ls-body);
   }
   .ab-bio p + p { margin-block-start: calc(36 * var(--u)); }
+  .ab-bio b { font-weight: var(--fw-black); }
 
   /* ink y842 - 2 */
   .ab-contact-label {
@@ -143,10 +144,15 @@
      leftward to reclaim the old date column's space (1330, not 1456), since
      nothing needs that column separately any more.
 
-     Looping: .ab-exp-track holds the entry list TWICE, back to back, and
-     animates by exactly -50%. Because the two halves are identical, the
-     instant the animation completes, the second copy is sitting exactly
-     where the first one started — no visible seam or reset. */
+     Looping: .ab-exp-track holds the 6 entries twice, all 12 as plain
+     siblings (not two wrapping divs) so the ordinary entry-to-entry gap
+     below applies across every boundary uniformly, the seam between the
+     last real entry and the first duplicate included. That means a flat
+     -50% is no longer exactly the right loop distance (gaps make the two
+     halves' boundary not fall exactly at the track's midpoint) — scripts/
+     marquee.js measures the real pixel distance from entry 1 to entry 7 and
+     writes it to --marquee-distance; the keyframe below falls back to 50%
+     only if that hasn't run yet. */
   .ab-exp-scroll {
     left: calc(1330 * var(--u));
     top:  calc(594 * var(--u));
@@ -156,7 +162,10 @@
   }
 
   .ab-exp-track {
-    animation: ab-exp-marquee 42s linear infinite;
+    font-size: calc(18 * var(--u));
+    line-height: 1;
+    letter-spacing: var(--ls-body);
+    animation: ab-exp-marquee 60s linear infinite;
   }
 
   .ab-exp-scroll:hover .ab-exp-track {
@@ -165,14 +174,9 @@
 
   @keyframes ab-exp-marquee {
     from { transform: translateY(0); }
-    to   { transform: translateY(-50%); }
+    to   { transform: translateY(calc(-1 * var(--marquee-distance, 50%))); }
   }
 
-  .ab-exp {
-    font-size: calc(18 * var(--u));
-    line-height: 1;
-    letter-spacing: var(--ls-body);
-  }
   .ab-exp__entry + .ab-exp__entry { margin-block-start: calc(36 * var(--u)); }
   .ab-exp__when {
     display: block;
@@ -249,9 +253,18 @@
     .ab-headline,
     .ab-quote { white-space: normal; }
 
+    /* The typewriter word varies from 6 to 10 letters, which wraps the
+       headline across 4 or 5 lines depending which one is showing (measured
+       directly, not guessed) — without a reserved height, everything below
+       it visibly jumps up and down as the animation cycles. 5 lines' worth
+       is the worst case at the narrowest width; in em so it scales with the
+       clamp() above, and errs generous rather than deficient at wider
+       widths, where the same text wraps to fewer lines anyway. */
+    .ab-headline { min-height: calc(5 * 1.05em); }
+
     .ab-bio,
     .ab-do,
-    .ab-exp,
+    .ab-exp-track,
     .ab-contact-label,
     .ab-email,
     .ab-exp-label,
@@ -264,6 +277,14 @@
     .ab-exp__entry + .ab-exp__entry { margin-block-start: 1.45em; }
 
     .ab-exp__desc { font-size: var(--fs-15); line-height: 1.4; }
+
+    /* The desktop box (509 x 190 design px) is driven by --u, which is tiny
+       at phone widths — a fixed, viewport-relative window instead, wide
+       enough to comfortably show about two entries at readable size. */
+    .ab-exp-scroll {
+      width: 100%;
+      height: clamp(220px, 40vh, 320px);
+    }
 
     .ab-photo {
       width: 100%;

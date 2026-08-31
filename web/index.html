@@ -93,7 +93,7 @@
     <div class="panel__inner">
       <div class="stage">
 
-        <h2 class="ab-headline">I build ideas into <span aria-hidden="true"><span class="ab-word" data-words="worlds,stickers,websites,t-shirts,inventions">worlds</span><span class="ab-cursor">_</span></span><span class="visually-hidden">worlds</span><br>sometimes polished, sometimes raw,<br>always intentional with personality.</h2>
+        <h2 class="ab-headline">I build ideas into <span aria-hidden="true"><span class="ab-word" data-words="worlds,stickers,websites,t-shirts,inventions,cartoons,campaigns,products,content,profit">worlds</span><span class="ab-cursor">_</span></span><span class="visually-hidden">worlds</span><br>sometimes polished, sometimes raw,<br>always intentional with personality.</h2>
 
         <picture class="ab-photo">
           <source srcset="assets/img/about-portrait.webp" type="image/webp">
@@ -102,9 +102,9 @@
         </picture>
 
         <div class="ab-bio">
-          <p>I’m aarondotjpeg, a multidisciplinary creative working across graphic design, branding, art direction, illustration, and digital experiences. I move between disciplines freely, using whatever medium best brings an idea to life.</p>
-          <p>Born in New York and now based in Florida, my creative path has taken me across the country, shaped by different people, places, and experiences along the way. Drawing, photography, and design have always been interconnected parts of how I create, eventually growing into a broader practice that includes branding, digital experiences, and creative direction.</p>
-          <p>My approach is influenced by childhood cartoons, anime, space exploration, street culture, music, and the world around me. I’m drawn to bold visuals, playful ideas, and unexpected details—creating work that feels expressive and imaginative while still being intentional. Whether physical or digital, I’m always looking for new ways to turn an idea into something people can see, feel, and remember.</p>
+          <p>I’m <b>aarondotjpeg</b>, a creative working across graphic design, branding, art direction, illustration, and digital experiences. I move between ideas freely, using whatever medium best brings a project to life.</p>
+          <p>I was born in New York and now based in Florida, creativity has always been part of how I see the world. I started with drawing, painting, and photography long before finding graphic design, and over time those interests grew into branding, digital experiences, and creative direction.</p>
+          <p>My work has been shaped by childhood cartoons, anime, space exploration, street culture, gaming, and the weird details I notice in everyday life. I’m drawn to bold visuals, good type, and unexpected combinations. Whether physical or digital, I want to make things that feel considered without feeling overly serious — things people want to look at, interact with, and remember.</p>
         </div>
 
         <p class="ab-contact-label">Contact</p>
@@ -135,88 +135,91 @@
         <!-- Auto-scrolling marquee: dates now ride inside each entry (not a
              separate absolutely-positioned column) because a marquee moves
              the entries — a fixed date column would immediately drift away
-             from the entry it labels. The entry list is duplicated once,
-             back to back; animating the track by exactly -50% loops
-             seamlessly, since the second copy lands exactly where the first
-             one started. See about.css for the keyframe, scripts/none
-             needed — pure CSS. -->
+             from the entry it labels.
+
+             The 6 entries are duplicated once, all 12 as direct siblings
+             (not grouped in wrapping divs) so the ordinary
+             .ab-exp__entry + .ab-exp__entry gap rule applies uniformly
+             across every boundary, INCLUDING the seam between the last real
+             entry and the first duplicate — otherwise that one seam has no
+             gap at all. scripts/marquee.js measures the real pixel distance
+             from entry 1 to entry 7 (one full logical loop, gap included)
+             and drives the keyframe off that — a plain -50% is only exactly
+             right when the two halves are gapless, which they no longer
+             are once every boundary carries the same margin. -->
         <div class="ab-exp-scroll">
           <div class="ab-exp-track">
-            <div class="ab-exp">
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">JULY 2025 - Present</p>
-                <p class="ab-exp__role">Lead Web Designer / Art Director</p>
-                <p class="ab-exp__org">Hydra Workflows</p>
-                <p class="ab-exp__desc">Lead web design, creative direction, and digital branding for AI-focused workflow and automation projects.</p>
-              </div>
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">OCT 2022 - APR 2023</p>
-                <p class="ab-exp__role">Head Graphic Designer</p>
-                <p class="ab-exp__org">Lucidity Festival</p>
-                <p class="ab-exp__desc">Led creative direction and branding development for the festival’s 10th anniversary campaign.</p>
-              </div>
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">MAR 2019 - MAY 2020</p>
-                <p class="ab-exp__role">Creative Director</p>
-                <p class="ab-exp__org">Nutrex Research</p>
-                <p class="ab-exp__desc">Directed branding, campaigns and product packaging initiatives.</p>
-              </div>
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">FEB 2017 - MAR 2019</p>
-                <p class="ab-exp__role">Lead Creative Director</p>
-                <p class="ab-exp__org">Repp Sports</p>
-                <p class="ab-exp__desc">Executed digital marketing campaigns, social strategies, and branding initiatives.</p>
-              </div>
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">JAN 2016 - MAR 2019</p>
-                <p class="ab-exp__role">Senior Graphic Designer</p>
-                <p class="ab-exp__org">NutraKey Health</p>
-                <p class="ab-exp__desc">Managed branding, digital marketing campaigns, social strategies, and branding initiatives.</p>
-              </div>
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">AUG 2013 - MAY 2014</p>
-                <p class="ab-exp__role">Graphic Designer</p>
-                <p class="ab-exp__org">PIN Agency</p>
-                <p class="ab-exp__desc">Developed brand identity and creative direction for a portfolio of agency clients.</p>
-              </div>
+            <div class="ab-exp__entry">
+              <p class="ab-exp__when">JULY 2025 – PRESENT</p>
+              <p class="ab-exp__role">Lead Web Designer / Art Director</p>
+              <p class="ab-exp__org">Hydra Workflows</p>
+              <p class="ab-exp__desc">Leading web design, creative direction, and digital branding for AI-powered workflow and automation products.</p>
             </div>
-            <div class="ab-exp" aria-hidden="true">
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">JULY 2025 - Present</p>
-                <p class="ab-exp__role">Lead Web Designer / Art Director</p>
-                <p class="ab-exp__org">Hydra Workflows</p>
-                <p class="ab-exp__desc">Lead web design, creative direction, and digital branding for AI-focused workflow and automation projects.</p>
-              </div>
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">OCT 2022 - APR 2023</p>
-                <p class="ab-exp__role">Head Graphic Designer</p>
-                <p class="ab-exp__org">Lucidity Festival</p>
-                <p class="ab-exp__desc">Led creative direction and branding development for the festival’s 10th anniversary campaign.</p>
-              </div>
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">MAR 2019 - MAY 2020</p>
-                <p class="ab-exp__role">Creative Director</p>
-                <p class="ab-exp__org">Nutrex Research</p>
-                <p class="ab-exp__desc">Directed branding, campaigns and product packaging initiatives.</p>
-              </div>
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">FEB 2017 - MAR 2019</p>
-                <p class="ab-exp__role">Lead Creative Director</p>
-                <p class="ab-exp__org">Repp Sports</p>
-                <p class="ab-exp__desc">Executed digital marketing campaigns, social strategies, and branding initiatives.</p>
-              </div>
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">JAN 2016 - MAR 2019</p>
-                <p class="ab-exp__role">Senior Graphic Designer</p>
-                <p class="ab-exp__org">NutraKey Health</p>
-                <p class="ab-exp__desc">Managed branding, digital marketing campaigns, social strategies, and branding initiatives.</p>
-              </div>
-              <div class="ab-exp__entry">
-                <p class="ab-exp__when">AUG 2013 - MAY 2014</p>
-                <p class="ab-exp__role">Graphic Designer</p>
-                <p class="ab-exp__org">PIN Agency</p>
-                <p class="ab-exp__desc">Developed brand identity and creative direction for a portfolio of agency clients.</p>
-              </div>
+            <div class="ab-exp__entry">
+              <p class="ab-exp__when">OCT 2022 – APR 2023</p>
+              <p class="ab-exp__role">Head Graphic Designer</p>
+              <p class="ab-exp__org">Lucidity Festival</p>
+              <p class="ab-exp__desc">Led creative direction and visual development across the festival’s 10th anniversary campaign, from digital to on-site experiences.</p>
+            </div>
+            <div class="ab-exp__entry">
+              <p class="ab-exp__when">MAR 2019 – MAY 2020</p>
+              <p class="ab-exp__role">Creative Director</p>
+              <p class="ab-exp__org">Nutrex Research</p>
+              <p class="ab-exp__desc">Directed branding, creative campaigns, and packaging across a growing portfolio of health and performance products.</p>
+            </div>
+            <div class="ab-exp__entry">
+              <p class="ab-exp__when">FEB 2017 – MAR 2019</p>
+              <p class="ab-exp__role">Lead Creative Director / Marketing Manager</p>
+              <p class="ab-exp__org">Repp Sports</p>
+              <p class="ab-exp__desc">Led branding, digital marketing, and creative campaigns across product launches, e-commerce, and social.</p>
+            </div>
+            <div class="ab-exp__entry">
+              <p class="ab-exp__when">JAN 2016 – MAR 2019</p>
+              <p class="ab-exp__role">Senior Graphic Designer</p>
+              <p class="ab-exp__org">NutraKey Health</p>
+              <p class="ab-exp__desc">Shaped branding, packaging, digital campaigns, and web experiences across a large portfolio of health and performance products.</p>
+            </div>
+            <div class="ab-exp__entry">
+              <p class="ab-exp__when">AUG 2013 – MAY 2014</p>
+              <p class="ab-exp__role">Graphic Designer / Project Manager</p>
+              <p class="ab-exp__org">Pin Agency</p>
+              <p class="ab-exp__desc">Developed brand identities, digital experiences, and creative campaigns across a diverse portfolio of agency clients.</p>
+            </div>
+            <div class="ab-exp__entry" aria-hidden="true">
+              <p class="ab-exp__when">JULY 2025 – PRESENT</p>
+              <p class="ab-exp__role">Lead Web Designer / Art Director</p>
+              <p class="ab-exp__org">Hydra Workflows</p>
+              <p class="ab-exp__desc">Leading web design, creative direction, and digital branding for AI-powered workflow and automation products.</p>
+            </div>
+            <div class="ab-exp__entry" aria-hidden="true">
+              <p class="ab-exp__when">OCT 2022 – APR 2023</p>
+              <p class="ab-exp__role">Head Graphic Designer</p>
+              <p class="ab-exp__org">Lucidity Festival</p>
+              <p class="ab-exp__desc">Led creative direction and visual development across the festival’s 10th anniversary campaign, from digital to on-site experiences.</p>
+            </div>
+            <div class="ab-exp__entry" aria-hidden="true">
+              <p class="ab-exp__when">MAR 2019 – MAY 2020</p>
+              <p class="ab-exp__role">Creative Director</p>
+              <p class="ab-exp__org">Nutrex Research</p>
+              <p class="ab-exp__desc">Directed branding, creative campaigns, and packaging across a growing portfolio of health and performance products.</p>
+            </div>
+            <div class="ab-exp__entry" aria-hidden="true">
+              <p class="ab-exp__when">FEB 2017 – MAR 2019</p>
+              <p class="ab-exp__role">Lead Creative Director / Marketing Manager</p>
+              <p class="ab-exp__org">Repp Sports</p>
+              <p class="ab-exp__desc">Led branding, digital marketing, and creative campaigns across product launches, e-commerce, and social.</p>
+            </div>
+            <div class="ab-exp__entry" aria-hidden="true">
+              <p class="ab-exp__when">JAN 2016 – MAR 2019</p>
+              <p class="ab-exp__role">Senior Graphic Designer</p>
+              <p class="ab-exp__org">NutraKey Health</p>
+              <p class="ab-exp__desc">Shaped branding, packaging, digital campaigns, and web experiences across a large portfolio of health and performance products.</p>
+            </div>
+            <div class="ab-exp__entry" aria-hidden="true">
+              <p class="ab-exp__when">AUG 2013 – MAY 2014</p>
+              <p class="ab-exp__role">Graphic Designer / Project Manager</p>
+              <p class="ab-exp__org">Pin Agency</p>
+              <p class="ab-exp__desc">Developed brand identities, digital experiences, and creative campaigns across a diverse portfolio of agency clients.</p>
             </div>
           </div>
         </div>
@@ -466,5 +469,6 @@
 <script src="scripts/contact.js"></script>
 <script src="scripts/webcarousel.js"></script>
 <script src="scripts/typewriter.js"></script>
+<script src="scripts/marquee.js"></script>
 </body>
 </html>
