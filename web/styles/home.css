@@ -99,23 +99,20 @@
       height: auto;
     }
 
-    /* Matches the desktop composition: wordmark sits under the logo's left
-       half, copyright under its right half — not bunched together in the
-       middle. Two EQUAL columns spanning the logo's own width (not "auto
-       auto" — that let the logo's own intrinsic width skew the columns
-       unevenly, which is what caused the original off-center bug) split the
-       row exactly at the logo's own horizontal centre; each line aligns to
-       that centre from its own side. */
+    /* Matches the desktop composition, measured off the actual rendered
+       desktop layout (not the PSD numbers, which are ink-only and a couple
+       percent off): the wordmark's left edge sits flush with the logo's own
+       left edge, and the copyright's right edge sits flush with (very
+       slightly past) the logo's own right edge — the pair spans the full
+       logo width, not a tight gap at its centre. A row exactly as wide as
+       the logo, space-between, reproduces that directly: flex pushes the
+       first item to the row's start and the last to its end. */
     .home__sub {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
       align-items: baseline;
+      justify-content: space-between;
       width: min(100%, 420px);
-      column-gap: clamp(10px, 3vw, 24px);
     }
-
-    .home__wordmark  { justify-self: end; }
-    .home__copyright { justify-self: start; }
 
     .home__wordmark,
     .home__copyright {
