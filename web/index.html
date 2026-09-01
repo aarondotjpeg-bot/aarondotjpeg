@@ -77,6 +77,12 @@
   <section class="panel" id="home"
            style="--ar:0.562500" aria-label="Home">
     <div class="panel__inner">
+      <!-- Hidden until the mouse reveals it in a pixelated trail — see
+           scripts/home-reveal.js. Decorative, so no fallback content: a
+           visitor who never moves the mouse (or has reduced motion) just
+           sees the plain page underneath, which is a complete page on its
+           own already. -->
+      <canvas class="home__reveal" aria-hidden="true"></canvas>
       <div class="stage">
         <img class="home__logo" src="assets/img/logo.png"
              alt="aarondotjpeg" width="677" height="150" fetchpriority="high" decoding="async">
@@ -314,10 +320,9 @@
       <div class="stage" style="--stage-h:1250">
         <p class="pj-num"   style="--x:112; --y:172.4">01</p>
         <h2 class="pj-title" style="--y:755">NutraKey Health</h2>
-        <!-- TODO(artboard-4): copy is not final; holding the layout. -->
         <div class="pj-bio" style="--y:819; --w:506">
-          <p>I’m aarondotjpeg, a multidisciplinary creative working across graphic design, branding, art direction, illustration, and digital experiences. I move between disciplines freely, using whatever medium best brings an idea to life.</p>
-          <p>Born in New York and now based in Florida, my creative path has taken me across the country, shaped by different people, places, and experiences along the way. Drawing, photography, and design have always been interconnected parts of how I create, eventually growing into a broader practice that includes branding, digital experiences, and creative direction.</p>
+          <p>As Senior Graphic Designer at NutraKey Health, I worked across branding, packaging, web, and digital campaigns for its growing line of health and performance products.</p>
+          <p>Over three years, I designed more than 75 product labels and packaging systems, along with websites, photography, video, and digital advertising. <b>The success of my work led to me taking the creative lead at NutraKey, expanding my role from hands-on design into directing the broader visual identity and creative direction of the brand.</b></p>
         </div>
         <div class="pj-window" style="--x:728; --y:0; --w:1192; --h:1250">
           <img class="pj-parallax" src="assets/img/work/nutrakey-a-right-2.webp"
@@ -346,11 +351,12 @@
            style="--ar:0.563021" aria-label="Repp Sports">
     <div class="panel__inner">
       <div class="stage" style="--stage-h:1081">
-        <p class="pj-num"   style="--x:112; --y:172.4">02</p>
-        <h2 class="pj-title" style="--y:677">Repp Sports</h2>
-        <div class="pj-bio" style="--y:741; --w:506">
+        <p class="pj-num"   style="--x:112; --y:102.4">02</p>
+        <h2 class="pj-title" style="--y:607">Repp Sports</h2>
+        <div class="pj-bio" style="--y:671; --w:506">
           <p>As Lead Creative Director and Marketing Manager at REPP Sports, I worked across branding, packaging, web, and marketing for a growing lineup of sports nutrition and performance products.</p>
-          <p>I developed branding and packaging for more than 35 products, including the first seven Raze Energy SKUs, while also creating websites, campaigns, photography, video, and social content that helped build the brands around them.</p>
+          <p>I developed branding and packaging for more than 35 products, including the first seven RAZE Energy SKUs, while also creating websites, campaigns, photography, video, and social content.</p>
+          <p><b>From the product on the shelf to the campaign around it, I helped shape how the brand looked, moved, and showed up.</b> The role pushed me beyond individual pieces of design and into building complete visual experiences around products and their launches.</p>
         </div>
         <div class="pj-cans">
           <img class="pj-can" data-can-order="4" style="--x:725; --y:138; --w:331; --h:844"
@@ -379,30 +385,37 @@
     </div>
   </section>
 
+  <!-- One flat image, fades in — see scripts/nutrex-reveal.js and
+       .nx-reveal in project.css. Triggers once, the first time the panel
+       scrolls into view. -->
   <section class="panel panel--project" id="nutrex"
            style="--ar:0.563021" aria-label="Nutrex Research">
     <div class="panel__inner">
-      <img class="pj-bg" src="assets/img/work/nutrex-a.webp"
-         alt="Nutrex Research supplement packaging"
-         width="1920" height="1081" loading="lazy" decoding="async">
       <div class="stage" style="--stage-h:1081">
         <p class="pj-num"   style="--x:112; --y:172.4">03</p>
         <h2 class="pj-title" style="--y:662">Nutrex Research</h2>
-        <!-- TODO(artboard-6): copy is not final; holding the layout. -->
         <div class="pj-bio" style="--y:726; --w:506">
-          <p>I’m aarondotjpeg, a multidisciplinary creative working across graphic design, branding, art direction, illustration, and digital experiences. I move between disciplines freely, using whatever medium best brings an idea to life.</p>
-          <p>Born in New York and now based in Florida, my creative path has taken me across the country, shaped by different people, places, and experiences along the way. Drawing, photography, and design have always been interconnected parts of how I create, eventually growing into a broader practice that includes branding, digital experiences, and creative direction.</p>
+          <p>As Creative Director at Nutrex Research, I led branding, creative campaigns, and product packaging across its lineup of sports nutrition and performance products.</p>
+          <p>During my time there, I developed more than 55 product labels and visual product systems, while spearheading the launches of the <b>Warrior Series, Plant Protein Series, and Lipo-6 Keto Series</b>. My work extended across packaging, photography, video, and marketing, helping shape each launch from product identity through campaign execution.</p>
+        </div>
+        <!-- x+w = 1920, flush with the panel's own right edge (not just
+             the padded text column — see the mobile/tablet notes on
+             #nutrakey .pj-window for why that distinction matters). -->
+        <div class="nx-reveal" style="--x:820; --y:83.5; --w:1100; --h:914">
+          <img class="nx-reveal__img" src="assets/img/work/nutrex-reveal-2.webp"
+               alt="Nutrex Research Warrior pre-workout, front and back label"
+               width="1303" height="1083" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
   </section>
 
   <section class="panel panel--project" id="nutrex-work"
-           style="--ar:0.601563" aria-label="Nutrex Research, continued">
+           style="--ar:0.571111" aria-label="Nutrex Research, continued">
     <div class="panel__inner">
-      <img class="pj-bg" src="assets/img/work/nutrex-b.webp"
-         alt="Nutrex Research product range"
-         width="1920" height="1155" loading="lazy" decoding="async">
+      <img class="pj-bg" src="assets/img/work/nutrex-stack.webp"
+         alt="Nutrex Research product range — Plant Protein, Lipo-6 Keto, Warrior, Outlift and EAA+"
+         width="1800" height="1028" loading="lazy" decoding="async">
     </div>
   </section>
 
@@ -496,6 +509,8 @@
 <script src="scripts/typewriter.js"></script>
 <script src="scripts/marquee.js"></script>
 <script src="scripts/parallax.js"></script>
+<script src="scripts/home-reveal.js"></script>
+<script src="scripts/nutrex-reveal.js"></script>
 <script src="scripts/can-reveal.js"></script>
 </body>
 </html>

@@ -17,6 +17,21 @@
          ©09-2026         origin x 1080, baseline y 664, © lifted 3px
      ========================================================================== */
 
+  /* Sits on .panel__inner directly, not .stage — full-bleed to the panel
+     itself like .pj-bg, independent of the design-pixel coordinate space.
+     Painted entirely by scripts/home-reveal.js; comes before .stage in
+     source order so the logo/wordmark paint over it with no z-index
+     needed. pointer-events:none keeps it out of the way of nav clicks
+     etc. — the reveal script tracks the pointer from the window, not
+     from this element. */
+  .home__reveal {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
   .home__logo {
     position: absolute;
     left:   calc(622 * var(--u));

@@ -112,6 +112,36 @@
     }
   }
 
+  /* .nx-reveal — one flat image that fades in the first time the panel
+     scrolls into view, via scripts/nutrex-reveal.js toggling
+     [data-revealed]. */
+  .nx-reveal {
+    position: absolute;
+    left: calc(var(--x) * var(--u));
+    top:  calc(var(--y) * var(--u));
+    width:  calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    overflow: hidden;
+  }
+  .nx-reveal__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 900ms var(--ease-out);
+  }
+  .nx-reveal[data-revealed] .nx-reveal__img {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nx-reveal__img {
+      opacity: 1;
+      transition: none;
+    }
+  }
+
   .pj-num,
   .pj-title,
   .pj-bio {
@@ -220,6 +250,7 @@
     letter-spacing: var(--ls-body);
   }
   .pj-bio p + p { margin-block-start: calc(36 * var(--u)); }
+  .pj-bio b { font-weight: var(--fw-black); }
 
   /* --- tablet and mobile ---------------------------------------------------
      A 16:9 collage cannot carry a portrait screen, so the panel becomes the
@@ -299,6 +330,29 @@
       transform: none !important;
     }
 
+    /* Nutrex's two-layer reveal, rejoined to the flow like the pj-window
+       fix above — #nutrex-prefixed for the same specificity reason.
+       position:relative (not static): unlike pj-window's single child,
+       this box holds two images that both need to stay inset:0 over one
+       another at every breakpoint, so it still has to be a positioning
+       context for them. aspect-ratio replaces the design-pixel --h now
+       that height:auto has nothing else to size against. */
+    #nutrex .nx-reveal {
+      order: 1;
+      position: relative;
+      height: auto;
+      /* Matches the actual nutrex-reveal-2.webp source (1303x1083) — this
+         had been left at the original two-layer version's 1413x1083,
+         which cropped the top and bottom off since the box's forced
+         ratio no longer matched the image's real one. */
+      aspect-ratio: 1303 / 1083;
+      /* True edge-to-edge, same reasoning as #nutrakey .pj-window: the
+         stage's padding-inline would otherwise leave the same gap on
+         both sides that the text above it has. */
+      width: calc(100% + 2 * var(--inset-x));
+      margin-inline: calc(-1 * var(--inset-x));
+    }
+
     /* Repp Sports' four cans: the desktop absolute-positioned row doesn't
        fit a stacked mobile layout, so .pj-cans becomes a real row of its
        own instead of four separate column items — same left-to-right
@@ -324,7 +378,8 @@
        text" shape as NutraKey's — same fix: cover a fixed aspect-ratio
        instead of showing the full natural aspect with whatever gap that
        leaves around it, tighter again on phones than tablets. */
-    #repp-sports-work .pj-bg {
+    #repp-sports-work .pj-bg,
+    #nutrex-work .pj-bg {
       height: auto;
       aspect-ratio: 3 / 2;
       object-fit: cover;
@@ -394,6 +449,7 @@
   /* Phone only: crop in further than the tablet aspect-ratio above. */
   @media (max-width: 767px) {
     #nutrakey-work .pj-bg,
-    #repp-sports-work .pj-bg { aspect-ratio: 4 / 3; }
+    #repp-sports-work .pj-bg,
+    #nutrex-work .pj-bg { aspect-ratio: 4 / 3; }
   }
 }
