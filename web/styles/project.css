@@ -169,12 +169,17 @@
 
   /* Caption under an image. 28px Black; ink offset 3.08 (the 30px Black on the
      contact panel measures 3.3, scaled to 28). Fades when the carousel below
-     it changes the centered slide — see webcarousel.js. */
+     it changes the centered slide — see webcarousel.js. Centered on the
+     stage (left:50% + translateX(-50%), not a fixed --x) so it stays
+     centered under the middle slide regardless of how long each title is —
+     a fixed left position only looked centered for one specific title's
+     length. */
   .pj-caption {
     position: absolute;
     margin: 0;
-    left: calc(var(--x) * var(--u));
-    top:  calc(var(--y) * var(--u));
+    left: 50%;
+    top: calc(var(--y) * var(--u));
+    transform: translateX(-50%);
     font-size: calc(28 * var(--u));
     line-height: 1;
     font-weight: var(--fw-black);
@@ -185,22 +190,29 @@
   .pj-caption[data-fading] { opacity: 0; }
 
   /* ==========================================================================
-     WORLD WIDE WEB CAROUSEL — artboard 7's three laptops (PSD Layer 81 /
-     copy / copy 2 at x -566/465/1496, y383, 996x555 each, spaced 1031
-     center-to-center = a 35px gap). Six slides loop through that same 3-up
-     peek layout; the .pj-caption above tracks whichever slide is centered.
+     WORLD WIDE WEB CAROUSEL — artboard 7's three laptops, re-measured from
+     the updated PSD (Layer 1 copy 5 / copy / copy 4): each 912x588, top
+     425, centers at x 10 / 961 / 1911 — 950px center-to-center, a 38px
+     gap. (The previous 996x555 / y383 / 1031-spacing numbers were an
+     estimate from an earlier PSD pass, not measured — this replaces them.)
+     Six slides loop through that same 3-up peek layout; the .pj-caption
+     above tracks whichever slide is centered.
 
      Native scroll-snap does the centering math and gives touch/trackpad
      dragging for free — webcarousel.js only adds mouse click-drag (which
      the browser has no native gesture for) and the loop illusion via
-     cloned slides at each end. touch-action:pan-y keeps a vertical touch
-     gesture free to fall through to the page's own scroll. */
+     cloned slides at each end. No touch-action override: the track has no
+     vertical overflow of its own (overflow-y:hidden), so a vertical swipe
+     already falls through to the page's scroll on its own — an earlier
+     touch-action:pan-y here was meant to guarantee that, but it also blocks
+     the browser's native horizontal pan gesture, breaking touch drag on
+     the carousel entirely. */
   .wc-carousel {
     position: absolute;
     left: 0;
-    top: calc(383 * var(--u));
+    top: calc(425 * var(--u));
     width: 100%;
-    height: calc(555 * var(--u));
+    height: calc(588 * var(--u));
   }
 
   .wc-track {
@@ -210,32 +222,45 @@
     height: 100%;
     display: flex;
     align-items: center;
-    gap: calc(35 * var(--u));
-    padding-inline: calc(462 * var(--u));
+    gap: calc(38 * var(--u));
+    /* (1920 - slide width) / 2, so the first/last real slide centers on
+       the canvas center once scrolled to rest, same as the old formula
+       just recalculated for the new 912-wide slide. */
+    padding-inline: calc(504 * var(--u));
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     cursor: grab;
-    touch-action: pan-y;
   }
   .wc-track::-webkit-scrollbar { display: none; }
   .wc-track[data-dragging] { cursor: grabbing; scroll-snap-type: none; }
 
   .wc-slide {
     flex: none;
-    width: calc(996 * var(--u));
-    height: calc(555 * var(--u));
+    width: calc(912 * var(--u));
+    height: calc(588 * var(--u));
     scroll-snap-align: center;
+    /* The real screenshot (bn2.png) already has its own rounded window
+       corners baked in — without this, the flat rectangular box shows
+       square corners peeking past the image's rounded ones. */
+    border-radius: calc(12 * var(--u));
+    overflow: hidden;
+    /* Mobile Safari has a known bug where border-radius + overflow:hidden
+       on a scroll-snap item repaints incorrectly mid-scroll — the rounded
+       clip briefly reverts to a hard rectangular crop of the image while
+       the track is moving, snapping back once it settles. Forcing this
+       element onto its own compositor layer works around it. */
+    transform: translateZ(0);
   }
   .wc-slide img {
     display: block;
     width: 100%;
     height: 100%;
-    /* contain, not cover — the slide asset is trimmed tight to the laptop's
-       own silhouette on a transparent background, so it should sit centered
-       at its real proportions rather than being stretched or cropped to
-       force-fill a box shaped like the old untrimmed screenshot. */
+    /* contain, not cover — the box's aspect ratio (996x555, 1.8:1) is
+       wider than the placeholder screenshot's own (1452x937, 1.55:1),
+       so cover was cropping the top and bottom off just to fill the
+       width. Contain shows the whole image, letterboxed instead. */
     object-fit: contain;
     -webkit-user-drag: none;
     user-select: none;
@@ -416,12 +441,12 @@
     }
     .panel--project .wc-track {
       gap: 16px;
-      padding-inline: calc((100% - min(560px, 78vw)) / 2);
+      padding-inline: calc((100% - min(680px, 88vw)) / 2);
     }
     .panel--project .wc-slide {
-      width: min(560px, 78vw);
+      width: min(680px, 88vw);
       height: auto;
-      aspect-ratio: 996 / 555;
+      aspect-ratio: 912 / 588;
     }
 
     .pj-num {
@@ -435,7 +460,20 @@
       white-space: normal;
     }
 
-    .pj-caption { font-size: var(--fs-18); }
+    /* order:1 to land right after .wc-carousel (also order:1) instead of
+       with the rest of the order:0 stage children — DOM order already has
+       it right after the carousel, but it's a sibling, not the carousel's
+       own child, so it needs its own order to actually follow instead of
+       grouping with .pj-title/.pj-bio ahead of the (also order:1)
+       carousel. transform:none: the desktop translateX(-50%) centering
+       trick doesn't apply once left/position are reset to the normal
+       static flow below. */
+    .pj-caption {
+      order: 1;
+      font-size: var(--fs-18);
+      text-align: center;
+      transform: none;
+    }
 
     .pj-bio {
       font-size: var(--fs-18);

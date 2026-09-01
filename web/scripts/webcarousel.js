@@ -52,6 +52,16 @@
 
     track.scrollLeft = targetScrollLeft(slides[homeIndex]);
 
+    // The index the carousel is actually resting on, tracked ourselves
+    // rather than re-derived from track.scrollLeft after a layout change —
+    // a resize that crosses the mobile/desktop breakpoint changes every
+    // slide's width and offsetLeft, so the *old* scrollLeft no longer maps
+    // to the same slide, and re-deriving from it via nearestIndex() can
+    // land on a completely different (wrong) slide, leaving the caption
+    // showing/fading to the wrong title. Keeping our own last-settled
+    // index sidesteps that: resize re-homes to a known-correct slide.
+    let settledIndex = homeIndex;
+
     let fadeTimer = null;
     const setCaption = (index) => {
       if (!caption) return;
@@ -80,6 +90,7 @@
           ni -= realCount;
         }
       }
+      settledIndex = ni;
       setCaption(ni);
     };
 
@@ -142,7 +153,7 @@
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        track.scrollLeft = targetScrollLeft(slides[nearestIndex()]);
+        track.scrollLeft = targetScrollLeft(slides[settledIndex]);
       }, 100);
     });
   }

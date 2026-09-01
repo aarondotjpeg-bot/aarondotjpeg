@@ -1,8 +1,9 @@
 /* ===========================================================================
    NUTREX TWO-LAYER REVEAL
    The gradient and jar shot both start invisible; the moment the panel
-   scrolls into view, a single [data-revealed] attribute triggers both —
-   the CSS transition delays on .nx-reveal__jars (see project.css) are what
+   scrolls into view, a single [data-revealed] attribute triggers both,
+   after a 0.5s pause (same pattern as Repp Sports' can reveal) — the CSS
+   transition delays on .nx-reveal__jars (see project.css) are what
    actually stagger the background fading in first and the jars zooming
    out + fading in after it, not separate JS timers. Runs once; the
    observer disconnects after the first reveal.
@@ -18,8 +19,12 @@
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+  var START_DELAY_MS = 500;
+
   function reveal() {
-    box.setAttribute('data-revealed', '');
+    setTimeout(function () {
+      box.setAttribute('data-revealed', '');
+    }, START_DELAY_MS);
   }
 
   if (!('IntersectionObserver' in window)) {
