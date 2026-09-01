@@ -297,19 +297,34 @@
     display: block;
   }
 
-  /* Tablet/mobile: same collapse as the Works logo grid (.wk-logo) — the
-     mosaic's mixed aspect ratios stop meaning anything once it's not one
-     continuous canvas, so every tile becomes a uniform square cell in an
-     even grid, cropped to fill (object-fit:cover, not contain — these are
-     photos meant to fill their spot, not logos meant to stay whole).
-     #content-creation-prefixed throughout to out-specify the generic
-     `.panel--project .stage > *` reset above (same reasoning as
-     #nutrakey's .pj-window override). */
+  /* envie/canvas are a <picture class="cc-tile"> instead of a plain img
+     (see the HTML) so mobile/tablet can swap to the full source image —
+     .cc-tile's own sizing above still applies to the <picture> box itself;
+     this just makes the <img> inside fill that box the same way a plain
+     .cc-tile img would. */
+  picture.cc-tile > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Tablet/mobile: a real masonry, not a uniform grid — the tiles are
+     already 1:1, 2:1 (wide) or 1:2 (tall) by design, so a CSS grid with
+     dense auto-flow and a span per shape packs them back together the
+     same way the desktop mosaic does, just re-flowed to fewer columns.
+     Each tile's own aspect-ratio (1/1, 2/1 or 1/2) does the sizing; grid
+     only needs to know how many tracks it occupies. grid-auto-flow:dense
+     lets a later square backfill a gap a wide/tall tile left behind it,
+     instead of leaving a hole. #content-creation-prefixed throughout to
+     out-specify the generic `.panel--project .stage > *` reset above
+     (same reasoning as #nutrakey's .pj-window override). */
   @media (max-width: 1023px) {
     #content-creation .stage {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(12px, 2.5vw, 20px);
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-flow: dense;
+      gap: clamp(8px, 1.5vw, 14px);
     }
     #content-creation .pj-title,
     #content-creation .pj-bio {
@@ -319,7 +334,16 @@
       position: static;
       width: 100%;
       height: 100%;
-      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+    #content-creation .cc-tile[data-shape="square"] { aspect-ratio: 1 / 1; }
+    #content-creation .cc-tile[data-shape="wide"] {
+      grid-column: span 2;
+      aspect-ratio: 2 / 1;
+    }
+    #content-creation .cc-tile[data-shape="tall"] {
+      grid-row: span 2;
+      aspect-ratio: 1 / 2;
     }
   }
 

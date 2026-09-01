@@ -70,6 +70,12 @@
     bottom: calc(3 * var(--u));
   }
 
+  /* Layout-only wrapper for the wordmark + copyright pair, same role as
+     Home's .home__sub: display:contents on desktop keeps it out of the box
+     tree so .ct-wordmark/.ct-copyright keep positioning against .stage
+     directly; mobile turns it into the real flex row that groups them. */
+  .ct-sub { display: contents; }
+
   .ct-name,
   .ct-email {
     font-size: calc(30 * var(--u));
@@ -147,14 +153,49 @@
       top: auto;
       width: auto;
     }
-    .ct-portrait {
+
+    /* Stack order per the PSD's mobile/tablet spec, top to bottom: logo,
+       then the wordmark/copyright row, then the portrait, then name,
+       email, socials — not the same order as the desktop coordinates, so
+       each piece gets an explicit order rather than relying on DOM order. */
+    .ct-logo     { order: 0; }
+    .ct-sub      { order: 1; }
+    .ct-portrait { order: 2; }
+    .ct-name     { order: 3; }
+    .ct-email    { order: 4; }
+    .ct-socials  { order: 5; }
+
+    /* #contact-prefixed on both, same reason as .ct-sub below: a plain
+       .ct-portrait/.ct-logo selector loses to the `#contact .stage > *`
+       reset above (an ID beats a class regardless of source order), which
+       left the logo rendering at its near-native ~660px width instead of
+       capped to 420px — and, since the wordmark/copyright row WAS
+       correctly capped, the two no longer lined up. */
+    #contact .ct-portrait {
       width: min(100%, 360px);
       height: auto;
       aspect-ratio: 497 / 743;
     }
-    .ct-logo { width: min(100%, 420px); height: auto; }
+    #contact .ct-logo { width: min(100%, 420px); height: auto; }
+
+    /* Matches Home's mobile treatment exactly: wordmark and copyright
+       share one row, flush to the logo's own rendered width, baseline
+       aligned, pushed to the row's opposite ends. #contact-prefixed to
+       out-specify the `#contact .stage > *` reset above, which would
+       otherwise win over a plain .ct-sub selector and collapse this back
+       to shrink-wrapped content width. */
+    #contact .ct-sub {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      width: min(100%, 420px);
+    }
     .ct-wordmark,
-    .ct-copyright { font-size: clamp(15px, 4.6vw, 22px); }
+    .ct-copyright {
+      position: static;
+      margin: 0;
+      font-size: clamp(15px, 4.6vw, 22px);
+    }
     .ct-name,
     .ct-email { font-size: var(--fs-18); }
     .ct-socials { justify-content: center; gap: 16px; }

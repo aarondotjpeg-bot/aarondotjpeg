@@ -102,8 +102,8 @@
         <h2 class="ab-headline">I build ideas into<br class="ab-headline__br--word"> <span aria-hidden="true"><span class="ab-word" data-words="worlds,stickers,websites,t-shirts,inventions,cartoons,campaigns,products,content,profit">worlds</span><span class="ab-cursor">_</span></span><span class="visually-hidden">worlds</span><br>always polished, sometimes raw,<br class="ab-headline__br--tail"> but always intentional with personality.</h2>
 
         <picture class="ab-photo">
-          <source srcset="assets/img/about-portrait-2.webp" type="image/webp">
-          <img src="assets/img/about-portrait-2.jpg" alt="Aaron seated in front of a brightly painted mural"
+          <source srcset="assets/img/about-portrait-3.webp" type="image/webp">
+          <img src="assets/img/about-portrait-3.jpg" alt="Aaron standing in front of a brightly painted mural"
                width="405" height="405" loading="lazy" decoding="async">
         </picture>
 
@@ -465,14 +465,24 @@
           <p><b>One idea. A hundred ways to bring it to life.</b></p>
           <p>Sometimes it starts with a product, sometimes a campaign, and sometimes just a weird idea worth exploring. I like building the visuals around it and finding ways to make the content feel fresh, recognizable, and made for the space it lives in.</p>
         </div>
-        <img class="cc-tile" style="--x:1521; --y:36; --w:400; --h:400" src="assets/img/work/cc-beanie.webp" alt="Get Cozy beanie social post" width="400" height="400" loading="lazy" decoding="async">
-        <img class="cc-tile" style="--x:-172; --y:36; --w:400; --h:400" src="assets/img/work/cc-envie.webp" alt="Envié green energy product post" width="400" height="400" loading="lazy" decoding="async">
-        <img class="cc-tile" style="--x:255; --y:36; --w:796; --h:400" src="assets/img/work/cc-vpro.webp" alt="V Pro plant protein product post" width="796" height="400" loading="lazy" decoding="async">
-        <img class="cc-tile" style="--x:1078; --y:36; --w:416; --h:827" src="assets/img/work/cc-lucidity.webp" alt="Lucidity Festival poster" width="416" height="827" loading="lazy" decoding="async">
-        <img class="cc-tile" style="--x:1521; --y:463; --w:400; --h:400" src="assets/img/work/cc-raze.webp" alt="Raze Energy giveaway post" width="400" height="400" loading="lazy" decoding="async">
-        <img class="cc-tile" style="--x:-248; --y:889; --w:846; --h:425" src="assets/img/work/cc-canvas.webp" alt="Illustrated sticker collection" width="846" height="425" loading="lazy" decoding="async">
-        <img class="cc-tile" style="--x:625; --y:889; --w:426; --h:426" src="assets/img/work/cc-choco.webp" alt="Mycro Bar chocolate product post" width="426" height="426" loading="lazy" decoding="async">
-        <img class="cc-tile" style="--x:1078; --y:889; --w:843; --h:425" src="assets/img/work/cc-plant-protein.webp" alt="Nutrex Plant Protein product post" width="843" height="425" loading="lazy" decoding="async">
+        <img class="cc-tile" data-shape="square" style="--x:1521; --y:36; --w:400; --h:400" src="assets/img/work/cc-beanie.webp" alt="Get Cozy beanie social post" width="400" height="400" loading="lazy" decoding="async">
+        <!-- Mobile/tablet swaps to the full, un-clipped source: the
+             desktop crop is deliberately cut at the artboard's left edge
+             (see the mosaic comment below), which reads as a hard black
+             void once the tile is no longer bleeding off a canvas edge. -->
+        <picture class="cc-tile" data-shape="square" style="--x:-172; --y:36; --w:400; --h:400">
+          <source media="(max-width: 1023px)" srcset="assets/img/work/cc-envie-full.webp">
+          <img src="assets/img/work/cc-envie.webp" alt="Envié green energy product post" width="400" height="400" loading="lazy" decoding="async">
+        </picture>
+        <img class="cc-tile" data-shape="wide" style="--x:255; --y:36; --w:796; --h:400" src="assets/img/work/cc-vpro.webp" alt="V Pro plant protein product post" width="796" height="400" loading="lazy" decoding="async">
+        <img class="cc-tile" data-shape="tall" style="--x:1078; --y:36; --w:416; --h:827" src="assets/img/work/cc-lucidity.webp" alt="Lucidity Festival poster" width="416" height="827" loading="lazy" decoding="async">
+        <img class="cc-tile" data-shape="square" style="--x:1521; --y:463; --w:400; --h:400" src="assets/img/work/cc-raze.webp" alt="Raze Energy giveaway post" width="400" height="400" loading="lazy" decoding="async">
+        <picture class="cc-tile" data-shape="wide" style="--x:-248; --y:889; --w:846; --h:425">
+          <source media="(max-width: 1023px)" srcset="assets/img/work/cc-canvas-full.webp">
+          <img src="assets/img/work/cc-canvas.webp" alt="Illustrated sticker collection" width="846" height="425" loading="lazy" decoding="async">
+        </picture>
+        <img class="cc-tile" data-shape="square" style="--x:625; --y:889; --w:426; --h:426" src="assets/img/work/cc-choco.webp" alt="Mycro Bar chocolate product post" width="426" height="426" loading="lazy" decoding="async">
+        <img class="cc-tile" data-shape="wide" style="--x:1078; --y:889; --w:843; --h:425" src="assets/img/work/cc-plant-protein.webp" alt="Nutrex Plant Protein product post" width="843" height="425" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
@@ -482,12 +492,14 @@
     <div class="panel__inner">
       <div class="stage" style="--stage-h:1080">
         <img class="ct-portrait" style="--x:122; --y:216; --w:497; --h:743"
-             src="assets/img/ct-portrait.webp" alt="Aaron Hernandez"
+             src="assets/img/ct-portrait-2.webp" alt="Aaron Hernandez"
              width="497" height="743" loading="lazy" decoding="async">
         <img class="ct-logo" src="assets/img/logo.png" alt="aarondotjpeg"
              width="677" height="150" loading="lazy" decoding="async">
-        <p class="ct-wordmark">aaron <span class="jp">イーライ</span></p>
-        <p class="ct-copyright"><span class="ct-c">©</span>09-2026</p>
+        <div class="ct-sub">
+          <p class="ct-wordmark">aaron <span class="jp">イーライ</span></p>
+          <p class="ct-copyright"><span class="ct-c">©</span>09-2026</p>
+        </div>
         <p class="ct-name">Aaron Hernandez</p>
         <a class="ct-email" href="mailto:aarondotjpeg@gmail.com">aarondotjpeg@gmail.com</a>
         <div class="ct-socials">
