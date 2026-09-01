@@ -448,33 +448,59 @@
     </div>
   </section>
 
+  <!-- Eight photo tiles in a mosaic, not a uniform grid — each carries its
+       own PSD frame coordinates as --x/--y/--w/--h, same pattern as the
+       Works logo grid. Two tiles (envie, canvas) bleed off the left edge
+       of the artboard in the PSD itself; they're sliced to their full,
+       un-clipped frame size and positioned at that same negative --x, so
+       the panel's own overflow crops them exactly as the PSD does rather
+       than baking a hard cut into the image asset. -->
   <section class="panel panel--project" id="content-creation"
            style="--ar:0.686979" aria-label="Content Creation">
     <div class="panel__inner">
       <div class="stage" style="--stage-h:1319">
-        <img class="pj-art" src="assets/img/work/web-b.webp" alt=""
-           width="1920" height="1319" loading="lazy" decoding="async">
         <h2 class="pj-title" style="--x:113; --y:530">Content Creation</h2>
-        <!-- TODO(artboard-7): copy and artwork not final. -->
-        <div class="pj-bio" style="--y:594; --w:601">
-          <p>I’m aarondotjpeg, a multidisciplinary creative working across graphic design, branding, art direction, illustration, and digital experiences. I move between disciplines freely, using whatever medium best brings an idea to life.</p>
-          <p>Born in New York and now based in Florida, my creative path has taken me across the country, shaped by different people, places, and experiences along the way. Drawing, photography, and design have always been interconnected parts of how I create, eventually growing into a broader practice that includes branding, digital experiences, and creative direction.</p>
+        <div class="pj-bio" style="--y:592; --w:608">
+          <p>I create content that gives brands something to say and a visual way to say it—from campaigns and product launches to social, advertising, illustration, and everything in between.</p>
+          <p><b>One idea. A hundred ways to bring it to life.</b></p>
+          <p>Sometimes it starts with a product, sometimes a campaign, and sometimes just a weird idea worth exploring. I like building the visuals around it and finding ways to make the content feel fresh, recognizable, and made for the space it lives in.</p>
         </div>
+        <img class="cc-tile" style="--x:1521; --y:36; --w:400; --h:400" src="assets/img/work/cc-beanie.webp" alt="Get Cozy beanie social post" width="400" height="400" loading="lazy" decoding="async">
+        <img class="cc-tile" style="--x:-172; --y:36; --w:400; --h:400" src="assets/img/work/cc-envie.webp" alt="Envié green energy product post" width="400" height="400" loading="lazy" decoding="async">
+        <img class="cc-tile" style="--x:255; --y:36; --w:796; --h:400" src="assets/img/work/cc-vpro.webp" alt="V Pro plant protein product post" width="796" height="400" loading="lazy" decoding="async">
+        <img class="cc-tile" style="--x:1078; --y:36; --w:416; --h:827" src="assets/img/work/cc-lucidity.webp" alt="Lucidity Festival poster" width="416" height="827" loading="lazy" decoding="async">
+        <img class="cc-tile" style="--x:1521; --y:463; --w:400; --h:400" src="assets/img/work/cc-raze.webp" alt="Raze Energy giveaway post" width="400" height="400" loading="lazy" decoding="async">
+        <img class="cc-tile" style="--x:-248; --y:889; --w:846; --h:425" src="assets/img/work/cc-canvas.webp" alt="Illustrated sticker collection" width="846" height="425" loading="lazy" decoding="async">
+        <img class="cc-tile" style="--x:625; --y:889; --w:426; --h:426" src="assets/img/work/cc-choco.webp" alt="Mycro Bar chocolate product post" width="426" height="426" loading="lazy" decoding="async">
+        <img class="cc-tile" style="--x:1078; --y:889; --w:843; --h:425" src="assets/img/work/cc-plant-protein.webp" alt="Nutrex Plant Protein product post" width="843" height="425" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
 
-  <!-- ARTBOARD 8 — contact. Framework only; artwork pending. -->
   <section class="panel" id="contact"
            style="--ar:0.562500" aria-label="Contact">
     <div class="panel__inner">
       <div class="stage" style="--stage-h:1080">
+        <img class="ct-portrait" style="--x:122; --y:216; --w:497; --h:743"
+             src="assets/img/ct-portrait.webp" alt="Aaron Hernandez"
+             width="497" height="743" loading="lazy" decoding="async">
         <img class="ct-logo" src="assets/img/logo.png" alt="aarondotjpeg"
              width="677" height="150" loading="lazy" decoding="async">
         <p class="ct-wordmark">aaron <span class="jp">イーライ</span></p>
         <p class="ct-copyright"><span class="ct-c">©</span>09-2026</p>
         <p class="ct-name">Aaron Hernandez</p>
         <a class="ct-email" href="mailto:aarondotjpeg@gmail.com">aarondotjpeg@gmail.com</a>
+        <div class="ct-socials">
+          <a class="ct-social" href="https://x.com/aarondotjpeg" target="_blank" rel="noopener">
+            <img src="assets/img/ct-icon-x.webp" alt="X" width="97" height="97" loading="lazy" decoding="async">
+          </a>
+          <a class="ct-social" href="https://instagram.com/aarondotjpeg" target="_blank" rel="noopener">
+            <img src="assets/img/ct-icon-ig.webp" alt="Instagram" width="97" height="97" loading="lazy" decoding="async">
+          </a>
+          <a class="ct-social" href="https://www.linkedin.com/in/aaronhernandez" target="_blank" rel="noopener">
+            <img src="assets/img/ct-icon-linkedin.webp" alt="LinkedIn" width="97" height="97" loading="lazy" decoding="async">
+          </a>
+        </div>
       </div>
     </div>
   </section>

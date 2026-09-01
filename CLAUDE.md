@@ -83,8 +83,8 @@ Twelve panels from artboards 1-8. No placeholder shells remain.
 | 4-5 NutraKey | 4 | **built** |
 | 6-7 Repp Sports | 5 | **built** |
 | 8-9 Nutrex | 6 | **built** |
-| 10-11 World Wide Web / Content Creation | 7 | **framework built** — artwork placeholder |
-| 12 Contact | 8 | **framework built** — artwork placeholder, nav link live |
+| 10-11 World Wide Web / Content Creation | 7 | **built** |
+| 12 Contact | 8 | **built** |
 
 Artboards 4-6 are image collages of 21-29 overlapping layers. Composite the
 artwork into one image per panel and keep only the real text as text.
@@ -133,8 +133,6 @@ These cost several rounds each. They are decisions, not defaults:
   built, which files change, what is assumed, what is deliberately deferred.
   Wait for approval.
 - **Artboard by artboard.** Finish one, get sign-off, freeze it, move on.
-- **Artboards 7 and 8** were empty in the parsed version. They are being
-  finished; build them only from a PSD that actually contains them.
 - After each round, hand over the run command and what specifically to check.
 
 ## Architecture
@@ -190,10 +188,6 @@ Only two tracking values exist: `-0.05em` (display, nav, dates) and `+0.01em`
 
 ## Still open
 
-- Artboards 7 and 8 are framework only. Text and coordinates are exact from the
-  PSD; the artwork is placeholder and gets replaced when the final images land.
-  Artboard 8 is the contact page and the nav link now points at it.
-- Domain `aarondotjpeg.com` is owned and needs pointing at Vercel.
 - The `logo` layer is raster-only in the PSD — an SVG export would sharpen it
   on high-density screens.
 - Body copy on artboards 3-6 still repeats the About paragraph; artboard 2's

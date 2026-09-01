@@ -2,15 +2,20 @@
   /* ==========================================================================
      PANEL 12 — CONTACT (artboard 8)
 
-     Framework only. The artwork is placeholder pending final images; the text
-     and its coordinates are read from the PSD and are already exact.
+     Re-measured from the finished PSD: portrait photo, name/email, and the
+     three social icons all replace what was framework-only placeholder.
+     name/email moved up ~136px from the earlier PSD pass (portrait + a
+     social row now sit where a wider empty column used to be) — this
+     replaces those older coordinates, not just refines them.
 
      Ink offsets as elsewhere: 46/lh43 -> 4.0, 30/lh30 -> ~3.3, 36 -> measured.
          logo        1126,126  677x150
          aaron イーライ  origin x1137, ink y293
          ©09-2026    origin x1584, ink y290  (© 34px, numerals 46px)
-         name        x672, ink y888   30px Black
-         email       x673, ink y932   30px Regular
+         portrait    122,216  497x743
+         name        x672, ink y749   30px Black
+         email       x673, ink y793   30px Regular
+         socials     x661-931, y871-968 (three 97x97 icons, 87px apart)
      ========================================================================== */
 
   .ct-logo,
@@ -20,6 +25,15 @@
   .ct-email {
     position: absolute;
     margin: 0;
+  }
+
+  .ct-portrait {
+    position: absolute;
+    left:   calc(var(--x) * var(--u));
+    top:    calc(var(--y) * var(--u));
+    width:  calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    object-fit: cover;
   }
 
   .ct-logo {
@@ -63,10 +77,10 @@
     letter-spacing: var(--ls-body);
     white-space: nowrap;
   }
-  .ct-name  { left: calc(672 * var(--u)); top: calc(884.7 * var(--u)); font-weight: var(--fw-black); }
+  .ct-name  { left: calc(672 * var(--u)); top: calc(745.7 * var(--u)); font-weight: var(--fw-black); }
   .ct-email {
     left: calc(673 * var(--u));
-    top:  calc(928.7 * var(--u));
+    top:  calc(789.7 * var(--u));
     font-weight: var(--fw-regular);
     text-decoration-color: transparent;
     text-underline-offset: 0.22em;
@@ -77,6 +91,27 @@
     text-decoration: underline;
     text-decoration-color: currentColor;
   }
+
+  /* Three 97x97 icon links, 87px apart center-to-center (a small overlap
+     margin baked into each icon's own transparent padding, not a real
+     gap) — x, then Instagram, then LinkedIn, left to right as in the PSD. */
+  .ct-socials {
+    position: absolute;
+    left: calc(661 * var(--u));
+    top:  calc(871 * var(--u));
+    display: flex;
+    gap: calc((748 - 661 - 97) * var(--u));
+  }
+  .ct-social {
+    display: block;
+    width: calc(97 * var(--u));
+    height: calc(97 * var(--u));
+    opacity: 1;
+    transition: opacity var(--dur-fast) var(--ease-out);
+  }
+  .ct-social img { display: block; width: 100%; height: 100%; }
+  .ct-social:hover,
+  .ct-social:focus-visible { opacity: 0.7; }
 
   /* --- tablet and mobile --------------------------------------------------- */
   @media (max-width: 1023px) {
@@ -112,10 +147,17 @@
       top: auto;
       width: auto;
     }
+    .ct-portrait {
+      width: min(100%, 360px);
+      height: auto;
+      aspect-ratio: 497 / 743;
+    }
     .ct-logo { width: min(100%, 420px); height: auto; }
     .ct-wordmark,
     .ct-copyright { font-size: clamp(15px, 4.6vw, 22px); }
     .ct-name,
     .ct-email { font-size: var(--fs-18); }
+    .ct-socials { justify-content: center; gap: 16px; }
+    .ct-social { width: 44px; height: 44px; }
   }
 }

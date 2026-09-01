@@ -277,6 +277,56 @@
   .pj-bio p + p { margin-block-start: calc(36 * var(--u)); }
   .pj-bio b { font-weight: var(--fw-black); }
 
+  /* ==========================================================================
+     CONTENT CREATION MOSAIC — artboard 7's eight photo tiles. Each is
+     sliced to the exact size of its own PSD frame (not a uniform grid —
+     sizes range from a 400x400 square up to a 796x400 double-wide and a
+     416x827 double-tall) and positioned like any other --x/--y/--w/--h
+     element. Two tiles (envie, canvas) have a negative --x because their
+     frame bleeds off the artboard's left edge in the PSD itself; the
+     image asset is the tile's full, un-clipped size, so the panel's own
+     overflow crops it the same way the PSD canvas does, rather than the
+     asset itself having a hard cut baked in. */
+  .cc-tile {
+    position: absolute;
+    left:   calc(var(--x) * var(--u));
+    top:    calc(var(--y) * var(--u));
+    width:  calc(var(--w) * var(--u));
+    height: calc(var(--h) * var(--u));
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Tablet/mobile: same collapse as the Works logo grid (.wk-logo) — the
+     mosaic's mixed aspect ratios stop meaning anything once it's not one
+     continuous canvas, so every tile becomes a uniform square cell in an
+     even grid, cropped to fill (object-fit:cover, not contain — these are
+     photos meant to fill their spot, not logos meant to stay whole).
+     #content-creation-prefixed throughout to out-specify the generic
+     `.panel--project .stage > *` reset above (same reasoning as
+     #nutrakey's .pj-window override). */
+  @media (max-width: 1023px) {
+    #content-creation .stage {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(12px, 2.5vw, 20px);
+    }
+    #content-creation .pj-title,
+    #content-creation .pj-bio {
+      grid-column: 1 / -1;
+    }
+    #content-creation .cc-tile {
+      position: static;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  @media (max-width: 599px) {
+    #content-creation .stage { grid-template-columns: repeat(2, 1fr); }
+  }
+
   /* --- tablet and mobile ---------------------------------------------------
      A 16:9 collage cannot carry a portrait screen, so the panel becomes the
      text followed by the artwork at its natural width. The composition still
